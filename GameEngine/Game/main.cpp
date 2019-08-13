@@ -7,6 +7,6 @@ using namespace std;
 void main() 
 {
 	BaseGame bg;
-	bg.test();
+	bg.createWindow();
 	cin.get();
 }

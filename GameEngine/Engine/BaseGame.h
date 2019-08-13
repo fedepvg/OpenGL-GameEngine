@@ -3,12 +3,12 @@
 #define EXPORTDLL _declspec(dllexport)
 
 
-class BaseGame
+class EXPORTDLL BaseGame
 {
 public:
-	EXPORTDLL BaseGame();
-	EXPORTDLL ~BaseGame();
-	EXPORTDLL void test();
+	BaseGame();
+	~BaseGame();
+	int createWindow();
 };
 
 #endif
