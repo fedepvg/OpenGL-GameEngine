@@ -9,7 +9,7 @@ BaseGame::BaseGame()
 	if (!glfwInit());
 		//return -1;
 	window.open(800, 600, "window");
-	gameLoop();
+	GameLoop();
 }
 
 BaseGame::~BaseGame()
@@ -17,7 +17,7 @@ BaseGame::~BaseGame()
 
 }
 
-int BaseGame::gameLoop()
+int BaseGame::GameLoop()
 {
 	GLFWwindow* currentWindow = window.getWindow();
 	while (!glfwWindowShouldClose(currentWindow))
