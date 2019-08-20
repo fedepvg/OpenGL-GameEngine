@@ -23,6 +23,7 @@ int BaseGame::gameLoop()
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		//use renderer
+		renderer.SetBackgroundColor(1.0f, 0.0f, 0.0f, 0.0f);
 		renderer.Render(currentWindow);
 		/* Poll for and process events */
 		glfwPollEvents();

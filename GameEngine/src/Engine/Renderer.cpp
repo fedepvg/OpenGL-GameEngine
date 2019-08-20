@@ -16,3 +16,8 @@ void Renderer::Render(GLFWwindow* renderWindow) const
 	/* Swap front and back buffers */
 	glfwSwapBuffers(renderWindow);
 }
+
+void Renderer::SetBackgroundColor(float r, float g, float b, float a) const
+{
+	glClearColor(r, g, b, a);
+}

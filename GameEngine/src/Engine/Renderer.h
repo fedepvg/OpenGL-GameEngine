@@ -9,6 +9,7 @@ public:
 	Renderer();
 	~Renderer();
 	void Render(GLFWwindow* renderWindow) const;
+	void SetBackgroundColor(float r, float g, float b, float a) const;
 };
 
 #endif // !RENDERER_H
