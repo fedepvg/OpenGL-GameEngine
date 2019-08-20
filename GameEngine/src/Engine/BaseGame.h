@@ -9,7 +9,7 @@ class EXPORTDLL BaseGame
 public:
 	BaseGame();
 	~BaseGame();
-	int gameLoop();
+	int GameLoop();
 private:
 	Window window;
 	Renderer renderer;
