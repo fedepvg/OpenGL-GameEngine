@@ -3,7 +3,7 @@
 
 Game::Game()
 {
-	init();
+	Init();
 }
 
 Game::~Game()
@@ -11,7 +11,7 @@ Game::~Game()
 
 }
 
-void Game::init()
+void Game::Init()
 {
 	BaseGame bg;
 }

@@ -3,7 +3,7 @@
 #define EXPORTDLL _declspec(dllexport)
 
 #include "Window.h"
-
+#include "Renderer.h"
 class EXPORTDLL BaseGame
 {
 public:
@@ -12,6 +12,7 @@ public:
 	int gameLoop();
 private:
 	Window window;
+	Renderer renderer;
 };
 
 #endif

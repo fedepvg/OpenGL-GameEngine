@@ -1,7 +1,5 @@
 #include "BaseGame.h"
-
 #include <iostream>
-
 #include "GLFW/glfw3.h"
 using namespace std;
 
@@ -24,12 +22,8 @@ int BaseGame::gameLoop()
 	GLFWwindow* currentWindow = window.getWindow();
 	while (!glfwWindowShouldClose(currentWindow))
 	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		/* Swap front and back buffers */
-		glfwSwapBuffers(currentWindow);
-
+		//use renderer
+		renderer.Render(currentWindow);
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
