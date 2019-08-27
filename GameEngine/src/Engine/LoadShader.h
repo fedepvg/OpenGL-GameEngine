@@ -1,9 +1,7 @@
 #ifndef LOAD_SHADER_H
 #define LOAD_SHADER_H
-#ifndef __glew_h__
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#endif // !__glew_h__
 #include <stdio.h>
 #include <iostream>
 #include <string>
