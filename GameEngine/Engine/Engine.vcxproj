@@ -130,19 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\src\Engine\SimpleFragmentShader.fragmentshader" />
-    <None Include="..\src\Engine\SimpleVertexShader.vertexshader" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Engine\BaseGame.cpp" />
-    <ClCompile Include="..\src\Engine\LoadShader.cpp" />
     <ClCompile Include="..\src\Engine\Renderer.cpp" />
     <ClCompile Include="..\src\Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Engine\BaseGame.h" />
-    <ClInclude Include="..\src\Engine\LoadShader.h" />
     <ClInclude Include="..\src\Engine\Renderer.h" />
     <ClInclude Include="..\src\Engine\Window.h" />
   </ItemGroup>
