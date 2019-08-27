@@ -15,9 +15,6 @@ BaseGame::BaseGame()
 
 	glewExperimental = GL_TRUE;
 	glewInit();
-
-
-
 	GameLoop();
 }
 
@@ -34,10 +31,10 @@ int BaseGame::GameLoop()
 	GLuint programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
 
 	static const GLfloat g_vertex_buffer_data[] = {
-	   0.7f, -0.7f, 0.0f, 1.0f, 1.0f, 0.0f, //+-
-	   -0.7f, 0.7f, 0.0f, 1.0f, 1.0f, 0.0f, //-+
-	   -0.7f, -0.7f, 0.0f, 1.0f, 0.0f, 0.0f, //--
-	   0.7f,  0.7f, 0.0f, 1.0f, 0.0f, 1.0f, //++  
+	   0.7f, -0.7f, 0.0f, 1.0f, 0.0f, 0.0f, //+-
+	   -0.7f, 0.7f, 0.0f, 1.0f, 0.0f, 0.0f, //-+
+	   -0.7f, -0.7f, 0.0f, 1.0f, 0.8f, 0.0f, //--
+	   0.7f,  0.7f, 0.0f, 1.0f, 0.8f, 0.0f, //++  
 	};
 
 	// Create a Vertex Buffer Object and copy the vertex data to it
@@ -45,7 +42,6 @@ int BaseGame::GameLoop()
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
 
 
 	GLuint elements[] =
@@ -79,14 +75,10 @@ int BaseGame::GameLoop()
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
 		//use renderer
-		//renderer.SetBackgroundColor(1.0f, 0.0f, 0.0f, 0.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		renderer.SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
 
-		//renderer.Render(currentWindow); - when renderer works, uncomment this
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		renderer.Render(currentWindow);
 
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window.getWindow());
 		/* Poll for and process events */
 		glfwPollEvents();
 	}

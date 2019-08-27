@@ -13,6 +13,9 @@ void Renderer::Render(GLFWwindow* renderWindow) const
 	/* Render here */
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	/*draw elements*/
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 	/* Swap front and back buffers */
 	glfwSwapBuffers(renderWindow);
 }
