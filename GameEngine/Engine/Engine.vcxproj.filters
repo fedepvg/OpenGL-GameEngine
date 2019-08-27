@@ -16,6 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="..\src\Engine\SimpleFragmentShader.fragmentshader">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="..\src\Engine\SimpleVertexShader.vertexshader">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Engine\BaseGame.h">
@@ -27,6 +33,9 @@
     <ClInclude Include="..\src\Engine\Renderer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Engine\LoadShader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Engine\BaseGame.cpp">
@@ -36,6 +45,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Engine\Renderer.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Engine\LoadShader.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
