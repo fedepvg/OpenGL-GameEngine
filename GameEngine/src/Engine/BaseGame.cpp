@@ -1,7 +1,8 @@
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
 #include "BaseGame.h"
 #include <iostream>
-#include "GLFW/glfw3.h"
-#include "GL/glew.h"
+
 using namespace std;
 
 BaseGame::BaseGame()
