@@ -3,6 +3,7 @@
 #include "BaseGame.h"
 #include "LoadShader.h"
 #include <iostream>
+#include "Shape.h"
 
 using namespace std;
 
@@ -25,50 +26,13 @@ BaseGame::~BaseGame()
 
 int BaseGame::GameLoop()
 {
+	Shape shape;
 	GLFWwindow* currentWindow = window.getWindow();
 
-	//load shaders
-	GLuint programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	//Shape shape;
 
-	static const GLfloat g_vertex_buffer_data[] = {
-	   0.7f, -0.7f, 0.0f, 1.0f, 0.0f, 0.0f, //+-
-	   -0.7f, 0.7f, 0.0f, 1.0f, 0.0f, 0.0f, //-+
-	   -0.7f, -0.7f, 0.0f, 1.0f, 0.8f, 0.0f, //--
-	   0.7f,  0.7f, 0.0f, 1.0f, 0.8f, 0.0f, //++  
-	};
-
-	// Create a Vertex Buffer Object and copy the vertex data to it
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-
-	GLuint elements[] =
-	{
-		0, 2, 3,
-		1, 2, 3
-	};
-
-	// Create an element array
-	GLuint ebo;
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-
-
-	// Specify the layout of the vertex data
-	GLint posAttrib = glGetAttribLocation(programID, "position");
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
-	glEnableVertexAttribArray(posAttrib);
-
-	GLint colAttrib = glGetAttribLocation(programID, "customColor");
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(colAttrib);
-
-	//use shader
-	glUseProgram(programID);
-
+	renderer.SetShader();
+	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -82,7 +46,7 @@ int BaseGame::GameLoop()
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
-	glDeleteProgram(programID);
+	//glDeleteProgram(programID);
 	glfwTerminate();
 	return 0;
 }

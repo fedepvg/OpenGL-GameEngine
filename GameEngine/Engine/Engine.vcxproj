@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B8790A64-6540-45F8-AAA3-D60B2F81809E}</ProjectGuid>
     <RootNamespace>Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -138,12 +138,14 @@
     <ClCompile Include="..\src\Engine\BaseGame.cpp" />
     <ClCompile Include="..\src\Engine\LoadShader.cpp" />
     <ClCompile Include="..\src\Engine\Renderer.cpp" />
+    <ClCompile Include="..\src\Engine\Shape.cpp" />
     <ClCompile Include="..\src\Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Engine\BaseGame.h" />
     <ClInclude Include="..\src\Engine\LoadShader.h" />
     <ClInclude Include="..\src\Engine\Renderer.h" />
+    <ClInclude Include="..\src\Engine\Shape.h" />
     <ClInclude Include="..\src\Engine\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

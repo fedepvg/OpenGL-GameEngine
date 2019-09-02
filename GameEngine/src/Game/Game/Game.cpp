@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Engine/BaseGame.h"
+#include "Engine/Shape.h"
 
 Game::Game()
 {
