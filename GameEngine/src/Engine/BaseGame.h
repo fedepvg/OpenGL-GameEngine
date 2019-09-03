@@ -2,8 +2,8 @@
 #define BASEGAME_H
 #define EXPORTDLL _declspec(dllexport)
 
-#include "Window.h"
-#include "Renderer.h"
+class Window;
+class Renderer;
 
 class EXPORTDLL BaseGame
 {
@@ -12,8 +12,8 @@ public:
 	~BaseGame();
 	int GameLoop();
 private:
-	Window window;
-	Renderer renderer;
+	Window* window;
+	Renderer* renderer;
 };
 
 #endif

@@ -4,6 +4,8 @@
 #include "LoadShader.h"
 #include <iostream>
 #include "Shape.h"
+#include "Window.h"
+#include "Renderer.h"
 
 using namespace std;
 
@@ -12,7 +14,9 @@ BaseGame::BaseGame()
 	/* Initialize the library */
 	if (!glfwInit());
 	//return -1;
-	window.open(800, 600, "window");
+	window = new Window();
+	renderer = new Renderer();
+	window->open(800, 600, "window");
 
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -27,11 +31,11 @@ BaseGame::~BaseGame()
 int BaseGame::GameLoop()
 {
 	Shape shape;
-	GLFWwindow* currentWindow = window.getWindow();
+	GLFWwindow* currentWindow = window->getWindow();
 
 	//Shape shape;
 
-	renderer.SetShader();
+	renderer->SetShader();
 	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
@@ -39,9 +43,9 @@ int BaseGame::GameLoop()
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
 		//use renderer
-		renderer.SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
+		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
 
-		renderer.Render(currentWindow);
+		renderer->Render(currentWindow);
 
 		/* Poll for and process events */
 		glfwPollEvents();
