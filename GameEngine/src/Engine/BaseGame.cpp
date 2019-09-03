@@ -6,6 +6,10 @@
 #include "Shape.h"
 #include "Window.h"
 #include "Renderer.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
 
 using namespace std;
 
@@ -35,10 +39,13 @@ int BaseGame::GameLoop()
 
 	//Shape shape;
 
+	
+
 	renderer->SetShader();
 	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
+
 		if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
