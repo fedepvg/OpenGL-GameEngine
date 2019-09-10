@@ -1,10 +1,13 @@
 #version 330 core
 in vec3 customColor;
 out vec3 color;
-uniform mat4 myMatrix;
-layout(location = 0) in vec3 position;
+in vec3 position;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
 
 void main(){
 color = customColor;
-gl_Position = myMatrix*position;
+gl_Position = proj*view*model*vec4(position,1.0f);
 }

@@ -10,12 +10,14 @@
 
 class EXPORTDLL Renderer
 {
+private:
+	unsigned int uniModel;
+	glm::mat4 myMatrix;
+	GLuint programID;
 public:
 	Renderer();
 	~Renderer();
-	unsigned int uniModel;
-	glm::mat4 myMatrix;
-	void Render(GLFWwindow* renderWindow) const;
+	void Render(GLFWwindow* renderWindow);// const;
 	void SetBackgroundColor(float r, float g, float b, float a) const;
 	void SetShader();
 };
