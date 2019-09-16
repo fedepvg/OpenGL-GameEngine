@@ -20,7 +20,7 @@ Renderer::~Renderer()
 void Renderer::SetShader()
 {
 	//load shaders
-	programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
 
 	//use shader
 	glUseProgram(programID);
