@@ -78,3 +78,9 @@ void Renderer::Rotate(float angle, glm::vec3 axis)
 	myMatrix = glm::rotate(myMatrix, glm::radians(angle) , axis);
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 }
+
+void Renderer::Translate(float value, glm::vec3 axis) 
+{
+	myMatrix = glm::translate(myMatrix, value * axis);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+}
