@@ -50,6 +50,12 @@ int BaseGame::GameLoop()
 		{
 			renderer->Rotate(-1.0f, { 0.0f,0.0f,1.f });
 		}
+
+		if (glfwGetKey(currentWindow, GLFW_KEY_F) == GLFW_PRESS)
+		{
+			renderer->Rotate(-1.0f, { 0.0f,1.0f,0.f });
+		}
+
 		else if (glfwGetKey(currentWindow, GLFW_KEY_Q) == GLFW_PRESS)
 		{
 			renderer->Rotate(1.0f, { 0.0f,0.0f,1.f });
