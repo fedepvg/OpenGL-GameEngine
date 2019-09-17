@@ -20,6 +20,7 @@ public:
 	void Render(GLFWwindow* renderWindow);// const;
 	void SetBackgroundColor(float r, float g, float b, float a) const;
 	void SetShader();
+	void Rotate(float angle, glm::vec3 axis);
 };
 
 #endif // !RENDERER_H

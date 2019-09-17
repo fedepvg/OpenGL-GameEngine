@@ -40,7 +40,7 @@ void Renderer::SetShader()
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(1.5f, 1.5f, 1.5f), // position
+		glm::vec3(0.f, 0.f, 1.5f), // position
 		glm::vec3(0.0f, 0.0f, 0.0f), // look at
 		glm::vec3(0.0f, 1.0f, 0.0f)  // up
 	);
@@ -58,8 +58,8 @@ void Renderer::Render(GLFWwindow* renderWindow)// const
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
-	myMatrix = glm::rotate(myMatrix, glm::radians(0.1f), glm::vec3(0.0f, 0.0f, 1.0f));
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+	//myMatrix = glm::rotate(myMatrix, glm::radians(0.1f), glm::vec3(0.0f, 0.0f, 1.0f));
+	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 
 	/*draw elements*/
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -71,4 +71,10 @@ void Renderer::Render(GLFWwindow* renderWindow)// const
 void Renderer::SetBackgroundColor(float r, float g, float b, float a) const
 {
 	glClearColor(r, g, b, a);
+}
+
+void Renderer::Rotate(float angle, glm::vec3 axis)
+{
+	myMatrix = glm::rotate(myMatrix, glm::radians(angle) , axis);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 }

@@ -7,6 +7,11 @@
 #include "Window.h"
 #include "Renderer.h"
 
+#include "glm/glm.hpp"
+#include"glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+#include "glm/gtx/transform.hpp"
+
 using namespace std;
 
 BaseGame::BaseGame()
@@ -40,6 +45,15 @@ int BaseGame::GameLoop()
 
 		if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
+
+		if (glfwGetKey(currentWindow, GLFW_KEY_D) == GLFW_PRESS)
+		{
+			renderer->Rotate(-0.3f, { 0.0f,0.0f,1.f });
+		}
+		else if (glfwGetKey(currentWindow, GLFW_KEY_A) == GLFW_PRESS)
+		{
+			renderer->Rotate(0.3f, { 0.0f,0.0f,1.f });
+		}
 
 		//use renderer
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
