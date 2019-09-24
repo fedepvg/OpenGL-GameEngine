@@ -42,10 +42,22 @@ int BaseGame::GameLoop()
 	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
-
+		//input processing
 		if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
+		//scaling
+		if (glfwGetKey(currentWindow, GLFW_KEY_H) == GLFW_PRESS)
+		{
+			renderer->Scale({ 1.1f,1.1f,1.1f });
+		}
+
+		if (glfwGetKey(currentWindow, GLFW_KEY_K) == GLFW_PRESS)
+		{
+			renderer->Scale({ 0.9f,0.9f,0.9f });
+		}
+
+		//rotating
 		if (glfwGetKey(currentWindow, GLFW_KEY_E) == GLFW_PRESS)
 		{
 			renderer->Rotate(-1.0f, { 0.0f,0.0f,1.f });
@@ -61,6 +73,7 @@ int BaseGame::GameLoop()
 			renderer->Rotate(1.0f, { 0.0f,0.0f,1.f });
 		}
 
+		//translating
 		if (glfwGetKey(currentWindow, GLFW_KEY_A) == GLFW_PRESS)
 		{
 			renderer->Translate(-0.03f, {1.0f,0.0f,0.0f});
@@ -79,6 +92,8 @@ int BaseGame::GameLoop()
 		{
 			renderer->Translate(-0.03f, { 0.0f,1.0f,0.0f });
 		}
+
+		
 
 		//use renderer
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);

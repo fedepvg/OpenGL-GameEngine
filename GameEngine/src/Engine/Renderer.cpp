@@ -36,7 +36,7 @@ void Renderer::SetShader()
 
 	myMatrix = glm::mat4(1.0f);
 	myMatrix = glm::translate(myMatrix, glm::vec3(0.4f, 0.0f, 0.0f));
-	uniModel = glGetUniformLocation(programID, "model"); 
+	uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 
 	glm::mat4 view = glm::lookAt(
@@ -47,7 +47,7 @@ void Renderer::SetShader()
 	GLint uniView = glGetUniformLocation(programID, "view");
 	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-	glm::mat4 proj = glm::ortho(-1.f, 1.f, -1.f, 1.f,0.f,100.f);
+	glm::mat4 proj = glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.f, 100.f);
 	GLint uniProj = glGetUniformLocation(programID, "proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 }
@@ -75,11 +75,17 @@ void Renderer::SetBackgroundColor(float r, float g, float b, float a) const
 
 void Renderer::Rotate(float angle, glm::vec3 axis)
 {
-	myMatrix = glm::rotate(myMatrix, glm::radians(angle) , axis);
+	myMatrix = glm::rotate(myMatrix, glm::radians(angle), axis);
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 }
 
-void Renderer::Translate(float value, glm::vec3 axis) 
+void Renderer::Scale(glm::vec3 scaleValues)
+{
+	myMatrix = glm::scale(myMatrix ,scaleValues);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+}
+
+void Renderer::Translate(float value, glm::vec3 axis)
 {
 	myMatrix = glm::translate(myMatrix, value * axis);
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));

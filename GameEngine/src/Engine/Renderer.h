@@ -22,6 +22,7 @@ public:
 	void SetShader();
 	void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);
+	void Scale(glm::vec3 scaleValues);
 };
 
 #endif // !RENDERER_H
