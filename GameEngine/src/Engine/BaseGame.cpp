@@ -6,6 +6,7 @@
 #include "Shape.h"
 #include "Window.h"
 #include "Renderer.h"
+#include "Input.h"
 
 #include "glm/glm.hpp"
 #include"glm/gtc/matrix_transform.hpp"
@@ -17,8 +18,8 @@ using namespace std;
 BaseGame::BaseGame()
 {
 	/* Initialize the library */
-	if (!glfwInit());
-	//return -1;
+	if (!glfwInit())
+		glfwTerminate();
 	window = new Window();
 	renderer = new Renderer();
 	window->open(800, 600, "window");
@@ -37,58 +38,59 @@ int BaseGame::GameLoop()
 {
 	Shape shape;
 	GLFWwindow* currentWindow = window->getWindow();
+	input = new Input(currentWindow);
 
 	renderer->SetShader();
 	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		//input processing
-		if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
 		//scaling
-		if (glfwGetKey(currentWindow, GLFW_KEY_H) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_H))
 		{
 			renderer->Scale({ 1.1f,1.1f,1.1f });
 		}
 
-		if (glfwGetKey(currentWindow, GLFW_KEY_K) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_K))
 		{
 			renderer->Scale({ 0.9f,0.9f,0.9f });
 		}
 
 		//rotating
-		if (glfwGetKey(currentWindow, GLFW_KEY_E) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_E))
 		{
 			renderer->Rotate(-1.0f, { 0.0f,0.0f,1.f });
 		}
 
-		if (glfwGetKey(currentWindow, GLFW_KEY_F) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_F))
 		{
 			renderer->Rotate(-1.0f, { 0.0f,1.0f,0.f });
 		}
 
-		else if (glfwGetKey(currentWindow, GLFW_KEY_Q) == GLFW_PRESS)
+		else if (input->GetKey(GLFW_KEY_Q))
 		{
 			renderer->Rotate(1.0f, { 0.0f,0.0f,1.f });
 		}
 
 		//translating
-		if (glfwGetKey(currentWindow, GLFW_KEY_A) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_A))
 		{
 			renderer->Translate(-0.03f, {1.0f,0.0f,0.0f});
 		}
 
-		if (glfwGetKey(currentWindow, GLFW_KEY_D) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_D))
 		{
 			renderer->Translate(0.03f, { 1.0f,0.0f,0.0f });
 		}
 
-		if (glfwGetKey(currentWindow, GLFW_KEY_W) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_W))
 		{
 			renderer->Translate(0.03f, { 0.0f,1.0f,0.0f });
 		}
-		if (glfwGetKey(currentWindow, GLFW_KEY_S) == GLFW_PRESS)
+		if (input->GetKey(GLFW_KEY_S))
 		{
 			renderer->Translate(-0.03f, { 0.0f,1.0f,0.0f });
 		}

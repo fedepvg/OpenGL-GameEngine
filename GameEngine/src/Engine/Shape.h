@@ -7,6 +7,5 @@ class EXPORTDLL Shape
 public:
 	Shape();
 	~Shape();
-
 };
 #endif // !SHAPE_H

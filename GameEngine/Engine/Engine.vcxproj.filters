@@ -39,6 +39,9 @@
     <ClInclude Include="..\src\Engine\Shape.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Engine\Input.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Engine\BaseGame.cpp">
@@ -54,6 +57,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Engine\Shape.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Engine\Input.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,6 +4,7 @@
 
 class Window;
 class Renderer;
+class Input;
 
 class EXPORTDLL BaseGame
 {
@@ -14,6 +15,7 @@ public:
 private:
 	Window* window;
 	Renderer* renderer;
+	Input* input;
 };
 
 #endif
