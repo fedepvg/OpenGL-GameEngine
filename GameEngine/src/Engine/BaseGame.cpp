@@ -15,18 +15,24 @@
 
 using namespace std;
 
-BaseGame::BaseGame()
+BaseGame::BaseGame(int screenWidth, int screenHeight)
 {
 	/* Initialize the library */
 	if (!glfwInit())
 		glfwTerminate();
 	window = new Window();
 	renderer = new Renderer();
-	window->open(800, 600, "window");
+	window->open(screenWidth, screenHeight, "window");
 
 	glewExperimental = GL_TRUE;
 	glewInit();
 	GameLoop();
+}
+
+BaseGame::~BaseGame()
+{
+	delete window;
+	delete renderer;
 }
 
 BaseGame::~BaseGame()
@@ -106,6 +112,7 @@ int BaseGame::GameLoop()
 		glfwPollEvents();
 	}
 	//glDeleteProgram(programID);
+	delete input;
 	glfwTerminate();
 	return 0;
 }

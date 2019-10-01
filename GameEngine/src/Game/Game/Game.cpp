@@ -9,10 +9,10 @@ Game::Game()
 
 Game::~Game()
 {
-
+	delete bg;
 }
 
 void Game::Init()
 {
-	BaseGame bg;
+	bg = new BaseGame(800,600);
 }

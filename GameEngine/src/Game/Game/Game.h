@@ -3,6 +3,8 @@
 
 class Game
 {
+private:
+	BaseGame* bg;
 public:
 	Game();
 	~Game();

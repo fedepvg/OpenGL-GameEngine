@@ -9,7 +9,7 @@ class Input;
 class EXPORTDLL BaseGame
 {
 public:
-	BaseGame();
+	BaseGame(int screenWidth, int screenHeight);
 	~BaseGame();
 	int GameLoop();
 private:
