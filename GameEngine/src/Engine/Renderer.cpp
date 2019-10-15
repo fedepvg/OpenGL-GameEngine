@@ -22,7 +22,7 @@ void Renderer::SetShader()
 {
 	//load shaders
 	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
-	Texture tex("../res/boca.png");
+	Texture tex("../res/texture.png");
 
 	//use shader
 	glUseProgram(programID);
