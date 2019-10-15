@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)libs\glfw-3.3\include;$(SolutionDir)src;$(SolutionDir)libs\glew-2.1.0\include;$(SolutionDir)libs\glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\glfw-3.3\include;$(SolutionDir)src;$(SolutionDir)libs\glew-2.1.0\include;$(SolutionDir)libs\glm;$(SolutionDir)libs\stb_image</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\glew-2.1.0\lib\Release\Win32;$(SolutionDir)libs\glfw-3.3\lib-vc2015</AdditionalLibraryDirectories>
@@ -146,6 +146,7 @@
     <ClCompile Include="..\src\Engine\LoadShader.cpp" />
     <ClCompile Include="..\src\Engine\Renderer.cpp" />
     <ClCompile Include="..\src\Engine\Shape.cpp" />
+    <ClCompile Include="..\src\Engine\Texture.cpp" />
     <ClCompile Include="..\src\Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="..\src\Engine\LoadShader.h" />
     <ClInclude Include="..\src\Engine\Renderer.h" />
     <ClInclude Include="..\src\Engine\Shape.h" />
+    <ClInclude Include="..\src\Engine\Texture.h" />
     <ClInclude Include="..\src\Engine\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -35,11 +35,6 @@ BaseGame::~BaseGame()
 	delete renderer;
 }
 
-BaseGame::~BaseGame()
-{
-
-}
-
 int BaseGame::GameLoop()
 {
 	Shape shape;

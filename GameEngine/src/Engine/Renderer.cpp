@@ -3,6 +3,7 @@
 #include "LoadShader.h"
 
 #include "Renderer.h"
+#include "Texture.h"
 
 #include "glm/glm.hpp"
 #include"glm/gtc/matrix_transform.hpp"
@@ -21,18 +22,23 @@ void Renderer::SetShader()
 {
 	//load shaders
 	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
+	Texture tex("../res/texture.png");
 
 	//use shader
 	glUseProgram(programID);
 
 	// Specify the layout of the vertex data
 	GLint posAttrib = glGetAttribLocation(programID, "position");
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
 	glEnableVertexAttribArray(posAttrib);
 
 	GLint colAttrib = glGetAttribLocation(programID, "customColor");
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(colAttrib);
+
+	GLint texAttrib = glGetAttribLocation(programID, "aTexCoord");
+	glEnableVertexAttribArray(texAttrib);
+	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 	myMatrix = glm::mat4(1.0f);
 	myMatrix = glm::translate(myMatrix, glm::vec3(0.4f, 0.0f, 0.0f));
@@ -50,6 +56,11 @@ void Renderer::SetShader()
 	glm::mat4 proj = glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.f, 100.f);
 	GLint uniProj = glGetUniformLocation(programID, "proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+
+	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, tex.GetTexture());
 }
 
 void Renderer::Render(GLFWwindow* renderWindow)// const
