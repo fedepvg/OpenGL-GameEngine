@@ -22,7 +22,7 @@ void Renderer::SetShader()
 {
 	//load shaders
 	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
-	Texture tex("../res/texture.png");
+	Texture tex("../res/boca.png");
 
 	//use shader
 	glUseProgram(programID);
@@ -67,10 +67,6 @@ void Renderer::Render(GLFWwindow* renderWindow)// const
 {
 	/* Render here */
 	glClear(GL_COLOR_BUFFER_BIT);
-
-
-	//myMatrix = glm::rotate(myMatrix, glm::radians(0.1f), glm::vec3(0.0f, 0.0f, 1.0f));
-	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 
 	/*draw elements*/
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
