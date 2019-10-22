@@ -41,7 +41,7 @@ int BaseGame::GameLoop()
 	GLFWwindow* currentWindow = window->getWindow();
 	input = new Input(currentWindow);
 
-	renderer->SetShader();
+	//renderer->SetShader();
 	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
@@ -52,51 +52,49 @@ int BaseGame::GameLoop()
 		//scaling
 		if (input->GetKey(GLFW_KEY_H))
 		{
-			renderer->Scale({ 1.1f,1.1f,1.1f });
+			shape.Scale({ 1.1f,1.1f,1.1f });
 		}
 
 		if (input->GetKey(GLFW_KEY_K))
 		{
-			renderer->Scale({ 0.9f,0.9f,0.9f });
+			shape.Scale({ 0.9f,0.9f,0.9f });
 		}
 
 		//rotating
 		if (input->GetKey(GLFW_KEY_E))
 		{
-			renderer->Rotate(-1.0f, { 0.0f,0.0f,1.f });
+			shape.Rotate(-1.0f, { 0.0f,0.0f,1.f });
 		}
 
 		if (input->GetKey(GLFW_KEY_F))
 		{
-			renderer->Rotate(-1.0f, { 0.0f,1.0f,0.f });
+			shape.Rotate(-1.0f, { 0.0f,1.0f,0.f });
 		}
 
 		else if (input->GetKey(GLFW_KEY_Q))
 		{
-			renderer->Rotate(1.0f, { 0.0f,0.0f,1.f });
+			shape.Rotate(1.0f, { 0.0f,0.0f,1.f });
 		}
 
 		//translating
 		if (input->GetKey(GLFW_KEY_A))
 		{
-			renderer->Translate(-0.03f, {1.0f,0.0f,0.0f});
+			shape.Translate(-0.03f, {1.0f,0.0f,0.0f});
 		}
 
 		if (input->GetKey(GLFW_KEY_D))
 		{
-			renderer->Translate(0.03f, { 1.0f,0.0f,0.0f });
+			shape.Translate(0.03f, { 1.0f,0.0f,0.0f });
 		}
 
 		if (input->GetKey(GLFW_KEY_W))
 		{
-			renderer->Translate(0.03f, { 0.0f,1.0f,0.0f });
+			shape.Translate(0.03f, { 0.0f,1.0f,0.0f });
 		}
 		if (input->GetKey(GLFW_KEY_S))
 		{
-			renderer->Translate(-0.03f, { 0.0f,1.0f,0.0f });
+			shape.Translate(-0.03f, { 0.0f,1.0f,0.0f });
 		}
-
-		
 
 		//use renderer
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);

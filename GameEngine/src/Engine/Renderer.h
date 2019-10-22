@@ -20,9 +20,9 @@ public:
 	void Render(GLFWwindow* renderWindow);// const;
 	void SetBackgroundColor(float r, float g, float b, float a) const;
 	void SetShader();
-	void Rotate(float angle, glm::vec3 axis);
+	/*void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);
-	void Scale(glm::vec3 scaleValues);
+	void Scale(glm::vec3 scaleValues);*/
 };
 
 #endif // !RENDERER_H

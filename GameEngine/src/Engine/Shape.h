@@ -2,7 +2,9 @@
 #define SHAPE_H
 #define EXPORTDLL _declspec(dllexport)
 
-class EXPORTDLL Shape
+#include "Entity.h"
+
+class EXPORTDLL Shape : public Entity
 {
 public:
 	Shape();

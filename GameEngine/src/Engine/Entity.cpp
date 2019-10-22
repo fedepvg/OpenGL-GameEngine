@@ -1,24 +1,26 @@
+#include "Entity.h"
+
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
-#include "LoadShader.h"
 
-#include "Renderer.h"
-#include "Texture.h"
-
-#include "glm/glm.hpp"
 #include"glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
 
-Renderer::Renderer()
+#include "LoadShader.h"
+#include "Texture.h"
+
+Entity::Entity()
 {
+	position = { 0, 0, 0 };
 }
 
-Renderer::~Renderer()
+Entity::Entity(glm::vec3 pos)
 {
+	position = pos;
 }
 
-void Renderer::SetShader()
+void Entity::SetShader()
 {
 	//load shaders
 	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
@@ -62,37 +64,20 @@ void Renderer::SetShader()
 	glBindTexture(GL_TEXTURE_2D, tex.GetTexture());
 }
 
-void Renderer::Render(GLFWwindow* renderWindow)// const
+void Entity::Rotate(float angle, glm::vec3 axis)
 {
-	/* Render here */
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	/*draw elements*/
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-	/* Swap front and back buffers */
-	glfwSwapBuffers(renderWindow);
+	myMatrix = glm::rotate(myMatrix, glm::radians(angle), axis);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 }
 
-void Renderer::SetBackgroundColor(float r, float g, float b, float a) const
+void Entity::Scale(glm::vec3 scaleValues)
 {
-	glClearColor(r, g, b, a);
+	myMatrix = glm::scale(myMatrix, scaleValues);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
 }
 
-//void Renderer::Rotate(float angle, glm::vec3 axis)
-//{
-//	myMatrix = glm::rotate(myMatrix, glm::radians(angle), axis);
-//	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
-//}
-//
-//void Renderer::Scale(glm::vec3 scaleValues)
-//{
-//	myMatrix = glm::scale(myMatrix ,scaleValues);
-//	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
-//}
-//
-//void Renderer::Translate(float value, glm::vec3 axis)
-//{
-//	myMatrix = glm::translate(myMatrix, value * axis);
-//	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
-//}
+void Entity::Translate(float value, glm::vec3 axis)
+{
+	myMatrix = glm::translate(myMatrix, value * axis);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+}
