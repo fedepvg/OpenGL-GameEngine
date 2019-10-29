@@ -9,11 +9,14 @@
 
 #include "LoadShader.h"
 #include "Texture.h"
+#include "Renderer.h"
 
 Entity::Entity()
 {
 	position = { 0, 0, 0 };
 }
+
+Renderer* Entity::renderer = nullptr;
 
 Entity::Entity(glm::vec3 pos)
 {

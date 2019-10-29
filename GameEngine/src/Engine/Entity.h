@@ -4,6 +4,8 @@
 
 #include "glm/glm.hpp"
 
+class Renderer;
+
 class EXPORTDLL Entity
 {
 protected:
@@ -18,5 +20,6 @@ public:
 	void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);
 	void Scale(glm::vec3 scaleValues);
+	static Renderer* renderer;
 };
 #endif

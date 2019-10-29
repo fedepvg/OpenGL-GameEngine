@@ -3,10 +3,12 @@
 #include "BaseGame.h"
 #include "LoadShader.h"
 #include <iostream>
+
 #include "Shape.h"
 #include "Window.h"
 #include "Renderer.h"
 #include "Input.h"
+#include "Entity.h"
 
 #include "glm/glm.hpp"
 #include"glm/gtc/matrix_transform.hpp"
@@ -22,12 +24,12 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 		glfwTerminate();
 	window = new Window();
 	renderer = new Renderer();
+	Entity::renderer = renderer;
 	window->open(screenWidth, screenHeight, "window");
 	input = new Input(window->getWindow());
 
 	glewExperimental = GL_TRUE;
 	glewInit();
-	//GameLoop();
 }
 
 BaseGame::~BaseGame()
@@ -39,8 +41,6 @@ BaseGame::~BaseGame()
 int BaseGame::GameLoop()
 {
 	GLFWwindow* currentWindow = window->getWindow();
-	
-	//renderer->SetShader();
 	
 	while (!glfwWindowShouldClose(currentWindow))
 	{
@@ -59,7 +59,6 @@ int BaseGame::GameLoop()
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
-	//glDeleteProgram(programID);
 	delete input;
 	glfwTerminate();
 	return 0;
