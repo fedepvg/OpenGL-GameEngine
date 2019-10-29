@@ -2,7 +2,10 @@
 #define RENDERER_H
 #define EXPORTDLL _declspec(dllexport)
 
+#include <list>
+
 #include "Window.h"
+#include "Entity.h"
 #include "glm/glm.hpp"
 #include"glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -17,7 +20,7 @@ private:
 public:
 	Renderer();
 	~Renderer();
-	void Render(GLFWwindow* renderWindow);// const;
+	void Render(GLFWwindow* renderWindow, std::list<Entity*> objectList);// const;
 	void SetBackgroundColor(float r, float g, float b, float a) const;
 	void SetShader();
 	/*void Rotate(float angle, glm::vec3 axis);

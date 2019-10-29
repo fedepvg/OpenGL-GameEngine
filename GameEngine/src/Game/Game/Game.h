@@ -15,6 +15,7 @@ public:
 	void Update();
 private:
 	Shape shape;
+	Shape shape2;
 };
 
 #endif

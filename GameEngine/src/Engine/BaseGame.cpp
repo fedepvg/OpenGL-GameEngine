@@ -4,6 +4,8 @@
 #include "LoadShader.h"
 #include <iostream>
 
+//#include <list>
+
 #include "Shape.h"
 #include "Window.h"
 #include "Renderer.h"
@@ -25,9 +27,9 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	window = new Window();
 	renderer = new Renderer();
 	Entity::renderer = renderer;
+	entityList.clear();
 	window->open(screenWidth, screenHeight, "window");
 	input = new Input(window->getWindow());
-
 	glewExperimental = GL_TRUE;
 	glewInit();
 }
@@ -41,7 +43,9 @@ BaseGame::~BaseGame()
 int BaseGame::GameLoop()
 {
 	GLFWwindow* currentWindow = window->getWindow();
-	
+	Entity* actualEntity = new Entity;
+	entityList.push_front(actualEntity);
+
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		Update();
@@ -49,12 +53,11 @@ int BaseGame::GameLoop()
 		if (input->GetKey(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
-		
 
-		//use renderer
+
+		//use renderer		
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
-
-		renderer->Render(currentWindow);
+		renderer->Render(currentWindow, entityList);
 
 		/* Poll for and process events */
 		glfwPollEvents();

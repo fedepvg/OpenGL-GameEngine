@@ -58,16 +58,24 @@ void Renderer::SetShader()
 
 	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
 
+	
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, tex.GetTexture());
 }
 
-void Renderer::Render(GLFWwindow* renderWindow)// const
+void Renderer::Render(GLFWwindow* renderWindow, std::list<Entity*> objectList)// const
 {
 	/* Render here */
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	/*draw elements*/
+	for (std::list<Entity*>::iterator it = objectList.begin(); it != objectList.end(); it++)
+	{
+		(*it)->Render();
+	}
+	
+
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	/* Swap front and back buffers */

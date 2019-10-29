@@ -84,3 +84,8 @@ void Entity::Translate(float value, glm::vec3 axis)
 	model = glm::translate(model, value * axis);
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
+
+void Entity::Render() 
+{
+
+}

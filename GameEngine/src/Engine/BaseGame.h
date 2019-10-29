@@ -2,9 +2,13 @@
 #define BASEGAME_H
 #define EXPORTDLL _declspec(dllexport)
 
+#include <list>
+
 #include "Window.h"
 #include "Renderer.h"
 #include "Input.h"
+
+class Entity;
 
 class EXPORTDLL BaseGame
 {
@@ -18,6 +22,7 @@ private:
 	Renderer* renderer;
 protected:
 	Input* input;
+	std::list<Entity*> entityList;
 };
 
 #endif

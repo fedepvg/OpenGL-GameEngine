@@ -9,5 +9,7 @@ class EXPORTDLL Shape : public Entity
 public:
 	Shape();
 	~Shape();
+private:
+	void Render();
 };
 #endif // !SHAPE_H

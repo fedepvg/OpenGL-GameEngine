@@ -21,6 +21,8 @@ void Game::Init()
 
 void Game::Update()
 {	
+
+
 	//scaling
 	if (input->GetKey(GLFW_KEY_H))
 	{
@@ -51,20 +53,20 @@ void Game::Update()
 	//translating
 	if (input->GetKey(GLFW_KEY_A))
 	{
-		shape.Translate(-0.03f, { 1.0f,0.0f,0.0f });
+		shape2.Translate(-0.03f, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_D))
 	{
-		shape.Translate(0.03f, { 1.0f,0.0f,0.0f });
+		shape2.Translate(0.03f, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_W))
 	{
-		shape.Translate(0.03f, { 0.0f,1.0f,0.0f });
+		shape2.Translate(0.03f, { 0.0f,1.0f,0.0f });
 	}
 	if (input->GetKey(GLFW_KEY_S))
 	{
-		shape.Translate(-0.03f, { 0.0f,1.0f,0.0f });
+		shape2.Translate(-0.03f, { 0.0f,1.0f,0.0f });
 	}
 }

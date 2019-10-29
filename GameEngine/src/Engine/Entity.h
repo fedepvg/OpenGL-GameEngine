@@ -20,6 +20,7 @@ public:
 	void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);
 	void Scale(glm::vec3 scaleValues);
+	virtual void Render();
 	static Renderer* renderer;
 };
 #endif
