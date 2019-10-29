@@ -2,17 +2,13 @@
 #define ENTITY_H
 #define EXPORTDLL _declspec(dllexport)
 
-//#include "../libs/glm/glm.hpp"
-#include "../libs/glm/glm/glm.hpp"
-//#include"glm/gtc/matrix_transform.hpp"
-//#include "glm/gtc/type_ptr.hpp"
-//#include "glm/gtx/transform.hpp"
+#include "glm/glm.hpp"
 
 class EXPORTDLL Entity
 {
 protected:
 	glm::vec3 position;
-	glm::mat4 myMatrix;
+	glm::mat4 model;
 	unsigned int uniModel;
 	unsigned int programID;
 public:

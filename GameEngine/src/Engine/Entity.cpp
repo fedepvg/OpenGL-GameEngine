@@ -42,9 +42,9 @@ void Entity::SetShader()
 	glEnableVertexAttribArray(texAttrib);
 	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-	myMatrix = glm::mat4(1.0f);
+	model = glm::mat4(1.0f);
 	uniModel = glGetUniformLocation(programID, "model");
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
 	glm::mat4 view = glm::lookAt(
 		glm::vec3(0.f, 0.f, 1.5f), // position
@@ -66,18 +66,18 @@ void Entity::SetShader()
 
 void Entity::Rotate(float angle, glm::vec3 axis)
 {
-	myMatrix = glm::rotate(myMatrix, glm::radians(angle), axis);
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+	model = glm::rotate(model, glm::radians(angle), axis);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Scale(glm::vec3 scaleValues)
 {
-	myMatrix = glm::scale(myMatrix, scaleValues);
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+	model = glm::scale(model, scaleValues);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Translate(float value, glm::vec3 axis)
 {
-	myMatrix = glm::translate(myMatrix, value * axis);
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(myMatrix));
+	model = glm::translate(model, value * axis);
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
