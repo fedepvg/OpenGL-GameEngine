@@ -9,10 +9,10 @@ Shape::Shape()
 	glBindVertexArray(vertexArray);
 
 	static const GLfloat g_vertex_buffer_data[] = {
-		0.4f, -0.4f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,//+-
-		-0.4f, 0.4f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,//-+
-		-0.4f, -0.4f, 0.0f, 1.0f, 0.8f, 0.0f, 0.0f, 0.0f,//--
-		0.4f, 0.4f, 0.0f, 1.0f, 0.8f, 0.0f, 1.0f, 1.0f,//++  
+		0.4f, -0.4f, 0.0f, 1.0f, 1.f, 1.0f, 1.0f, 0.0f,//+-
+		-0.4f, 0.4f, 0.0f, 1.0f, 1.f, 1.0f, 0.0f, 1.0f,//-+
+		-0.4f, -0.4f, 0.0f, 1.0f, 1.f, 1.0f, 0.0f, 0.0f,//--
+		0.4f, 0.4f, 0.0f, 1.0f, 1.f, 1.0f, 1.0f, 1.0f,//++  
 	};
 
 	// Create a Vertex Buffer Object and copy the vertex data to it

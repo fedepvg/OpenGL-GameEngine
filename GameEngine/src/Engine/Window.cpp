@@ -13,6 +13,8 @@ void Window::open(int width, int height, const char* title)
 	}
 
 	glfwMakeContextCurrent(window);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 GLFWwindow* Window::getWindow()

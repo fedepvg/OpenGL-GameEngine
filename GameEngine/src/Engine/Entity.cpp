@@ -30,7 +30,7 @@ void Entity::SetShader()
 {
 	//load shaders
 	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
-	Texture tex("../res/texture.png");
+	Texture tex("../res/BOKEE.png");
 
 	//use shader
 	glUseProgram(programID);
