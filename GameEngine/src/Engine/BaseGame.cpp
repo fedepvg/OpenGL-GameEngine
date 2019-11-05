@@ -43,8 +43,8 @@ BaseGame::~BaseGame()
 int BaseGame::GameLoop()
 {
 	GLFWwindow* currentWindow = window->getWindow();
-	Entity* actualEntity = new Entity;
-	entityList.push_front(actualEntity);
+	Entity* actualShape= new Shape;
+	entityList.push_front(actualShape);
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{

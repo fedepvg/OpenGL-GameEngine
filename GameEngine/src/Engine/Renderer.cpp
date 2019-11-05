@@ -74,9 +74,6 @@ void Renderer::Render(GLFWwindow* renderWindow, std::list<Entity*> objectList)//
 	{
 		(*it)->Render();
 	}
-	
-
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	/* Swap front and back buffers */
 	glfwSwapBuffers(renderWindow);
