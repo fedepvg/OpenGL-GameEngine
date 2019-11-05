@@ -10,10 +10,12 @@
 #include "LoadShader.h"
 #include "Texture.h"
 #include "Renderer.h"
+#include "BaseGame.h"
 
 Entity::Entity()
 {
 	position = { 0, 0, 0 };
+	BaseGame::entityList.push_front(this);
 }
 
 Renderer* Entity::renderer = nullptr;
@@ -21,6 +23,7 @@ Renderer* Entity::renderer = nullptr;
 Entity::Entity(glm::vec3 pos)
 {
 	position = pos;
+	BaseGame::entityList.push_front(this);
 }
 
 void Entity::SetShader()
@@ -33,15 +36,15 @@ void Entity::SetShader()
 	glUseProgram(programID);
 
 	// Specify the layout of the vertex data
-	GLint posAttrib = glGetAttribLocation(programID, "position");
+	posAttrib = glGetAttribLocation(programID, "position");
 	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
 	glEnableVertexAttribArray(posAttrib);
 
-	GLint colAttrib = glGetAttribLocation(programID, "customColor");
+	colAttrib = glGetAttribLocation(programID, "customColor");
 	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(colAttrib);
 
-	GLint texAttrib = glGetAttribLocation(programID, "aTexCoord");
+	texAttrib = glGetAttribLocation(programID, "aTexCoord");
 	glEnableVertexAttribArray(texAttrib);
 	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 

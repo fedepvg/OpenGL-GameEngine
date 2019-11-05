@@ -17,12 +17,12 @@ public:
 	~BaseGame();
 	int GameLoop();
 	virtual void Update() = 0;
+	std::list<Entity*> static entityList;
 private:
 	Window* window;
 	Renderer* renderer;
 protected:
 	Input* input;
-	std::list<Entity*> entityList;
 };
 
 #endif

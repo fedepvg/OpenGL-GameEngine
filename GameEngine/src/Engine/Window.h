@@ -2,6 +2,7 @@
 #define	WINDOW_H
 #define EXPORTDLL _declspec(dllexport)
 
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
 class EXPORTDLL Window 

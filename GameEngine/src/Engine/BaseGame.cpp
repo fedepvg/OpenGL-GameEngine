@@ -19,6 +19,8 @@
 
 using namespace std;
 
+list<Entity*> BaseGame::entityList;
+
 BaseGame::BaseGame(int screenWidth, int screenHeight)
 {
 	/* Initialize the library */
@@ -43,8 +45,6 @@ BaseGame::~BaseGame()
 int BaseGame::GameLoop()
 {
 	GLFWwindow* currentWindow = window->getWindow();
-	Entity* actualShape= new Shape;
-	entityList.push_front(actualShape);
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
