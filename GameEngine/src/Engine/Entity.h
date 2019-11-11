@@ -6,6 +6,8 @@
 
 #include "Renderer.h"
 
+class Texture;
+
 class EXPORTDLL Entity
 {
 protected:
@@ -19,9 +21,10 @@ protected:
 	GLuint ebo;
 	GLuint vbo;
 	GLuint vertexArray;
+	Texture* texture;
 public:
 	Entity();
-	Entity(glm::vec3 pos);
+	Entity(glm::vec3 pos, Texture* tex);
 	void SetShader();
 	void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);

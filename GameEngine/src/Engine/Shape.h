@@ -8,6 +8,7 @@ class EXPORTDLL Shape : public Entity
 {
 public:
 	Shape();
+	Shape(glm::vec3 pos, Texture* tex);
 	~Shape();
 private:
 	void Render();

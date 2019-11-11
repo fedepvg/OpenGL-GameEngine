@@ -4,13 +4,13 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include "GL/glew.h"
 
 Texture::Texture(const char* path)
 {
 	stbi_set_flip_vertically_on_load(true);
 
 	glGenTextures(1, &texture);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	// set the texture wrapping/filtering options (on the currently bound texture object)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -30,7 +30,6 @@ Texture::Texture(const char* path)
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
-	
 }
 
 Texture::~Texture()

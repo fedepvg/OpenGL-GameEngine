@@ -20,17 +20,17 @@ Entity::Entity()
 
 Renderer* Entity::renderer = nullptr;
 
-Entity::Entity(glm::vec3 pos)
+Entity::Entity(glm::vec3 pos, Texture* tex)
 {
 	position = pos;
 	BaseGame::entityList.push_front(this);
+	texture = tex;
 }
 
 void Entity::SetShader()
 {
 	//load shaders
 	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
-	Texture tex("../res/BOKEE.png");
 
 	//use shader
 	glUseProgram(programID);
@@ -62,26 +62,28 @@ void Entity::SetShader()
 
 	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, tex.GetTexture());
+	
+
+	//glActiveTexture(texture->GetTextureIndex());
+	//glBindTexture(GL_TEXTURE_2D, texture->GetTexture());
 }
 
 void Entity::Rotate(float angle, glm::vec3 axis)
 {
 	model = glm::rotate(model, glm::radians(angle), axis);
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Scale(glm::vec3 scaleValues)
 {
 	model = glm::scale(model, scaleValues);
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Translate(float value, glm::vec3 axis)
 {
 	model = glm::translate(model, value * axis);
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Render() 
