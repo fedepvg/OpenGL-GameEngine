@@ -14,8 +14,8 @@ public:
 	void Init();
 	void Update();
 private:
-	Shape shape;
-	Shape shape2;
+	Shape* shape;
+	Shape* shape2;
 };
 
 #endif

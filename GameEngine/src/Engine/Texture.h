@@ -2,6 +2,8 @@
 #define TEXTURE_H
 #define EXPORTDLL _declspec(dllexport)
 
+#include "GL/glew.h"
+
 class EXPORTDLL Texture
 {
 private:
