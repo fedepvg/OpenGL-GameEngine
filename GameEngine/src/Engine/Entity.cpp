@@ -88,3 +88,11 @@ void Entity::Render()
 {
 	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
+
+glm::vec2 Entity::GetPosition() 
+{
+	glm::vec2 returnValues;
+	returnValues = glm::vec2(model[3].x, model[3].y);
+
+	return returnValues;
+}

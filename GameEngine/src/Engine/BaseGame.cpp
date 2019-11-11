@@ -53,7 +53,10 @@ int BaseGame::GameLoop()
 		if (input->GetKey(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
-
+		for (std::list<Entity*>::iterator it = entityList.begin(); it != entityList.end(); it++)
+		{
+			(*it)->GetPosition();
+		}
 
 		//use renderer		
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);

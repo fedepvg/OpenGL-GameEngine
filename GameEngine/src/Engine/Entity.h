@@ -26,6 +26,7 @@ public:
 	void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);
 	void Scale(glm::vec3 scaleValues);
+	glm::vec2 GetPosition();
 	virtual void Render();
 	static Renderer* renderer;
 };
