@@ -52,15 +52,11 @@ void Entity::SetShader()
 	uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
-	glm::mat4 view = glm::lookAt(
-		glm::vec3(0.f, 0.f, 1.5f), // position
-		glm::vec3(0.0f, 0.0f, 0.0f), // look at
-		glm::vec3(0.0f, 1.0f, 0.0f)  // up
-	);
+	glm::mat4 view = renderer->GetViewMatrix();
 	GLint uniView = glGetUniformLocation(programID, "view");
 	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-	glm::mat4 proj = glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.f, 100.f);
+	glm::mat4 proj = renderer->GetProjMatrix();
 	GLint uniProj = glGetUniformLocation(programID, "proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 

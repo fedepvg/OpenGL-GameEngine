@@ -16,17 +16,16 @@ class EXPORTDLL Renderer
 {
 private:
 	unsigned int uniModel;
-	glm::mat4 myMatrix;
+	glm::mat4 viewMatrix;
+	glm::mat4 projMatrix;
 	GLuint programID;
 public:
 	Renderer();
 	~Renderer();
 	void Render(GLFWwindow* renderWindow, std::list<Entity*> objectList);// const;
-	void SetBackgroundColor(float r, float g, float b, float a) const;
-	void SetShader();
-	/*void Rotate(float angle, glm::vec3 axis);
-	void Translate(float value, glm::vec3 axis);
-	void Scale(glm::vec3 scaleValues);*/
+	void SetBackgroundColor(float r, float g, float b, float a) const; 
+	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjMatrix();
 };
 
 #endif // !RENDERER_H
