@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Engine\BaseGame.cpp" />
+    <ClCompile Include="..\src\Engine\ColisionManager.cpp" />
     <ClCompile Include="..\src\Engine\Entity.cpp" />
     <ClCompile Include="..\src\Engine\Input.cpp" />
     <ClCompile Include="..\src\Engine\LoadShader.cpp" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Engine\BaseGame.h" />
+    <ClInclude Include="..\src\Engine\ColisionManager.h" />
     <ClInclude Include="..\src\Engine\Entity.h" />
     <ClInclude Include="..\src\Engine\Input.h" />
     <ClInclude Include="..\src\Engine\LoadShader.h" />

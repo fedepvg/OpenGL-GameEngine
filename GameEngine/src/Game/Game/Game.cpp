@@ -43,6 +43,16 @@ void Game::Update()
 		shape->Scale({ 0.9f,0.9f,0.9f });
 	}
 
+	if (input->GetKey(GLFW_KEY_N))
+	{
+		shape2->Scale({ 1.1f,1.1f,1.1f });
+	}
+
+	if (input->GetKey(GLFW_KEY_M))
+	{
+		shape2->Scale({ 0.9f,0.9f,0.9f });
+	}
+
 	//rotating
 	if (input->GetKey(GLFW_KEY_E))
 	{
@@ -77,5 +87,35 @@ void Game::Update()
 	if (input->GetKey(GLFW_KEY_S))
 	{
 		shape2->Translate(-0.03f, { 0.0f,1.0f,0.0f });
+	}
+
+	if (input->GetKey(GLFW_KEY_LEFT))
+	{
+		shape->Translate(-0.03f, { 1.0f,0.0f,0.0f });
+	}
+
+	if (input->GetKey(GLFW_KEY_RIGHT))
+	{
+		shape->Translate(0.03f, { 1.0f,0.0f,0.0f });
+	}
+
+	if (input->GetKey(GLFW_KEY_UP))
+	{
+		shape->Translate(0.03f, { 0.0f,1.0f,0.0f });
+	}
+	if (input->GetKey(GLFW_KEY_DOWN))
+	{
+		shape->Translate(-0.03f, { 0.0f,1.0f,0.0f });
+	}
+
+	//collisions
+
+	if (collisionManager->CheckCollision(*shape, *shape2)) 
+	{
+		//std::cout << "BOKA KOMUNNISTTA" << std::endl;
+	}
+	else
+	{
+		//std::cout << "RIBER KAPITTALISSTTAAA" << std::endl;
 	}
 }

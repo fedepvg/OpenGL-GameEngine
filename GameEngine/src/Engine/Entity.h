@@ -31,6 +31,7 @@ public:
 	void Translate(float value, glm::vec3 axis);
 	void Scale(glm::vec3 scaleValues);
 	glm::vec2 GetPosition();
+	glm::vec2 GetScale();
 	virtual void Render();
 	static Renderer* renderer;
 };

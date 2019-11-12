@@ -101,3 +101,8 @@ glm::vec2 Entity::GetPosition()
 
 	return position;
 }
+
+glm::vec2 Entity::GetScale() 
+{
+	return scale;
+}
