@@ -21,14 +21,14 @@ void Game::Init()
 	Texture bokeTex("../res/BOKEE.png");
 	Texture comuTex("../res/texture.png");
 
-	shape = new Shape({ 0,0,0 }, &bokeTex);
-	shape2 = new Shape({ 0,0,0 }, &comuTex);
+	shape = new Shape({ 0,0,0 }, {1,1,0}, &bokeTex);
+	shape2 = new Shape({ 0,0,0 }, {1,1,0 }, &comuTex);
 	GameLoop();
 }
 
 void Game::Update()
 {	
-
+	std::cout<<shape2->GetPosition().x<<" , "<< shape2->GetPosition().y<<std::endl<< std::endl;
 
 	//Texture tex("../res/BOKEE.png");
 

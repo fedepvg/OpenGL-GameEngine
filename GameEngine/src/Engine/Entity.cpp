@@ -83,6 +83,7 @@ void Entity::Scale(glm::vec3 scaleValues)
 void Entity::Translate(float value, glm::vec3 axis)
 {
 	model = glm::translate(model, value * axis);
+	position += value * axis;
 	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
@@ -93,8 +94,8 @@ void Entity::Render()
 
 glm::vec2 Entity::GetPosition() 
 {
-	glm::vec2 returnValues;
-	returnValues = glm::vec2(model[3].x, model[3].y);
+	//glm::vec2 returnValues;
+	//returnValues = glm::vec2(model[3].x, model[3].y);
 
-	return returnValues;
+	return position;
 }
