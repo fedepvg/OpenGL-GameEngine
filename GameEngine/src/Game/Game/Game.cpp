@@ -27,7 +27,7 @@ void Game::Init()
 }
 
 void Game::Update()
-{	
+{
 	//std::cout<<shape2->GetPosition().x<<" , "<< shape2->GetPosition().y<<std::endl<< std::endl;
 
 	//Texture tex("../res/BOKEE.png");
@@ -110,12 +110,14 @@ void Game::Update()
 
 	//collisions
 
-	if (collisionManager->CheckCollision(*shape, *shape2)) 
+	if (collisionManager->CheckCollision(*shape, *shape2))
 	{
-		//std::cout << "BOKA KOMUNNISTTA" << std::endl;
+		std::cout << "BOKA KOMUNNISTTA" << std::endl;
+		std::cout << shape->GetPosition().x << " , " << shape->GetPosition().y << std::endl;
+		std::cout << shape2->GetPosition().x << " , " << shape2->GetPosition().y << std::endl;
 	}
 	else
 	{
-		//std::cout << "RIBER KAPITTALISSTTAAA" << std::endl;
+		std::cout << "RIBER KAPITTALISSTTAAA" << std::endl;
 	}
 }

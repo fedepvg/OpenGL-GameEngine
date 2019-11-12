@@ -86,6 +86,7 @@ void Entity::Translate(float value, glm::vec3 axis)
 {
 	model = glm::translate(model, value * axis);
 	position += value * axis;
+	position = glm::project(value*axis, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
