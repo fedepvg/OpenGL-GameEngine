@@ -18,11 +18,12 @@ private:
 	unsigned int uniModel;
 	glm::mat4 viewMatrix;
 	glm::mat4 projMatrix;
-	GLuint programID;
+	GLuint programID; 
+	GLFWwindow* renderWindow;
 public:
-	Renderer();
+	Renderer(Window* window);
 	~Renderer();
-	void Render(GLFWwindow* renderWindow, std::list<Entity*> objectList);// const;
+	void Render(std::list<Entity*> objectList);// const;
 	void SetBackgroundColor(float r, float g, float b, float a) const; 
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjMatrix();

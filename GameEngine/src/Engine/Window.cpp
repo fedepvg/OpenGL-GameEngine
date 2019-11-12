@@ -3,10 +3,12 @@
 #include "GLFW/glfw3.h"
 
 
-void Window::open(int width, int height, const char* title)
+void Window::open(float windowWidth, float windowHeight, const char* title)
 {
+	width = windowWidth;
+	height = windowHeight;
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(width, height, title, NULL, NULL);
+	window = glfwCreateWindow((int)width, (int)height, title, NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -20,4 +22,14 @@ void Window::open(int width, int height, const char* title)
 GLFWwindow* Window::getWindow()
 {
 	return window;
+}
+
+float Window::GetWidth()
+{
+	return width;
+}
+
+float Window::GetHeight()
+{
+	return height;
 }

@@ -27,10 +27,10 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	if (!glfwInit())
 		glfwTerminate();
 	window = new Window();
-	renderer = new Renderer();
-	Entity::renderer = renderer;
 	entityList.clear();
 	window->open(screenWidth, screenHeight, "window");
+	renderer = new Renderer(window);
+	Entity::renderer = renderer;
 	input = new Input(window->getWindow());
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -60,7 +60,7 @@ int BaseGame::GameLoop()
 
 		//use renderer		
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
-		renderer->Render(currentWindow, entityList);
+		renderer->Render(entityList);
 
 		/* Poll for and process events */
 		glfwPollEvents();

@@ -8,10 +8,14 @@
 class EXPORTDLL Window 
 {
 public:
-	void open(int width, int height, const char* title);
+	void open(float width, float height, const char* title);
 	GLFWwindow* getWindow();
+	float GetWidth();
+	float GetHeight();
 private:
 	GLFWwindow* window;
+	float width;
+	float height;
 };
 
 #endif // !WINDOW_H

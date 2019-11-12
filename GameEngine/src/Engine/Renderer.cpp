@@ -11,15 +11,18 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
 
-Renderer::Renderer()
+Renderer::Renderer(Window* window)
 {
+	renderWindow = window->getWindow();
+
 	viewMatrix = glm::lookAt(
 		glm::vec3(0.f, 0.f, 1.5f), // position
 		glm::vec3(0.0f, 0.0f, 0.0f), // look at
 		glm::vec3(0.0f, 1.0f, 0.0f)  // up
 	);
 
-	projMatrix = glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.f, 100.f);
+	//projMatrix = glm::ortho(0.f,800.f,0.f, 600.f, 0.f, 100.f);
+	projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
 }
 
 Renderer::~Renderer()
@@ -27,7 +30,7 @@ Renderer::~Renderer()
 
 }
 
-void Renderer::Render(GLFWwindow* renderWindow, std::list<Entity*> objectList)// const
+void Renderer::Render(std::list<Entity*> objectList)// const
 {
 	/* Render here */
 	glClear(GL_COLOR_BUFFER_BIT);
