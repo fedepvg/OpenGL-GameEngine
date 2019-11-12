@@ -28,7 +28,7 @@ void Game::Init()
 
 void Game::Update()
 {	
-	std::cout<<shape2->GetPosition().x<<" , "<< shape2->GetPosition().y<<std::endl<< std::endl;
+	//std::cout<<shape2->GetPosition().x<<" , "<< shape2->GetPosition().y<<std::endl<< std::endl;
 
 	//Texture tex("../res/BOKEE.png");
 
