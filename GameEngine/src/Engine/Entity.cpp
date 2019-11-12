@@ -77,6 +77,8 @@ void Entity::Rotate(float angle, glm::vec3 axis)
 void Entity::Scale(glm::vec3 scaleValues)
 {
 	model = glm::scale(model, scaleValues);
+	scale *= scaleValues;
+	std::cout << scale.x << std::endl;
 	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 

@@ -12,6 +12,7 @@ class EXPORTDLL Entity
 {
 protected:
 	glm::vec3 position;
+	glm::vec3 scale;
 	glm::mat4 model;
 	unsigned int uniModel;
 	unsigned int programID;
