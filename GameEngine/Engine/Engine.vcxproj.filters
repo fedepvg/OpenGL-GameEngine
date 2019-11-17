@@ -48,7 +48,7 @@
     <ClInclude Include="..\src\Engine\Entity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Engine\ColisionManager.h">
+    <ClInclude Include="..\src\Engine\CollisionManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,7 +77,7 @@
     <ClCompile Include="..\src\Engine\Entity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Engine\ColisionManager.cpp">
+    <ClCompile Include="..\src\Engine\CollisionManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

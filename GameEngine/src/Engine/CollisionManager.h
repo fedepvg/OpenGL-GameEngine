@@ -5,11 +5,11 @@ class Shape;
 
 #define EXPORTDLL _declspec(dllexport)
 
-class EXPORTDLL ColisionManager
+class EXPORTDLL CollisionManager
 {
 public:
-	ColisionManager() {};
-	~ColisionManager() {};
+	CollisionManager() {};
+	~CollisionManager() {};
 	bool CheckCollision(Shape shape1, Shape shape2);
 };
 

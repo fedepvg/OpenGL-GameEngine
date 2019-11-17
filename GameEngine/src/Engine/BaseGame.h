@@ -7,7 +7,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Input.h"
-#include "ColisionManager.h"
+#include "CollisionManager.h"
 
 class Entity;
 
@@ -24,7 +24,7 @@ private:
 	Renderer* renderer;
 protected:
 	Input* input;
-	ColisionManager* collisionManager;
+	CollisionManager* collisionManager;
 };
 
 #endif

@@ -11,7 +11,7 @@
 #include "Renderer.h"
 #include "Input.h"
 #include "Entity.h"
-#include "ColisionManager.h"
+#include "CollisionManager.h"
 
 #include "glm/glm.hpp"
 #include"glm/gtc/matrix_transform.hpp"
@@ -32,7 +32,7 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	window->open(screenWidth, screenHeight, "window");
 	renderer = new Renderer(window);
 	Entity::renderer = renderer;
-	collisionManager = new ColisionManager();
+	collisionManager = new CollisionManager();
 	input = new Input(window->getWindow());
 	glewExperimental = GL_TRUE;
 	glewInit();
