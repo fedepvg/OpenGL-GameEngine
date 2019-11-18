@@ -62,8 +62,6 @@ void Entity::SetShader()
 
 	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
 
-	
-
 	//glActiveTexture(texture->GetTextureIndex());
 	//glBindTexture(GL_TEXTURE_2D, texture->GetTexture());
 }
@@ -71,7 +69,6 @@ void Entity::SetShader()
 void Entity::Rotate(float angle, glm::vec3 axis)
 {
 	model = glm::rotate(model, glm::radians(angle), axis);
-	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Scale(glm::vec3 scaleValues)
@@ -79,7 +76,6 @@ void Entity::Scale(glm::vec3 scaleValues)
 	model = glm::scale(model, scaleValues);
 	scale *= scaleValues;
 	std::cout << scale.x << std::endl;
-	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Translate(float value, glm::vec3 axis)
@@ -87,19 +83,15 @@ void Entity::Translate(float value, glm::vec3 axis)
 	model = glm::translate(model, value * axis);
 	position += value * axis;
 	position = glm::project(value*axis, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
-	//glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 void Entity::Render() 
 {
-	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 }
 
 glm::vec2 Entity::GetPosition() 
 {
-	//glm::vec2 returnValues;
-	//returnValues = glm::vec2(model[3].x, model[3].y);
-
 	return position;
 }
 

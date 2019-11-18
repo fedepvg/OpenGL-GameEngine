@@ -17,11 +17,13 @@ public:
 	BaseGame(int screenWidth, int screenHeight);
 	~BaseGame();
 	int GameLoop();
-	virtual void Update() = 0;
+	virtual void Update(const float deltaTime) = 0;
 	std::list<Entity*> static entityList;
 private:
 	Window* window;
 	Renderer* renderer;
+	float deltaTime;
+	float lastFrameTime;
 protected:
 	Input* input;
 	CollisionManager* collisionManager;

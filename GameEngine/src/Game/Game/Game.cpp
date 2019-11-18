@@ -26,7 +26,7 @@ void Game::Init()
 	GameLoop();
 }
 
-void Game::Update()
+void Game::Update(const float deltaTime)
 {
 	//std::cout<<shape2->GetPosition().x<<" , "<< shape2->GetPosition().y<<std::endl<< std::endl;
 
@@ -113,11 +113,7 @@ void Game::Update()
 	if (collisionManager->CheckCollision(*shape, *shape2))
 	{
 		std::cout << "BOKA KOMUNNISTTA" << std::endl;
-		std::cout << shape->GetPosition().x << " , " << shape->GetPosition().y << std::endl;
-		std::cout << shape2->GetPosition().x << " , " << shape2->GetPosition().y << std::endl;
 	}
-	else
-	{
-		std::cout << "RIBER KAPITTALISSTTAAA" << std::endl;
-	}
+
+	std::cout << deltaTime << std::endl;
 }

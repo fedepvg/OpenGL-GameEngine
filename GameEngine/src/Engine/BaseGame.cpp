@@ -36,6 +36,7 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	input = new Input(window->getWindow());
 	glewExperimental = GL_TRUE;
 	glewInit();
+	lastFrameTime = 0.f;
 }
 
 BaseGame::~BaseGame()
@@ -50,7 +51,11 @@ int BaseGame::GameLoop()
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
-		Update();
+		float currentTime = glfwGetTime();
+		deltaTime = currentTime - lastFrameTime;
+		lastFrameTime = currentTime;
+
+		Update(deltaTime);
 		//input processing
 		if (input->GetKey(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);

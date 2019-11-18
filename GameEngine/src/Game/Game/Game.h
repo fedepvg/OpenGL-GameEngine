@@ -12,7 +12,7 @@ public:
 	Game(int width, int height);
 	~Game();
 	void Init();
-	void Update();
+	void Update(const float deltaTime);
 private:
 	Shape* shape;
 	Shape* shape2;
