@@ -8,14 +8,17 @@
 class Animation
 {
 public:
+	Animation(float spritesheetWidth, float frameWidth, int rows, int currentRow, int framesCount);
 	glm::vec2 GetCurrentFrameCoords(int index);
 	void UpdateAnimation();
-	void GoToNextFrame();
+	void SelectFrame(int frame);
 private:
 	glm::vec2 frameCoords[4];
-	int framesCount;
-	float frameWidth;
 	float spritesheetWidth;
+	float frameWidth;
+	int maxRows;
+	int actualRow;
+	int framesCount;
 };
 
 #endif

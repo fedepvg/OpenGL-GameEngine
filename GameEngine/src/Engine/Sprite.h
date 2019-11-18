@@ -16,9 +16,10 @@ private:
 public:
 	Sprite(glm::vec3 pos, glm::vec3 scale, Texture* tex);
 	~Sprite();
-	void SetAnimation(int framesCount, float frameWidth, float spritesheetWidth);
+	void CreateAnimation(float spritesheetWidth, float frameWidth, int maxRows, int row, int framesCount);
+	void SetCurrentAnimation(int row);
 	void UpdateAnimation();
-	void GoToNextFrame();
+	void SelectFrame(int frame);
 };
 
 #endif

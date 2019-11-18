@@ -41,7 +41,7 @@ Shape::Shape(glm::vec3 pos, glm::vec3 setScale, Texture* tex) : Entity(pos, tex)
 	glBindVertexArray(vertexArray);
 	scale = setScale;
 
-	static const GLfloat g_vertex_buffer_data[] = {
+	/*static */const GLfloat g_vertex_buffer_data[] = {
 		1.f * setScale.x / 2, -1.f * setScale.y / 2, 0.0f, 1.0f, 1.f, 1.0f, 1.0f, 0.0f,//+-
 		-1.f * setScale.x / 2, 1.f * setScale.y / 2, 0.0f, 1.0f, 1.f, 1.0f, 0.0f, 1.0f,//-+
 		-1.f * setScale.x / 2, -1.f * setScale.y / 2, 0.0f, 1.0f, 1.f, 1.0f, 0.0f, 0.0f,//--
