@@ -49,6 +49,10 @@ void Entity::SetShader()
 	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 	model = glm::mat4(1.0f);
+	model[3].x += position.x;
+	model[3].y += position.y;
+	model[3].z += position.z;
+
 	uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 

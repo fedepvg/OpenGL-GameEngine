@@ -23,7 +23,7 @@ void Game::Init()
 	Texture animTex("../res/anim.png");
 
 	shape = new Shape({ 0,0,0 }, {100,100,0}, &bokeTex);
-	shape2 = new Shape({ 0,0,0 }, {100,100,0 }, &comuTex);
+	shape2 = new Shape({ 30.f,30.f,0 }, {100,100,0 }, &comuTex);
 	anim = new Sprite({ 0,0,0 }, { 368, 200, 0 }, &animTex);
 	anim->CreateAnimation(368, 368 / 8, 4);
 	anim->SetCurrentAnimation(8, 0, 2);
@@ -127,4 +127,6 @@ void Game::Update(const float deltaTime)
 	{
 		std::cout << "NO" << std::endl;
 	}
+
+	//std::cout << shape2->GetPosition().x << " , " << shape2->GetPosition().y << std::endl;
 }
