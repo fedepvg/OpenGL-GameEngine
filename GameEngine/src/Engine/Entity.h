@@ -32,6 +32,7 @@ public:
 	void Scale(glm::vec3 scaleValues);
 	glm::vec2 GetPosition();
 	glm::vec2 GetScale();
+	void SetPosition(glm::vec2 newPosition);
 	virtual void Render();
 	static Renderer* renderer;
 };

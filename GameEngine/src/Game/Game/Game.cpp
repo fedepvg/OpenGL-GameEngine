@@ -27,6 +27,8 @@ void Game::Init()
 	anim = new Sprite({ 0,0,0 }, { 368, 200, 0 }, &animTex);
 	anim->CreateAnimation(368, 368 / 8, 4);
 	anim->SetCurrentAnimation(8, 0, 2);
+	safePositionExists = false;
+	safePosition = { 0.f,0.f };
 	GameLoop();
 }
 
@@ -119,14 +121,19 @@ void Game::Update(const float deltaTime)
 
 	//collisions
 
-	if (collisionManager->CheckCollision(*anim, *shape2))
+	if (collisionManager->CheckCollision(*shape, *shape2)) 
 	{
-		std::cout << "SI" << std::endl;
+		if(safePositionExists)
+		shape2->SetPosition(safePosition);
 	}
 	else
 	{
-		std::cout << "NO" << std::endl;
+		safePosition = shape2->GetPosition();
+		safePositionExists = true;
 	}
 
-	//std::cout << shape2->GetPosition().x << " , " << shape2->GetPosition().y << std::endl;
+	if (input->GetKey(GLFW_KEY_SPACE)) 
+	{
+		shape2->SetPosition({ 30.f,30.f });
+	}
 }

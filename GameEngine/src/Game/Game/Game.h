@@ -18,6 +18,8 @@ private:
 	Shape* shape;
 	Shape* shape2;
 	Sprite* anim;
+	glm::vec2 safePosition;
+	bool safePositionExists;
 };
 
 #endif
