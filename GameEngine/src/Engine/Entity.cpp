@@ -95,10 +95,6 @@ void Entity::Render()
 
 glm::vec2 Entity::GetPosition() 
 {
-	/*std::cout << model[0].x <<" , "<< model[0].y <<" , "<< model[0].z <<" , "<< model[0].w << std::endl;
-	std::cout << model[1].x <<" , "<< model[1].y <<" , "<< model[1].z <<" , "<< model[1].w << std::endl;
-	std::cout << model[2].x <<" , "<< model[2].y <<" , "<< model[2].z <<" , "<< model[2].w << std::endl;
-	std::cout << model[3].x <<" , "<< model[3].y <<" , "<< model[3].z <<" , "<< model[3].w << std::endl <<std::endl;*/
 	glm::vec2 returnPosition;
 	returnPosition.x = model[3].x;
 	returnPosition.y = model[3].y;
