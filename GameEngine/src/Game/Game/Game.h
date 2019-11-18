@@ -3,6 +3,7 @@
 
 #include "Engine/BaseGame.h"
 #include "Engine/Shape.h"
+#include "Engine/Sprite.h"
 
 class Game : public BaseGame
 {
@@ -16,6 +17,7 @@ public:
 private:
 	Shape* shape;
 	Shape* shape2;
+	Sprite* anim;
 };
 
 #endif

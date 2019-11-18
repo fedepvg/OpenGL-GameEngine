@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 
+#include "glm/glm.hpp"
+
 class EXPORTDLL Shape : public Entity
 {
 public:
@@ -12,5 +14,9 @@ public:
 	~Shape();
 private:
 	void Render();
+protected:
+	glm::vec3 posVertex[4];
+	glm::vec3 colorVertex[4];
+	glm::vec2 texVertex[4];
 };
 #endif // !SHAPE_H

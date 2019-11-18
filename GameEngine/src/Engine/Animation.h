@@ -5,20 +5,23 @@
 
 #include "glm/glm.hpp"
 
-class Animation
+class EXPORTDLL Animation
 {
 public:
 	Animation(float spritesheetWidth, float frameWidth, int rows, int currentRow, int framesCount);
 	glm::vec2 GetCurrentFrameCoords(int index);
-	void UpdateAnimation();
+	void UpdateAnimation(float timer);
 	void SelectFrame(int frame);
-private:
 	glm::vec2 frameCoords[4];
+private:
 	float spritesheetWidth;
 	float frameWidth;
 	int maxRows;
 	int actualRow;
 	int framesCount;
+	int actualFrame;
+	float frameTime;
+	glm::vec2 frameSizeProportion;
 };
 
 #endif

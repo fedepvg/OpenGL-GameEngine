@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "Engine/BaseGame.h"
-#include "Engine/Shape.h"
 #include "Engine/Texture.h"
 
 #include <iostream>
@@ -13,34 +12,36 @@ Game::Game(int width, int height) : BaseGame(width, height)
 Game::~Game()
 {
 	delete shape;
-	//delete shape2;
+	delete shape2;
+	delete anim;
 }
 
 void Game::Init()
 {
 	Texture bokeTex("../res/BOKEE.png");
 	Texture comuTex("../res/texture.png");
+	Texture animTex("../res/anim.png");
 
-	shape = new Shape({ 0,0,0 }, {1,1,0}, &bokeTex);
-	shape2 = new Shape({ 0,0,0 }, {1,1,0 }, &comuTex);
+	shape = new Shape({ 0,0,0 }, {100,100,0}, &bokeTex);
+	shape2 = new Shape({ 0,0,0 }, {100,100,0 }, &comuTex);
+	anim = new Sprite({ 0,0,0 }, { 368, 200, 0 }, &animTex);
+	anim->CreateAnimation(368, 368 / 8, 4, 0, 8);
 	GameLoop();
 }
 
 void Game::Update(const float deltaTime)
 {
-	//std::cout<<shape2->GetPosition().x<<" , "<< shape2->GetPosition().y<<std::endl<< std::endl;
-
-	//Texture tex("../res/BOKEE.png");
-
 	//scaling
+	anim->UpdateCurrentAnimation(deltaTime);
+
 	if (input->GetKey(GLFW_KEY_H))
 	{
-		shape->Scale({ 1.1f,1.1f,1.1f });
+		anim->Scale({ 1.1f,1.1f,1.1f });
 	}
 
 	if (input->GetKey(GLFW_KEY_K))
 	{
-		shape->Scale({ 0.9f,0.9f,0.9f });
+		anim->Scale({ 0.9f,0.9f,0.9f });
 	}
 
 	if (input->GetKey(GLFW_KEY_N))
@@ -72,48 +73,50 @@ void Game::Update(const float deltaTime)
 	//translating
 	if (input->GetKey(GLFW_KEY_A))
 	{
-		shape2->Translate(-0.03f, { 1.0f,0.0f,0.0f });
+		shape2->Translate(-60.f, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_D))
 	{
-		shape2->Translate(0.03f, { 1.0f,0.0f,0.0f });
+		shape2->Translate(60.f, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_W))
 	{
-		shape2->Translate(0.03f, { 0.0f,1.0f,0.0f });
+		shape2->Translate(60.f, { 0.0f,1.0f,0.0f });
 	}
 	if (input->GetKey(GLFW_KEY_S))
 	{
-		shape2->Translate(-0.03f, { 0.0f,1.0f,0.0f });
+		shape2->Translate(-60.f, { 0.0f,1.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_LEFT))
 	{
-		shape->Translate(-0.03f, { 1.0f,0.0f,0.0f });
+		anim->Translate(-60.f, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_RIGHT))
 	{
-		shape->Translate(0.03f, { 1.0f,0.0f,0.0f });
+		anim->Translate(60.f, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_UP))
 	{
-		shape->Translate(0.03f, { 0.0f,1.0f,0.0f });
+		anim->Translate(60.f, { 0.0f,1.0f,0.0f });
 	}
 	if (input->GetKey(GLFW_KEY_DOWN))
 	{
-		shape->Translate(-0.03f, { 0.0f,1.0f,0.0f });
+		anim->Translate(-60.f, { 0.0f,1.0f,0.0f });
 	}
 
 	//collisions
 
-	if (collisionManager->CheckCollision(*shape, *shape2))
+	if (collisionManager->CheckCollision(*anim, *shape2))
 	{
 		std::cout << "BOKA KOMUNNISTTA" << std::endl;
 	}
-
-	std::cout << deltaTime << std::endl;
+	else
+	{
+		std::cout << "ZARLANGA" << std::endl;
+	}
 }

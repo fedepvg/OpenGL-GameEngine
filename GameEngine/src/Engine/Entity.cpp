@@ -80,7 +80,7 @@ void Entity::Scale(glm::vec3 scaleValues)
 
 void Entity::Translate(float value, glm::vec3 axis)
 {
-	model = glm::translate(model, value * axis);
+	model = glm::translate(model, value * (axis* 0.01f));
 	position += value * axis;
 	position = glm::project(value*axis, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 }
