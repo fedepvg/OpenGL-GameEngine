@@ -25,7 +25,8 @@ void Game::Init()
 	shape = new Shape({ 0,0,0 }, {100,100,0}, &bokeTex);
 	shape2 = new Shape({ 0,0,0 }, {100,100,0 }, &comuTex);
 	anim = new Sprite({ 0,0,0 }, { 368, 200, 0 }, &animTex);
-	anim->CreateAnimation(368, 368 / 8, 4, 0, 8);
+	anim->CreateAnimation(368, 368 / 8, 4);
+	anim->SetCurrentAnimation(8, 0, 2);
 	GameLoop();
 }
 
@@ -57,17 +58,20 @@ void Game::Update(const float deltaTime)
 	//rotating
 	if (input->GetKey(GLFW_KEY_E))
 	{
-		shape->Rotate(-1.0f, { 0.0f,0.0f,1.f });
+		anim->Rotate(-1.0f, { 0.0f,0.0f,1.f });
+		anim->SetCurrentAnimation(8, 2, 2);
 	}
 
 	if (input->GetKey(GLFW_KEY_F))
 	{
-		shape->Rotate(-1.0f, { 0.0f,1.0f,0.f });
+		anim->Rotate(-1.0f, { 0.0f,1.0f,0.f });
+		anim->SetCurrentAnimation(8, 2, 2);
 	}
 
 	else if (input->GetKey(GLFW_KEY_Q))
 	{
-		shape->Rotate(1.0f, { 0.0f,0.0f,1.f });
+		anim->Rotate(1.0f, { 0.0f,0.0f,1.f });
+		anim->SetCurrentAnimation(6, 1, 2);
 	}
 
 	//translating
@@ -93,20 +97,24 @@ void Game::Update(const float deltaTime)
 	if (input->GetKey(GLFW_KEY_LEFT))
 	{
 		anim->Translate(-60.f, { 1.0f,0.0f,0.0f });
+		anim->SetCurrentAnimation(8, 0, 2);
 	}
 
 	if (input->GetKey(GLFW_KEY_RIGHT))
 	{
 		anim->Translate(60.f, { 1.0f,0.0f,0.0f });
+		anim->SetCurrentAnimation(8, 0, 2);
 	}
 
 	if (input->GetKey(GLFW_KEY_UP))
 	{
 		anim->Translate(60.f, { 0.0f,1.0f,0.0f });
+		anim->SetCurrentAnimation(8, 0, 2);
 	}
 	if (input->GetKey(GLFW_KEY_DOWN))
 	{
 		anim->Translate(-60.f, { 0.0f,1.0f,0.0f });
+		anim->SetCurrentAnimation(8, 0, 2);
 	}
 
 	//collisions
@@ -119,8 +127,4 @@ void Game::Update(const float deltaTime)
 	{
 		std::cout << "NO" << std::endl;
 	}
-
-	std::cout << anim->GetPosition().x << " , " << anim->GetPosition().y << std::endl;
-	std::cout << shape2->GetPosition().x << " , " << shape2->GetPosition().y << std::endl;
-	//std::cout << anim->GetScale().x << " , " << anim->GetScale().y << std::endl;
 }

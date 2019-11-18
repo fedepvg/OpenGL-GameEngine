@@ -8,10 +8,11 @@
 class EXPORTDLL Animation
 {
 public:
-	Animation(float spritesheetWidth, float frameWidth, int rows, int currentRow, int framesCount);
+	Animation(float spritesheetWidth, float frameWidth, int rows);
 	glm::vec2 GetCurrentFrameCoords(int index);
 	void UpdateAnimation(float timer);
-	void SelectFrame(int frame);
+	void SetFrameCoords();
+	void SelectAnimationByRow(int frameCount, int row, float animationTime);
 	glm::vec2 frameCoords[4];
 private:
 	float spritesheetWidth;
@@ -22,6 +23,7 @@ private:
 	int actualFrame;
 	float frameTime;
 	glm::vec2 frameSizeProportion;
+	float animationTime;
 };
 
 #endif
