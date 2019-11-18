@@ -62,8 +62,7 @@ void Entity::SetShader()
 
 	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
 
-	//glActiveTexture(texture->GetTextureIndex());
-	//glBindTexture(GL_TEXTURE_2D, texture->GetTexture());
+	position = glm::project({0,0,0}, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 }
 
 void Entity::Rotate(float angle, glm::vec3 axis)
@@ -82,7 +81,7 @@ void Entity::Translate(float value, glm::vec3 axis)
 {
 	model = glm::translate(model, value * (axis* 0.01f));
 	position += value * axis;
-	position = glm::project(value*axis, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
+	position = glm::project({ 0,0,0 }, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 }
 
 void Entity::Render() 
