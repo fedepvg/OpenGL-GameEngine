@@ -16,6 +16,7 @@ Entity::Entity()
 {
 	position = { 0, 0, 0 };
 	BaseGame::entityList.push_front(this);
+	programID = NULL;
 }
 
 Renderer* Entity::renderer = nullptr;
@@ -25,6 +26,15 @@ Entity::Entity(glm::vec3 pos, Texture* tex)
 	position = pos;
 	BaseGame::entityList.push_front(this);
 	texture = tex;
+	programID = NULL;
+}
+
+Entity::~Entity() 
+{
+	if (programID != NULL) 
+	{
+		glDeleteProgram(programID);
+	}
 }
 
 void Entity::SetShader()

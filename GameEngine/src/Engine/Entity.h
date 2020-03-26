@@ -26,6 +26,7 @@ protected:
 public:
 	Entity();
 	Entity(glm::vec3 pos, Texture* tex);
+	~Entity();
 	void SetShader();
 	void Rotate(float angle, glm::vec3 axis);
 	void Translate(float value, glm::vec3 axis);
