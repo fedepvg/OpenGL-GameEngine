@@ -2,8 +2,16 @@
 
 #include "Animation.h"
 
+Sprite::~Sprite() 
+{
+	if (animation != nullptr)
+		delete animation;
+}
+
 void Sprite::CreateAnimation(float spritesheetWidth, float frameWidth, int maxRows)
 {
+	if (animation != nullptr)
+		delete animation;
 	animation = new Animation(spritesheetWidth, frameWidth, maxRows);
 	UpdateBuffer();
 }

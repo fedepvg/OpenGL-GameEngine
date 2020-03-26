@@ -15,6 +15,7 @@ private:
 	Animation* animation;
 public:
 	Sprite(glm::vec3 pos, glm::vec3 scale, Texture* tex) : Shape(pos, scale, tex) {};
+	~Sprite();
 	void CreateAnimation(float spritesheetWidth, float frameWidth, int maxRows);
 	void UpdateCurrentAnimation(float timer);
 	void UpdateBuffer();

@@ -86,7 +86,11 @@ Shape::Shape(glm::vec3 pos, glm::vec3 setScale, Texture* tex) : Entity(pos, tex)
 
 Shape::~Shape()
 {
-
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glDeleteBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, ebo);
+	glDeleteBuffers(1, &ebo);
 }
 
 void Shape::Render() 
