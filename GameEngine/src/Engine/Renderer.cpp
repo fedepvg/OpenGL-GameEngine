@@ -23,6 +23,8 @@ Renderer::Renderer(Window* window)
 
 	//projMatrix = glm::ortho(0.f,800.f,0.f, 600.f, 0.f, 100.f);
 	projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
+	//projMatrix = glm::perspective(45.0f, window->GetWidth()/ window->GetHeight(), 0.f, 100.f);
+	//projMatrix = glm::perspectiveFov(45.0f, window->GetWidth(), window->GetHeight(), 0.f, 100.f);
 }
 
 Renderer::~Renderer()

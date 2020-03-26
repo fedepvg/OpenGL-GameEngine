@@ -33,7 +33,7 @@ public:
 	glm::vec2 GetPosition();
 	glm::vec2 GetScale();
 	void SetPosition(glm::vec2 newPosition);
-	virtual void Render();
+	virtual void Render() = 0;
 	static Renderer* renderer;
 };
 #endif

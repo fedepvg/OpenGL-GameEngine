@@ -52,6 +52,7 @@ void Entity::SetShader()
 	model[3].x += position.x;
 	model[3].y += position.y;
 	model[3].z += position.z;
+	//model[3].z += -500.f;
 
 	uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -86,11 +87,6 @@ void Entity::Translate(float value, glm::vec3 axis)
 	model = glm::translate(model, value * (axis* 0.01f));
 	position += value * axis;
 	position = glm::project({ 0,0,0 }, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
-}
-
-void Entity::Render() 
-{
-
 }
 
 glm::vec2 Entity::GetPosition() 
