@@ -110,17 +110,17 @@ void Renderer::RenderEntity(Entity* entityToRender)
 {
 	uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(entityToRender->GetModel()));
+	std::cout <<"unimodel location: "<< uniModel << std::endl;
 
 	glUseProgram(programID);
+	std::cout << "using shader with ID: " << programID << std::endl;
 	glBindVertexArray(entityToRender->GetVertexArray());
-	//std::cout << entityToRender->GetVertexArray() << std::endl;
-
-	uniModel = glGetUniformLocation(programID, "model");
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(entityToRender->GetModel()));
+	std::cout << "binding vertex array with index: " << entityToRender->GetVertexArray() << std::endl;
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, entityToRender->GetTexturePointer()->GetTexture());
 
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(entityToRender->GetModel()));
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	std::cout << std::endl;
 }
