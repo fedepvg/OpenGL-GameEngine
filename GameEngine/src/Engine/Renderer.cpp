@@ -65,6 +65,11 @@ glm::mat4 Renderer::GetProjMatrix()
 	return projMatrix;
 }
 
+GLuint Renderer::GetShader() 
+{
+	return programID;
+}
+
 void Renderer::SetShader()
 {
 	//load shaders

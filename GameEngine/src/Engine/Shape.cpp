@@ -76,10 +76,24 @@ Shape::Shape(glm::vec3 pos, glm::vec3 setScale, Texture* tex) : Entity(pos, tex)
 		1, 2, 3
 	};
 
+	glUseProgram(programID);
+
 	// Create an element array
 	glGenBuffers(1, &ebo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+
+	GLuint posAttrib = glGetAttribLocation(programID, "position");
+	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+	glEnableVertexAttribArray(posAttrib);
+
+	GLuint colAttrib = glGetAttribLocation(programID, "customColor");
+	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(colAttrib);
+
+	GLuint texAttrib = glGetAttribLocation(programID, "aTexCoord");
+	glEnableVertexAttribArray(texAttrib);
+	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 	//SetShader();
 }

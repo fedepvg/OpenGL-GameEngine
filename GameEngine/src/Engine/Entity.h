@@ -12,6 +12,7 @@ class EXPORTDLL Entity
 {
 public:
 	static Renderer* renderer;
+	static unsigned int programID;
 	Entity();
 	Entity(glm::vec3 pos, Texture* tex);
 	~Entity();
@@ -38,7 +39,6 @@ protected:
 	glm::vec3 scale;
 	glm::mat4 model;
 	unsigned int uniModel;
-	unsigned int programID;
 	/*GLuint posAttrib;
 	GLuint colAttrib;
 	GLuint texAttrib;*/

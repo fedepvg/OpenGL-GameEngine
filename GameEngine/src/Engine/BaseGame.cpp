@@ -36,6 +36,7 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	glewInit();
 	renderer = new Renderer(window);
 	Entity::renderer = renderer;
+	Entity::programID = renderer->GetShader();
 	lastFrameTime = 0.f;
 }
 

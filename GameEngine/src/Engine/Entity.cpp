@@ -15,7 +15,7 @@ Entity::Entity()
 {
 	position = { 0, 0, 0 };
 	BaseGame::entityList.push_front(this);
-	programID = NULL;
+	//programID = NULL;
 
 	model = glm::mat4(1.0f);
 	model[3].x += position.x;
@@ -27,13 +27,14 @@ Entity::Entity()
 }
 
 Renderer* Entity::renderer = nullptr;
+unsigned int Entity::programID = NULL;
 
 Entity::Entity(glm::vec3 pos, Texture* tex)
 {
 	position = pos;
 	BaseGame::entityList.push_front(this);
 	texture = tex;
-	programID = NULL;
+	//programID = NULL;
 
 	model = glm::mat4(1.0f);
 	model[3].x += position.x;
@@ -46,10 +47,10 @@ Entity::Entity(glm::vec3 pos, Texture* tex)
 
 Entity::~Entity() 
 {
-	if (programID != NULL) 
+	/*if (programID != NULL) 
 	{
 		glDeleteProgram(programID);
-	}
+	}*/
 }
 
 //void Entity::SetShader()
