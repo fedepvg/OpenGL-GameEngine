@@ -9,7 +9,6 @@
 
 #include "LoadShader.h"
 #include "Texture.h"
-#include "Renderer.h"
 #include "BaseGame.h"
 
 Entity::Entity()
