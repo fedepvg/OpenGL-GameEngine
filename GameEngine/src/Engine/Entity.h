@@ -11,6 +11,7 @@ class Texture;
 class EXPORTDLL Entity
 {
 public:
+	static Renderer* renderer;
 	Entity();
 	Entity(glm::vec3 pos, Texture* tex);
 	~Entity();
@@ -38,15 +39,14 @@ protected:
 	glm::mat4 model;
 	unsigned int uniModel;
 	unsigned int programID;
-	GLuint posAttrib;
+	/*GLuint posAttrib;
 	GLuint colAttrib;
-	GLuint texAttrib;
+	GLuint texAttrib;*/
 	GLuint ebo;
 	GLuint vbo;
 	GLuint vertexArray;
 	Texture* texture;
 	//Deprecated System, now Renderer does de heavy lifting, not Entity
 	//virtual void Render() = 0;
-	//static Renderer* renderer;
 };
 #endif

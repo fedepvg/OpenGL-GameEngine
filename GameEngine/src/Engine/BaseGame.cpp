@@ -30,12 +30,12 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	window = new Window();
 	entityList.clear();
 	window->open(screenWidth, screenHeight, "window");
-	//Entity::renderer = renderer;
 	collisionManager = new CollisionManager();
 	input = new Input(window->getWindow());
 	glewExperimental = GL_TRUE;
 	glewInit();
 	renderer = new Renderer(window);
+	Entity::renderer = renderer;
 	lastFrameTime = 0.f;
 }
 

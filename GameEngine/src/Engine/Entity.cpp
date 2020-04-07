@@ -22,9 +22,11 @@ Entity::Entity()
 	model[3].y += position.y;
 	model[3].z += position.z;
 	//model[3].z += -500.f;
+
+	position = glm::project({ 0,0,0 }, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 }
 
-//Renderer* Entity::renderer = nullptr;
+Renderer* Entity::renderer = nullptr;
 
 Entity::Entity(glm::vec3 pos, Texture* tex)
 {
@@ -38,6 +40,8 @@ Entity::Entity(glm::vec3 pos, Texture* tex)
 	model[3].y += position.y;
 	model[3].z += position.z;
 	//model[3].z += -500.f;
+
+	position = glm::project({ 0,0,0 }, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 }
 
 Entity::~Entity() 
