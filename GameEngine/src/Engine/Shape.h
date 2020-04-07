@@ -12,8 +12,7 @@ public:
 	Shape();
 	Shape(glm::vec3 pos, glm::vec3 scale, Texture* tex);
 	~Shape();
-private:
-	//void Render();
+
 protected:
 	glm::vec3 posVertex[4];
 	glm::vec3 colorVertex[4];

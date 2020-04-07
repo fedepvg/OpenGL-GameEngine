@@ -20,6 +20,7 @@ Renderer::Renderer(Window* window)
 		glm::vec3(0.0f, 0.0f, 0.0f), // look at
 		glm::vec3(0.0f, 1.0f, 0.0f)  // up
 	);
+	programID = NULL;
 
 	//projMatrix = glm::ortho(0.f,800.f,0.f, 600.f, 0.f, 100.f);
 	projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
@@ -31,7 +32,10 @@ Renderer::Renderer(Window* window)
 
 Renderer::~Renderer()
 {
-
+	if (programID != NULL) 
+	{
+		glDeleteProgram(programID);
+	}
 }
 
 void Renderer::Render(std::list<Entity*> objectList)// const
@@ -42,7 +46,6 @@ void Renderer::Render(std::list<Entity*> objectList)// const
 	/*draw elements*/
 	for (std::list<Entity*>::iterator it = objectList.begin(); it != objectList.end(); it++)
 	{
-		//(*it)->Render();
 		RenderEntity(*it);
 	}
 
@@ -78,28 +81,6 @@ void Renderer::SetShader()
 	//use shader
 	glUseProgram(programID);
 
-	// Specify the layout of the vertex data
-	GLuint posAttrib = glGetAttribLocation(programID, "position");
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
-	glEnableVertexAttribArray(posAttrib);
-
-	GLuint colAttrib = glGetAttribLocation(programID, "customColor");
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(colAttrib);
-
-	GLuint texAttrib = glGetAttribLocation(programID, "aTexCoord");
-	glEnableVertexAttribArray(texAttrib);
-	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-	//model = glm::mat4(1.0f);
-	//model[3].x += position.x;
-	//model[3].y += position.y;
-	//model[3].z += position.z;
-	////model[3].z += -500.f;
-
-	/*uniModel = glGetUniformLocation(programID, "model");
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));*/
-
 	GLint uniView = glGetUniformLocation(programID, "view");
 	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
@@ -108,24 +89,18 @@ void Renderer::SetShader()
 
 	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
 
-	//position = glm::project({ 0,0,0 }, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
+	uniModel = glGetUniformLocation(programID, "model");
 }
 
 void Renderer::RenderEntity(Entity* entityToRender) 
 {
-	uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(entityToRender->GetModel()));
-	std::cout <<"unimodel location: "<< uniModel << std::endl;
-
 	glUseProgram(programID);
-	std::cout << "using shader with ID: " << programID << std::endl;
 	glBindVertexArray(entityToRender->GetVertexArray());
-	std::cout << "binding vertex array with index: " << entityToRender->GetVertexArray() << std::endl;
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, entityToRender->GetTexturePointer()->GetTexture());
 
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(entityToRender->GetModel()));
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 	std::cout << std::endl;
 }

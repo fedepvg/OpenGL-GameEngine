@@ -4,8 +4,6 @@
 #include "LoadShader.h"
 #include <iostream>
 
-//#include <list>
-
 #include "Shape.h"
 #include "Window.h"
 #include "Renderer.h"
@@ -60,11 +58,6 @@ int BaseGame::GameLoop()
 		//input processing
 		if (input->GetKey(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
-
-		/*for (std::list<Entity*>::iterator it = entityList.begin(); it != entityList.end(); it++)
-		{
-			(*it)->GetPosition();
-		}*/
 
 		//use renderer		
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);

@@ -16,7 +16,6 @@ public:
 	Entity();
 	Entity(glm::vec3 pos, Texture* tex);
 	~Entity();
-	//void SetShader();
 
 	//transformations
 	void Rotate(float angle, glm::vec3 axis);
@@ -39,14 +38,9 @@ protected:
 	glm::vec3 scale;
 	glm::mat4 model;
 	unsigned int uniModel;
-	/*GLuint posAttrib;
-	GLuint colAttrib;
-	GLuint texAttrib;*/
 	GLuint ebo;
 	GLuint vbo;
 	GLuint vertexArray;
 	Texture* texture;
-	//Deprecated System, now Renderer does de heavy lifting, not Entity
-	//virtual void Render() = 0;
 };
 #endif

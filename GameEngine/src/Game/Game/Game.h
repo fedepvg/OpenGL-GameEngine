@@ -7,8 +7,6 @@
 
 class Game : public BaseGame
 {
-//private:
-//	BaseGame* bg;
 public:
 	Game(int width, int height);
 	~Game();

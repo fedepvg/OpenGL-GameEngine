@@ -23,8 +23,7 @@ Shape::Shape()
 
 	GLuint elements[] =
 	{
-		0, 2, 3,
-		1, 2, 3
+		0, 1, 2, 3
 	};
 
 	// Create an element array
@@ -32,7 +31,6 @@ Shape::Shape()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 
-	//SetShader();
 }
 
 Shape::Shape(glm::vec3 pos, glm::vec3 setScale, Texture* tex) : Entity(pos, tex)
@@ -72,8 +70,7 @@ Shape::Shape(glm::vec3 pos, glm::vec3 setScale, Texture* tex) : Entity(pos, tex)
 
 	GLuint elements[] =
 	{
-		0, 1, 2,
-		1, 2, 3
+		0, 1, 2, 3
 	};
 
 	glUseProgram(programID);
@@ -95,7 +92,6 @@ Shape::Shape(glm::vec3 pos, glm::vec3 setScale, Texture* tex) : Entity(pos, tex)
 	glEnableVertexAttribArray(texAttrib);
 	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-	//SetShader();
 }
 
 Shape::~Shape()
@@ -106,15 +102,3 @@ Shape::~Shape()
 	glBindBuffer(GL_ARRAY_BUFFER, ebo);
 	glDeleteBuffers(1, &ebo);
 }
-
-//void Shape::Render() 
-//{
-//	glUseProgram(programID);
-//	glBindVertexArray(vertexArray);
-//
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, texture->GetTexture());
-//	
-//	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
-//	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-//}

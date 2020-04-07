@@ -15,7 +15,6 @@ Entity::Entity()
 {
 	position = { 0, 0, 0 };
 	BaseGame::entityList.push_front(this);
-	//programID = NULL;
 
 	model = glm::mat4(1.0f);
 	model[3].x += position.x;
@@ -34,7 +33,6 @@ Entity::Entity(glm::vec3 pos, Texture* tex)
 	position = pos;
 	BaseGame::entityList.push_front(this);
 	texture = tex;
-	//programID = NULL;
 
 	model = glm::mat4(1.0f);
 	model[3].x += position.x;
@@ -47,54 +45,8 @@ Entity::Entity(glm::vec3 pos, Texture* tex)
 
 Entity::~Entity() 
 {
-	/*if (programID != NULL) 
-	{
-		glDeleteProgram(programID);
-	}*/
+	
 }
-
-//void Entity::SetShader()
-//{
-//	//load shaders
-//	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
-//
-//	//use shader
-//	glUseProgram(programID);
-//
-//	// Specify the layout of the vertex data
-//	posAttrib = glGetAttribLocation(programID, "position");
-//	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
-//	glEnableVertexAttribArray(posAttrib);
-//
-//	colAttrib = glGetAttribLocation(programID, "customColor");
-//	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-//	glEnableVertexAttribArray(colAttrib);
-//
-//	texAttrib = glGetAttribLocation(programID, "aTexCoord");
-//	glEnableVertexAttribArray(texAttrib);
-//	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-//
-//	model = glm::mat4(1.0f);
-//	model[3].x += position.x;
-//	model[3].y += position.y;
-//	model[3].z += position.z;
-//	//model[3].z += -500.f;
-//
-//	uniModel = glGetUniformLocation(programID, "model");
-//	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
-//
-//	glm::mat4 view = renderer->GetViewMatrix();
-//	GLint uniView = glGetUniformLocation(programID, "view");
-//	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-//
-//	glm::mat4 proj = renderer->GetProjMatrix();
-//	GLint uniProj = glGetUniformLocation(programID, "proj");
-//	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
-//
-//	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
-//
-//	position = glm::project({0,0,0}, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
-//}
 
 void Entity::Rotate(float angle, glm::vec3 axis)
 {
@@ -112,7 +64,6 @@ void Entity::Translate(float value, glm::vec3 axis)
 {
 	model = glm::translate(model, value * (axis* 0.01f));
 	position += value * axis;
-	//position = glm::project({ 0,0,0 }, model, renderer->GetProjMatrix(), glm::vec4(0, 0, 800, 600));
 }
 
 glm::vec2 Entity::GetPosition() 
