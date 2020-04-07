@@ -10,6 +10,28 @@ class Texture;
 
 class EXPORTDLL Entity
 {
+public:
+	Entity();
+	Entity(glm::vec3 pos, Texture* tex);
+	~Entity();
+	//void SetShader();
+
+	//transformations
+	void Rotate(float angle, glm::vec3 axis);
+	void Translate(float value, glm::vec3 axis);
+	void Scale(glm::vec3 scaleValues);
+	glm::vec2 GetPosition();
+	glm::vec2 GetScale();
+	void SetPosition(glm::vec2 newPosition);
+
+	//Getters for buffers and pointers
+	GLuint GetVertexArray();
+	GLuint GetVertexBuffer();
+	GLuint GetElementBuffer();
+	Texture* GetTexturePointer();
+	glm::mat4 GetModel();
+	unsigned int GetShader();
+
 protected:
 	glm::vec3 position;
 	glm::vec3 scale;
@@ -23,18 +45,8 @@ protected:
 	GLuint vbo;
 	GLuint vertexArray;
 	Texture* texture;
-public:
-	Entity();
-	Entity(glm::vec3 pos, Texture* tex);
-	~Entity();
-	void SetShader();
-	void Rotate(float angle, glm::vec3 axis);
-	void Translate(float value, glm::vec3 axis);
-	void Scale(glm::vec3 scaleValues);
-	glm::vec2 GetPosition();
-	glm::vec2 GetScale();
-	void SetPosition(glm::vec2 newPosition);
-	virtual void Render() = 0;
-	static Renderer* renderer;
+	//Deprecated System, now Renderer does de heavy lifting, not Entity
+	//virtual void Render() = 0;
+	//static Renderer* renderer;
 };
 #endif

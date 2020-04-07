@@ -14,12 +14,6 @@ class Entity;
 
 class EXPORTDLL Renderer
 {
-private:
-	unsigned int uniModel;
-	glm::mat4 viewMatrix;
-	glm::mat4 projMatrix;
-	GLuint programID; 
-	GLFWwindow* renderWindow;
 public:
 	Renderer(Window* window);
 	~Renderer();
@@ -27,6 +21,14 @@ public:
 	void SetBackgroundColor(float r, float g, float b, float a) const; 
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjMatrix();
+private:
+	void SetShader();
+	void RenderEntity(Entity* entityToRender);
+	unsigned int uniModel;
+	glm::mat4 viewMatrix;
+	glm::mat4 projMatrix;
+	GLuint programID; 
+	GLFWwindow* renderWindow;
 };
 
 #endif // !RENDERER_H
