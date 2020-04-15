@@ -15,17 +15,20 @@ Renderer::Renderer(Window* window)
 {
 	renderWindow = window->getWindow();
 
-	viewMatrix = glm::lookAt(
-		glm::vec3(0.f, 0.f, 1.5f), // position
-		glm::vec3(0.0f, 0.0f, 0.0f), // look at
-		glm::vec3(0.0f, 1.0f, 0.0f)  // up
-	);
+	renderCamera = new Camera({0.f,0.f,3.f});
+
+	//viewMatrix = glm::lookAt(
+	//	glm::vec3(0.f, 0.f, 500.f), // position
+	//	glm::vec3(0.0f, 0.0f, 0.f), // look at
+	//	glm::vec3(0.0f, 1.0f, 0.f)  // up
+	//);
 	programID = NULL;
 
-	//projMatrix = glm::ortho(0.f,800.f,0.f, 600.f, 0.f, 100.f);
 	projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
 	//projMatrix = glm::perspective(45.0f, window->GetWidth()/ window->GetHeight(), 0.f, 100.f);
-	//projMatrix = glm::perspectiveFov(45.0f, window->GetWidth(), window->GetHeight(), 0.f, 100.f);
+
+	//viewMatrix = glm::rotate(viewMatrix, glm::radians(0.f), glm::vec3(0.f, 1.f, 0.f));
+	//model = glm::rotate(model, glm::radians(angle), axis);
 
 	SetShader();
 }
@@ -36,6 +39,8 @@ Renderer::~Renderer()
 	{
 		glDeleteProgram(programID);
 	}
+
+	delete renderCamera;
 }
 
 void Renderer::Render(std::list<Entity*> objectList)// const
@@ -82,7 +87,7 @@ void Renderer::SetShader()
 	glUseProgram(programID);
 
 	GLint uniView = glGetUniformLocation(programID, "view");
-	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(renderCamera->viewMatrix));
 
 	GLint uniProj = glGetUniformLocation(programID, "proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(projMatrix));

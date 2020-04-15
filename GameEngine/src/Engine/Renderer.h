@@ -5,6 +5,7 @@
 #include <list>
 
 #include "Window.h"
+#include "Camera.h"
 
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
@@ -34,6 +35,7 @@ private:
 	glm::mat4 projMatrix;
 	GLuint programID; 
 	GLFWwindow* renderWindow;
+	Camera* renderCamera;
 };
 
 #endif // !RENDERER_H
