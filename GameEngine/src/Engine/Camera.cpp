@@ -2,16 +2,33 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 
-Camera::Camera(glm::vec3 position)
+using namespace glm;
+
+Camera::Camera(vec3 position)
 {
-	viewMatrix = glm::lookAt(
-		position, // position
-		glm::vec3(0.0f, 0.0f, 0.0f), // look at
-		glm::vec3(0.0f, 1.0f, 0.0f)  // up
+	viewMatrix = lookAt(
+		position,
+		vec3(0.0f, 0.0f, 0.0f), // look at
+		vec3(0.0f, 1.0f, 0.0f)  // up
 	);
 }
 
 
 Camera::~Camera()
 {
+}
+
+void Camera::Rotate(float angle, vec3 axis) 
+{
+	viewMatrix = rotate(viewMatrix, radians(angle), axis);
+}
+
+void Camera::Translate(float value, vec3 axis) 
+{
+	viewMatrix = translate(viewMatrix, value * normalize(axis));
+}
+
+glm::mat4 Camera::GetViewMatrix() 
+{
+	return viewMatrix;
 }

@@ -15,7 +15,7 @@ Renderer::Renderer(Window* window)
 {
 	renderWindow = window->getWindow();
 
-	renderCamera = new Camera({0.f,0.f,3.f});
+	renderCamera = new Camera({0.f,0.f,500.f});
 
 	//viewMatrix = glm::lookAt(
 	//	glm::vec3(0.f, 0.f, 500.f), // position
@@ -24,13 +24,14 @@ Renderer::Renderer(Window* window)
 	//);
 	programID = NULL;
 
-	projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
-	//projMatrix = glm::perspective(45.0f, window->GetWidth()/ window->GetHeight(), 0.f, 100.f);
+	//projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
+	projMatrix = glm::perspective(45.0f, window->GetWidth()/ window->GetHeight(), 0.f, 100.f);
 
 	//viewMatrix = glm::rotate(viewMatrix, glm::radians(0.f), glm::vec3(0.f, 1.f, 0.f));
 	//model = glm::rotate(model, glm::radians(angle), axis);
 
 	SetShader();
+	//renderCamera->Translate(-60.f, { 1.0f,0.0f,0.0f });
 }
 
 Renderer::~Renderer()
@@ -63,11 +64,6 @@ void Renderer::SetBackgroundColor(float r, float g, float b, float a) const
 	glClearColor(r, g, b, a);
 }
 
-glm::mat4 Renderer::GetViewMatrix()
-{
-	return viewMatrix;
-}
-
 glm::mat4 Renderer::GetProjMatrix()
 {
 	return projMatrix;
@@ -78,6 +74,11 @@ GLuint Renderer::GetShader()
 	return programID;
 }
 
+Camera* Renderer::GetCamera() 
+{
+	return renderCamera;
+}
+
 void Renderer::SetShader()
 {
 	//load shaders
@@ -86,19 +87,18 @@ void Renderer::SetShader()
 	//use shader
 	glUseProgram(programID);
 
-	GLint uniView = glGetUniformLocation(programID, "view");
-	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(renderCamera->viewMatrix));
-
 	GLint uniProj = glGetUniformLocation(programID, "proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(projMatrix));
 
 	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
 
 	uniModel = glGetUniformLocation(programID, "model");
+	uniView = glGetUniformLocation(programID, "view");
 }
 
 void Renderer::RenderEntity(Entity* entityToRender) 
 {
+	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(renderCamera->GetViewMatrix()));
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(entityToRender->GetModel()));
 	glUseProgram(programID);
 	glBindVertexArray(entityToRender->GetVertexArray());

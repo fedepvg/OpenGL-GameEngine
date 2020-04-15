@@ -24,14 +24,14 @@ public:
 	~Renderer();
 	void Render(std::list<Entity*> objectList);// const;
 	void SetBackgroundColor(float r, float g, float b, float a) const; 
-	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjMatrix();
 	GLuint GetShader();
+	Camera* GetCamera();
 private:
 	void SetShader();
 	void RenderEntity(Entity* entityToRender);
 	unsigned int uniModel;
-	glm::mat4 viewMatrix;
+	unsigned int uniView;
 	glm::mat4 projMatrix;
 	GLuint programID; 
 	GLFWwindow* renderWindow;

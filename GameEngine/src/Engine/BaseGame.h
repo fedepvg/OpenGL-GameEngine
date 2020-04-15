@@ -27,6 +27,7 @@ private:
 protected:
 	Input* input;
 	CollisionManager* collisionManager;
+	Camera* renderCamera;
 };
 
 #endif

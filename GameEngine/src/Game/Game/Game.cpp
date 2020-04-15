@@ -79,21 +79,21 @@ void Game::Update(const float deltaTime)
 	//translating
 	if (input->GetKey(GLFW_KEY_A))
 	{
-		shape2->Translate(-60.f, { 1.0f,0.0f,0.0f });
+		renderCamera->Translate(600.f * deltaTime, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_D))
 	{
-		shape2->Translate(60.f, { 1.0f,0.0f,0.0f });
+		renderCamera->Translate(-600.f * deltaTime, { 1.0f,0.0f,0.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_W))
 	{
-		shape2->Translate(60.f, { 0.0f,1.0f,0.0f });
+		renderCamera->Translate(600.f * deltaTime, { 0.0f,0.0f,1.0f });
 	}
 	if (input->GetKey(GLFW_KEY_S))
 	{
-		shape2->Translate(-60.f, { 0.0f,1.0f,0.0f });
+		renderCamera->Translate(-600.f * deltaTime, { 0.0f,0.0f,1.0f });
 	}
 
 	if (input->GetKey(GLFW_KEY_LEFT))

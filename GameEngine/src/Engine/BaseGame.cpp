@@ -36,6 +36,7 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	Entity::renderer = renderer;
 	Entity::programID = renderer->GetShader();
 	lastFrameTime = 0.f;
+	renderCamera = renderer->GetCamera();
 }
 
 BaseGame::~BaseGame()
