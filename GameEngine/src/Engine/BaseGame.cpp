@@ -15,6 +15,7 @@
 #include"glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
+#include "AssimpImporter.h"
 
 using namespace std;
 
@@ -48,6 +49,9 @@ BaseGame::~BaseGame()
 int BaseGame::GameLoop()
 {
 	GLFWwindow* currentWindow = window->getWindow();
+
+	AssimpImporter aImporter;
+	aImporter.DoTheImportThing("../res/ak47.obj");
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
