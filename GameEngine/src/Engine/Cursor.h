@@ -8,6 +8,7 @@
 class EXPORTDLL Cursor
 {
 public:
+	static Cursor* activeCursor;
 	Cursor(Window* activeWindow);
 	~Cursor();
 	double GetCursorX();

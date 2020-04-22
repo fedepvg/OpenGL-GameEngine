@@ -4,8 +4,20 @@
 
 #include "Window.h"
 
+Cursor* Cursor::activeCursor = nullptr;
+double Cursor::xInput = 0.0;
+double Cursor::yInput = 0.0;
+
 Cursor::Cursor(Window* activeWindow)
 {
+	if (activeCursor == nullptr)
+	{
+		activeCursor = this;
+	}
+	else
+	{
+		delete this;
+	}
 	window = activeWindow;
 	glfwSetCursorPosCallback(window->getWindow(), Cursor::mouse_callback);
 }

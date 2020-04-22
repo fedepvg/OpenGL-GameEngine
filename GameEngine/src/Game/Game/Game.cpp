@@ -14,6 +14,7 @@ Game::~Game()
 	delete shape;
 	delete shape2;
 	delete anim;
+	delete cursor;
 }
 
 void Game::Init()

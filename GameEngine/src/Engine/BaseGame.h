@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Input.h"
+#include "Cursor.h"
 #include "CollisionManager.h"
 
 class Entity;
@@ -26,6 +27,7 @@ private:
 	float lastFrameTime;
 protected:
 	Input* input;
+	Cursor* cursor;
 	CollisionManager* collisionManager;
 	Camera* renderCamera;
 };

@@ -53,6 +53,8 @@ int BaseGame::GameLoop()
 	AssimpImporter aImporter;
 	aImporter.DoTheImportThing("../res/ak47.obj");
 
+	cursor = new Cursor(window);
+
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		float currentTime = glfwGetTime();
