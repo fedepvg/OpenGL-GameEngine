@@ -18,11 +18,13 @@ public:
 		normal, capture
 	};
 	void SetCursorMode(CursorMode newMode);
+	CursorMode GetCursorMode();
 
 private:
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	static double xInput;
 	static double yInput;
 	Window* window;
+	CursorMode currentMode;
 };
 #endif

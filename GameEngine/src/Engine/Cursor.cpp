@@ -57,4 +57,10 @@ void Cursor::SetCursorMode(CursorMode newMode)
 	default:
 		break;
 	}
+	currentMode = newMode;
+}
+
+Cursor::CursorMode Cursor::GetCursorMode()
+{
+	return currentMode;
 }

@@ -21,11 +21,11 @@ public:
 	virtual void Update(const float deltaTime) = 0;
 	std::list<Entity*> static entityList;
 private:
-	Window* window;
 	Renderer* renderer;
 	float deltaTime;
 	float lastFrameTime;
 protected:
+	Window* window;
 	Input* input;
 	Cursor* cursor;
 	CollisionManager* collisionManager;

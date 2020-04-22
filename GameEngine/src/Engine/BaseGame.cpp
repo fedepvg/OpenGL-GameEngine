@@ -44,6 +44,7 @@ BaseGame::~BaseGame()
 {
 	delete window;
 	delete renderer;
+	//delete cursor;
 }
 
 int BaseGame::GameLoop()
@@ -66,6 +67,9 @@ int BaseGame::GameLoop()
 		if (input->GetKey(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(currentWindow, GL_TRUE);
 
+		//update camera
+		renderCamera->Update();
+
 		//use renderer		
 		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
 		renderer->Render(entityList);
@@ -74,6 +78,8 @@ int BaseGame::GameLoop()
 		glfwPollEvents();
 	}
 	delete input;
+	/*if(cursor != nullptr)
+		delete cursor;*/
 	glfwTerminate();
 	return 0;
 }

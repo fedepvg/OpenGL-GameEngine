@@ -30,11 +30,16 @@ void Game::Init()
 	anim->SetCurrentAnimation(8, 0, 2);
 	safePositionExists = false;
 	safePosition = { 0.f,0.f };
+	fpsCamera = new FirstPersonCameraController(renderCamera, cursor);
+	fpsCamera->SetSensitivity(0.3f);
 	GameLoop();
 }
 
 void Game::Update(const float deltaTime)
 {
+	if(cursor->GetCursorMode() != Cursor::CursorMode::capture)
+		cursor->SetCursorMode(Cursor::CursorMode::capture);
+
 	//scaling
 	anim->UpdateCurrentAnimation(deltaTime);
 
@@ -78,23 +83,9 @@ void Game::Update(const float deltaTime)
 	}
 
 	//translating
-	if (input->GetKey(GLFW_KEY_A))
+	if (input->GetKey(GLFW_KEY_X)) 
 	{
-		renderCamera->Translate(600.f * deltaTime, { 1.0f,0.0f,0.0f });
-	}
-
-	if (input->GetKey(GLFW_KEY_D))
-	{
-		renderCamera->Translate(-600.f * deltaTime, { 1.0f,0.0f,0.0f });
-	}
-
-	if (input->GetKey(GLFW_KEY_W))
-	{
-		renderCamera->Translate(600.f * deltaTime, { 0.0f,0.0f,1.0f });
-	}
-	if (input->GetKey(GLFW_KEY_S))
-	{
-		renderCamera->Translate(-600.f * deltaTime, { 0.0f,0.0f,1.0f });
+		renderCamera->RotatePitch(10.f);
 	}
 
 	if (input->GetKey(GLFW_KEY_LEFT))
@@ -137,4 +128,27 @@ void Game::Update(const float deltaTime)
 	{
 		shape2->SetPosition({ 30.f,30.f });
 	}
+
+	//camera
+
+	if (input->GetKey(GLFW_KEY_A))
+	{
+		fpsCamera->TranslateX(-10.f);
+	}
+
+	if (input->GetKey(GLFW_KEY_D))
+	{
+		fpsCamera->TranslateX(10.f);
+	}
+
+	if (input->GetKey(GLFW_KEY_W))
+	{
+		fpsCamera->TranslateY(10.f);
+	}
+	if (input->GetKey(GLFW_KEY_S))
+	{
+		fpsCamera->TranslateY(-10.f);
+	}
+
+	fpsCamera->Update();
 }

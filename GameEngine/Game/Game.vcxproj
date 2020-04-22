@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Game\Game\FirstPersonCameraController.cpp" />
     <ClCompile Include="..\src\Game\Game\Game.cpp" />
     <ClCompile Include="..\src\Game\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Game\Game\FirstPersonCameraController.h" />
     <ClInclude Include="..\src\Game\Game\Game.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
