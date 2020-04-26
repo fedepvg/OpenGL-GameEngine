@@ -4,6 +4,7 @@
 #include "Engine/BaseGame.h"
 #include "Engine/Shape.h"
 #include "Engine/Sprite.h"
+#include "Engine/Model.h"
 
 class Game : public BaseGame
 {
@@ -18,6 +19,7 @@ private:
 	Sprite* anim;
 	glm::vec2 safePosition;
 	bool safePositionExists;
+	Model* ourModel;
 };
 
 #endif

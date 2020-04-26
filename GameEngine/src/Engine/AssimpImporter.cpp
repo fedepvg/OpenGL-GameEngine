@@ -1,10 +1,14 @@
+#include "AssimpImporter.h"
+
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>           // Output data structure
 #include <assimp/postprocess.h>     // Post processing flags
 
-#include "AssimpImporter.h"
+#include "Mesh.h"
 
 #include <iostream>
+
+using namespace  Assimp;
 
 bool AssimpImporter::DoTheImportThing(const std::string& pFile)
 {
@@ -12,7 +16,7 @@ bool AssimpImporter::DoTheImportThing(const std::string& pFile)
 	Assimp::Importer importer;
 	// And have it read the given file with some example postprocessing
 	// Usually - if speed is not the most important aspect for you - you'll
-	// probably to request more postprocessing than we do in this example.
+	// probably to re quest more postprocessing than we do in this example.
 	const aiScene* scene = importer.ReadFile(pFile,
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
@@ -30,4 +34,18 @@ bool AssimpImporter::DoTheImportThing(const std::string& pFile)
 	//DoTheSceneProcessing(scene);
 	// We're done. Everything will be cleaned up by the importer destructor
 	return true;
+}
+
+const aiScene* AssimpImporter::ImportModel(std::string path)
+{
+	Importer import;
+	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+	{
+		cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
+		return nullptr;
+	}
+	
+	return scene;
 }

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Engine/BaseGame.h"
 #include "Engine/Texture.h"
+#include "Engine/Model.h"
 
 #include <iostream>
 
@@ -21,6 +22,7 @@ void Game::Init()
 	Texture bokeTex("../res/BOKEE.png");
 	Texture comuTex("../res/texture.png");
 	Texture animTex("../res/anim.png");
+	ourModel = new Model("../res/ak47.obj");
 
 	shape = new Shape({ 0,0,0 }, {100,100,0}, &bokeTex);
 	shape2 = new Shape({ 30.f,30.f,0 }, {100,100,0 }, &comuTex);
@@ -136,4 +138,6 @@ void Game::Update(const float deltaTime)
 	{
 		shape2->SetPosition({ 30.f,30.f });
 	}
+
+	ourModel->Draw();
 }

@@ -51,7 +51,6 @@ int BaseGame::GameLoop()
 	GLFWwindow* currentWindow = window->getWindow();
 
 	AssimpImporter aImporter;
-	aImporter.DoTheImportThing("../res/ak47.obj");
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
