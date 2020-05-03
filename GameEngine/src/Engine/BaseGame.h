@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Input.h"
+#include "Cursor.h"
 #include "CollisionManager.h"
 
 class Entity;
@@ -20,12 +21,13 @@ public:
 	virtual void Update(const float deltaTime) = 0;
 	std::list<Entity*> static entityList;
 private:
-	Window* window;
 	Renderer* renderer;
 	float deltaTime;
 	float lastFrameTime;
 protected:
+	Window* window;
 	Input* input;
+	Cursor* cursor;
 	CollisionManager* collisionManager;
 	Camera* renderCamera;
 };

@@ -7,15 +7,23 @@
 class EXPORTDLL Camera
 {
 public:
-	Camera(glm::vec3 position);
+	Camera(glm::vec3 newPosition, glm::vec3 up, glm::vec3 newDirection, float newYaw, float newPitch);
 	~Camera();
-	void Rotate(float angle, glm::vec3 axis);
-	void Translate(float value, glm::vec3 axis);
+	void Update();
+	void RotatePitch(float angle);
+	void RotateYaw(float angle);
+	void Translate(glm::vec3 translationVector);
+	glm::vec3 GetRightVector();
+	glm::vec3 GetDirection();
 	glm::mat4 GetViewMatrix();
 private:
+	float yaw;
+	float pitch;
 	glm::mat4 viewMatrix;
-	//glm::mat4 projMatrix;
-	//glm::vec3 cameraTarget;
-
+	glm::vec3 position;
+	glm::vec3 direction;
+	glm::vec3 upVector;
+	glm::vec3 worldUp;
+	glm::vec3 rightVector;
 };
 #endif

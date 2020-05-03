@@ -15,13 +15,7 @@ Renderer::Renderer(Window* window)
 {
 	renderWindow = window->getWindow();
 
-	renderCamera = new Camera({0.f,0.f,500.f});
-
-	//viewMatrix = glm::lookAt(
-	//	glm::vec3(0.f, 0.f, 500.f), // position
-	//	glm::vec3(0.0f, 0.0f, 0.f), // look at
-	//	glm::vec3(0.0f, 1.0f, 0.f)  // up
-	//);
+	renderCamera = new Camera({ 0.f,0.f,500.f }, { 0.f,1.f,0.f }, {0.f,0.f,-1.f},-90.f,0.f);
 	programID = NULL;
 
 	//projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
@@ -31,7 +25,6 @@ Renderer::Renderer(Window* window)
 	//model = glm::rotate(model, glm::radians(angle), axis);
 
 	SetShader();
-	//renderCamera->Translate(-60.f, { 1.0f,0.0f,0.0f });
 }
 
 Renderer::~Renderer()
