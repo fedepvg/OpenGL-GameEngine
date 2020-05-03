@@ -102,6 +102,8 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 			vector.z = mesh->mNormals[i].z;
 			vertex.normal = vector;
 		}
+		else
+			vertex.normal = glm::vec3(0.0f);
 		// texture coordinates
 		if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
 		{
@@ -122,6 +124,8 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 			vector.z = mesh->mTangents[i].z;
 			vertex.tangent = vector;
 		}
+		else
+			vertex.tangent = glm::vec3(0.0f);
 		if (mesh->mBitangents != NULL)
 		{
 			// bitangent
@@ -130,6 +134,8 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 			vector.z = mesh->mBitangents[i].z;
 			vertex.bitangent = vector;
 		}
+		else
+			vertex.bitangent = glm::vec3(0.0f);
 		vertices.push_back(vertex);
 	}
 	// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.

@@ -19,8 +19,10 @@ Renderer::Renderer(Window* window)
 	programID = NULL;
 
 	//projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
-	projMatrix = glm::perspective(45.0f, window->GetWidth()/ window->GetHeight(), 0.f, 100.f);
+	projMatrix = glm::perspective(45.0f, window->GetWidth()/ window->GetHeight(), 1.f, 1000.f);
 
+	glEnable(GL_DEPTH_TEST);
+	
 	//viewMatrix = glm::rotate(viewMatrix, glm::radians(0.f), glm::vec3(0.f, 1.f, 0.f));
 	//model = glm::rotate(model, glm::radians(angle), axis);
 
