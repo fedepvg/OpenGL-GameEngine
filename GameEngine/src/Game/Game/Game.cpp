@@ -1,9 +1,10 @@
 #include "Game.h"
 #include "Engine/BaseGame.h"
 #include "Engine/Texture.h"
-#include "Engine/Model.h"
 
 #include <iostream>
+
+#include "FirstPersonCameraController.h"
 
 Game::Game(int width, int height) : BaseGame(width, height)
 {
@@ -15,6 +16,7 @@ Game::~Game()
 	delete shape;
 	delete shape2;
 	delete anim;
+	delete cursor;
 }
 
 void Game::Init()
@@ -22,20 +24,25 @@ void Game::Init()
 	Texture bokeTex("../res/BOKEE.png");
 	Texture comuTex("../res/texture.png");
 	Texture animTex("../res/anim.png");
-	ourModel = new Model("../res/model/backpack.obj");
 
-	shape = new Shape({ 0,0,0 }, {100,100,0}, &bokeTex);
-	shape2 = new Shape({ 30.f,30.f,0 }, {100,100,0 }, &comuTex);
+	shape = new Shape({ 0,0,0 }, { 100,100,0 }, &bokeTex);
+	shape2 = new Shape({ 30.f,30.f,0 }, { 100,100,0 }, &comuTex);
 	anim = new Sprite({ 0,0,0 }, { 368, 200, 0 }, &animTex);
 	anim->CreateAnimation(368, 368 / 8, 4);
 	anim->SetCurrentAnimation(8, 0, 2);
+	testModel = new Model("../res/model/backpack.obj");
 	safePositionExists = false;
 	safePosition = { 0.f,0.f };
+	fpsCamera = new FirstPersonCameraController(renderCamera, cursor);
+	fpsCamera->SetSensitivity(0.3f);
 	GameLoop();
 }
 
 void Game::Update(const float deltaTime)
 {
+	if (cursor->GetCursorMode() != Cursor::CursorMode::capture)
+		cursor->SetCursorMode(Cursor::CursorMode::capture);
+
 	//scaling
 	anim->UpdateCurrentAnimation(deltaTime);
 
@@ -79,23 +86,9 @@ void Game::Update(const float deltaTime)
 	}
 
 	//translating
-	if (input->GetKey(GLFW_KEY_A))
+	if (input->GetKey(GLFW_KEY_X))
 	{
-		renderCamera->Translate(600.f * deltaTime, { 1.0f,0.0f,0.0f });
-	}
-
-	if (input->GetKey(GLFW_KEY_D))
-	{
-		renderCamera->Translate(-600.f * deltaTime, { 1.0f,0.0f,0.0f });
-	}
-
-	if (input->GetKey(GLFW_KEY_W))
-	{
-		renderCamera->Translate(600.f * deltaTime, { 0.0f,0.0f,1.0f });
-	}
-	if (input->GetKey(GLFW_KEY_S))
-	{
-		renderCamera->Translate(-600.f * deltaTime, { 0.0f,0.0f,1.0f });
+		renderCamera->RotatePitch(10.f);
 	}
 
 	if (input->GetKey(GLFW_KEY_LEFT))
@@ -123,10 +116,10 @@ void Game::Update(const float deltaTime)
 
 	//collisions
 
-	if (collisionManager->CheckCollision(*shape, *shape2)) 
+	if (collisionManager->CheckCollision(*shape, *shape2))
 	{
-		if(safePositionExists)
-		shape2->SetPosition(safePosition);
+		if (safePositionExists)
+			shape2->SetPosition(safePosition);
 	}
 	else
 	{
@@ -134,11 +127,33 @@ void Game::Update(const float deltaTime)
 		safePositionExists = true;
 	}
 
-	if (input->GetKey(GLFW_KEY_SPACE)) 
+	if (input->GetKey(GLFW_KEY_SPACE))
 	{
 		shape2->SetPosition({ 30.f,30.f });
 	}
-	
 
-	ourModel->Draw();
+	testModel->Draw();
+
+	//camera
+
+	if (input->GetKey(GLFW_KEY_A))
+	{
+		fpsCamera->TranslateX(-10.f);
+	}
+
+	if (input->GetKey(GLFW_KEY_D))
+	{
+		fpsCamera->TranslateX(10.f);
+	}
+
+	if (input->GetKey(GLFW_KEY_W))
+	{
+		fpsCamera->TranslateY(10.f);
+	}
+	if (input->GetKey(GLFW_KEY_S))
+	{
+		fpsCamera->TranslateY(-10.f);
+	}
+
+	fpsCamera->Update();
 }

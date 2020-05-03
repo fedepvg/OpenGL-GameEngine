@@ -61,6 +61,10 @@ int BaseGame::GameLoop()
 		deltaTime = currentTime - lastFrameTime;
 		lastFrameTime = currentTime;
 
+		//use renderer		
+		renderer->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 		Update(deltaTime);
 		//input processing
 		if (input->GetKey(GLFW_KEY_ESCAPE))
@@ -69,8 +73,6 @@ int BaseGame::GameLoop()
 		//update camera
 		renderCamera->Update();
 
-		//use renderer		
-		renderer->SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
 		renderer->Render(entityList);
 
 		/* Poll for and process events */

@@ -5,6 +5,7 @@
 #include "Engine/Shape.h"
 #include "Engine/Sprite.h"
 #include "Engine/Model.h"
+#include "FirstPersonCameraController.h"
 
 class Game : public BaseGame
 {
@@ -14,12 +15,13 @@ public:
 	void Init();
 	void Update(const float deltaTime);
 private:
+	FirstPersonCameraController* fpsCamera;
 	Shape* shape;
 	Shape* shape2;
 	Sprite* anim;
+	Model* testModel;
 	glm::vec2 safePosition;
 	bool safePositionExists;
-	Model* ourModel;
 };
 
 #endif

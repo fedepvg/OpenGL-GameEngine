@@ -43,8 +43,8 @@ void Model::Draw(/*Shader shader*/)
 	glUseProgram(programID);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	//model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.8f, 1.8f, 1.8f));
+	model = glm::translate(model, glm::vec3(0.0f, -100.75f, 0.0f));
+	model = glm::scale(model, glm::vec3(10.8f, 10.8f, 10.8f));
 	unsigned int uniModel = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 	

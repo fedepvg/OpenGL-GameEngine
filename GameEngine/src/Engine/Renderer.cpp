@@ -40,7 +40,7 @@ Renderer::~Renderer()
 void Renderer::Render(std::list<Entity*> objectList)// const
 {
 	/* Render here */
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 
 	/*draw elements*/
 	for (std::list<Entity*>::iterator it = objectList.begin(); it != objectList.end(); it++)
