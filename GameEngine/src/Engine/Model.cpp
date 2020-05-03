@@ -2,12 +2,16 @@
 
 #include "Mesh.h"
 #include "Texture.h"
+#include "LoadShader.h"
 
 #include <assimp/Importer.hpp> 
 #include <assimp/scene.h>      
 #include <assimp/postprocess.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
+
+#include "Entity.h"
 
 Model::Model(string const &path)
 {
@@ -16,6 +20,8 @@ Model::Model(string const &path)
 
 void Model::LoadModel(string const &path)
 {
+	programID = LoadShaders("../src/Engine/3DVertexShader.vertexshader", "../src/Engine/3DFragmentShader.fragmentshader");
+	
 	// read file via ASSIMP
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -34,8 +40,24 @@ void Model::LoadModel(string const &path)
 
 void Model::Draw(/*Shader shader*/)
 {
+	glUseProgram(programID);
+
+	glm::mat4 model = glm::mat4(1.0f);
+	//model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+	model = glm::scale(model, glm::vec3(1.8f, 1.8f, 1.8f));
+	unsigned int uniModel = glGetUniformLocation(programID, "model");
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+	
+	glm::mat4 proj = Entity::renderer->GetProjMatrix();
+	glm::mat4 view = Entity::renderer->GetCamera()->GetViewMatrix();
+
+	unsigned int uniView = glGetUniformLocation(programID, "view");
+	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+	unsigned int uniProj = glGetUniformLocation(programID, "proj");
+	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+	
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(/*shader*/);
+		meshes[i].Draw(programID/*shader*/);
 }
 
 void Model::ProcessNode(aiNode *node, const aiScene *scene)
@@ -73,10 +95,13 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		vector.z = mesh->mVertices[i].z;
 		vertex.position = vector;
 		// normals
-		vector.x = mesh->mNormals[i].x;
-		vector.y = mesh->mNormals[i].y;
-		vector.z = mesh->mNormals[i].z;
-		vertex.normal = vector;
+		if (mesh->mNormals != NULL)
+		{
+			vector.x = mesh->mNormals[i].x;
+			vector.y = mesh->mNormals[i].y;
+			vector.z = mesh->mNormals[i].z;
+			vertex.normal = vector;
+		}
 		// texture coordinates
 		if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
 		{
@@ -89,16 +114,22 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 		}
 		else
 			vertex.texCoords = glm::vec2(0.0f, 0.0f);
-		// tangent
-		vector.x = mesh->mTangents[i].x;
-		vector.y = mesh->mTangents[i].y;
-		vector.z = mesh->mTangents[i].z;
-		vertex.tangent = vector;
-		// bitangent
-		vector.x = mesh->mBitangents[i].x;
-		vector.y = mesh->mBitangents[i].y;
-		vector.z = mesh->mBitangents[i].z;
-		vertex.bitangent = vector;
+		if (mesh->mTangents != NULL)
+		{
+			// tangent
+			vector.x = mesh->mTangents[i].x;
+			vector.y = mesh->mTangents[i].y;
+			vector.z = mesh->mTangents[i].z;
+			vertex.tangent = vector;
+		}
+		if (mesh->mBitangents != NULL)
+		{
+			// bitangent
+			vector.x = mesh->mBitangents[i].x;
+			vector.y = mesh->mBitangents[i].y;
+			vector.z = mesh->mBitangents[i].z;
+			vertex.bitangent = vector;
+		}
 		vertices.push_back(vertex);
 	}
 	// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.

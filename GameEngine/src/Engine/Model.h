@@ -32,7 +32,7 @@ public:
 
 private:
 	const aiScene* scene;
-	
+	unsigned int programID;
 	/*  Functions   */
 	// loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
 

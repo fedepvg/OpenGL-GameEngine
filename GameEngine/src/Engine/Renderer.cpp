@@ -90,10 +90,12 @@ void Renderer::SetShader()
 	GLint uniProj = glGetUniformLocation(programID, "proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(projMatrix));
 
-	glUniform1i(glGetUniformLocation(programID, "tex"), 0);
+	glUniform1i(glGetUniformLocation(programID, "aTexCoord"), 0);
 
 	uniModel = glGetUniformLocation(programID, "model");
 	uniView = glGetUniformLocation(programID, "view");
+
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 void Renderer::RenderEntity(Entity* entityToRender) 
@@ -107,5 +109,4 @@ void Renderer::RenderEntity(Entity* entityToRender)
 	glBindTexture(GL_TEXTURE_2D, entityToRender->GetTexturePointer()->GetTexture());
 
 	glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
-	std::cout << std::endl;
 }

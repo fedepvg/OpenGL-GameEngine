@@ -1,6 +1,8 @@
 #ifndef MESH_H
 #define MESH_H
 
+#define EXPORTDLL _declspec(dllexport)
+
 #include <string>
 //#include <fstream>
 //#include <sstream>
@@ -11,6 +13,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 using namespace std;
+
+class LoadShader;
 
 struct Vertex {
 	// position
@@ -31,7 +35,7 @@ struct TextureStruct {
 	string path;
 };
 
-class Mesh {
+class EXPORTDLL Mesh {
 public:
 	/*  Mesh Data  */
 	vector<Vertex> vertices;
@@ -43,7 +47,7 @@ public:
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures);
 
 	// render the mesh
-	void Draw();
+	void Draw(unsigned int program);
 
 private:
 	/*  Render data  */

@@ -15,14 +15,9 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 	SetupMesh();
 }
 
-void Mesh::Draw(/*Shader shader*/)
+void Mesh::Draw(unsigned int program/*Shader shader*/)
 {
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
-
-	glUseProgram(Entity::programID);
-	glUniformMatrix4fv(glGetUniformLocation(Entity::programID, "model"), 1, GL_FALSE, &model[0][0]);
+	
 	
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
@@ -45,7 +40,7 @@ void Mesh::Draw(/*Shader shader*/)
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
 
 		// now set the sampler to the correct texture unit
-		glUniform1i(glGetUniformLocation(Entity::programID/*shader.ID*/, "tex"/*(name + number).c_str())*/), i);
+		glUniform1i(glGetUniformLocation(program/*shader.ID*/, "texture_diffuse1"/*(name + number).c_str())*/), i);
 		// and finally bind the texture
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}

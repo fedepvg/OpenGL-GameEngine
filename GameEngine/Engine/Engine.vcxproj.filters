@@ -22,6 +22,12 @@
     <None Include="..\src\Engine\SimpleVertexShader.vertexshader">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="..\src\Engine\3DVertexShader.vertexshader">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="..\src\Engine\3DFragmentShader.fragmentshader">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Engine\BaseGame.h">
