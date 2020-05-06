@@ -69,7 +69,7 @@ StyleCopReport.xml
 *_h.h
 *.ilk
 *.meta
-*.obj
+#*.obj
 *.iobj
 *.pch
 *.pdb
@@ -94,6 +94,9 @@ StyleCopReport.xml
 
 # Chutzpah Test files
 _Chutzpah*
+
+#ignore object files
+obj/*
 
 # Visual C++ cache files
 ipch/
