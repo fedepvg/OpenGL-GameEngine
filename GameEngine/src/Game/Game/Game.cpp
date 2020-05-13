@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Engine/BaseGame.h"
 #include "Engine/Texture.h"
+#include "Engine/Shader.h"
 
 #include <iostream>
 
@@ -17,6 +18,7 @@ Game::~Game()
 	delete shape2;
 	delete anim;
 	delete cursor;
+	delete ourShader;
 }
 
 void Game::Init()
@@ -30,7 +32,8 @@ void Game::Init()
 	anim = new Sprite({ 0,0,0 }, { 368, 200, 0 }, &animTex);
 	anim->CreateAnimation(368, 368 / 8, 4);
 	anim->SetCurrentAnimation(8, 0, 2);
-	testModel = new Model("../res/model/backpack.obj");
+	ourShader = new Shader("../src/Engine/3DVertexShader.vertexshader", "../src/Engine/3DFragmentShader.fragmentshader");
+	testModel = new Model("../res/model/backpack.obj", ourShader);
 	safePositionExists = false;
 	safePosition = { 0.f,0.f };
 	fpsCamera = new FirstPersonCameraController(renderCamera, cursor);

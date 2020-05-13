@@ -15,6 +15,7 @@
 using namespace std;
 
 class LoadShader;
+class Shader;
 
 struct Vertex {
 	// position
@@ -47,7 +48,7 @@ public:
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures);
 
 	// render the mesh
-	void Draw(unsigned int program);
+	void Draw(Shader* shader /*unsigned int program*/);
 
 private:
 	/*  Render data  */

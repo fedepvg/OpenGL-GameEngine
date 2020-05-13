@@ -16,6 +16,7 @@ public:
 	void Update(const float deltaTime);
 private:
 	FirstPersonCameraController* fpsCamera;
+	Shader* ourShader;
 	Shape* shape;
 	Shape* shape2;
 	Sprite* anim;

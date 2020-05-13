@@ -3,7 +3,8 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "Entity.h"
+//#include "Entity.h"
+#include "Shader.h"
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures)
 {
@@ -15,7 +16,7 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 	SetupMesh();
 }
 
-void Mesh::Draw(unsigned int program/*Shader shader*/)
+void Mesh::Draw(/*unsigned int program*/Shader* shader)
 {
 	
 	
@@ -46,7 +47,9 @@ void Mesh::Draw(unsigned int program/*Shader shader*/)
 	//}
 	
 	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(program/*shader.ID*/, "texture_diffuse1"/*(name + number).c_str())*/), 0);
+	shader->SetInt("texture_diffuse1", 0);
+
+	//glUniform1i(glGetUniformLocation(program/*shader.ID*/, "texture_diffuse1"/*(name + number).c_str())*/), 0);
 	// and finally bind the texture
 	glBindTexture(GL_TEXTURE_2D, textures[0].id);
 

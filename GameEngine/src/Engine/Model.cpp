@@ -2,7 +2,8 @@
 
 #include "Mesh.h"
 #include "Texture.h"
-#include "LoadShader.h"
+//#include "LoadShader.h"
+#include "Shader.h"
 
 #include <assimp/Importer.hpp> 
 #include <assimp/scene.h>      
@@ -13,15 +14,14 @@
 
 #include "Entity.h"
 
-Model::Model(string const &path)
+Model::Model(string const &path, Shader* shader)
 {
 	LoadModel(path);
+	this->shader = shader;
 }
 
 void Model::LoadModel(string const &path)
-{
-	programID = LoadShaders("../src/Engine/3DVertexShader.vertexshader", "../src/Engine/3DFragmentShader.fragmentshader");
-	
+{	
 	// read file via ASSIMP
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -40,24 +40,26 @@ void Model::LoadModel(string const &path)
 
 void Model::Draw(/*Shader shader*/)
 {
-	glUseProgram(programID);
+	shader->Use();
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.0f, -100.75f, 0.0f));
 	model = glm::scale(model, glm::vec3(10.8f, 10.8f, 10.8f));
-	unsigned int uniModel = glGetUniformLocation(programID, "model");
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+	shader->SetMat4("model", model);
 	
 	glm::mat4 proj = Entity::renderer->GetProjMatrix();
 	glm::mat4 view = Entity::renderer->GetCamera()->GetViewMatrix();
 
-	unsigned int uniView = glGetUniformLocation(programID, "view");
-	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-	unsigned int uniProj = glGetUniformLocation(programID, "proj");
-	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+	//unsigned int uniView = glGetUniformLocation(programID, "view");
+	//glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+	//unsigned int uniProj = glGetUniformLocation(programID, "proj");
+	//glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+
+	shader->SetMat4("view", view);
+	shader->SetMat4("proj", proj);
 	
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(programID/*shader*/);
+		meshes[i].Draw(/*programID*/shader);
 }
 
 void Model::ProcessNode(aiNode *node, const aiScene *scene)
