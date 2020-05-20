@@ -174,13 +174,14 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 	return Mesh(vertices, indices, textures);
 }
 
-vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName)
+vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, string typeName)
 {
 	vector<TextureStruct> textures;
-	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+	aiTextureType texType = static_cast<aiTextureType>(type);
+	for (unsigned int i = 0; i < mat->GetTextureCount(texType); i++)
 	{
 		aiString str;
-		mat->GetTexture(type, i, &str);
+		mat->GetTexture(texType, i, &str);
 		// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 		bool skip = false;
 		for (unsigned int j = 0; j < textures_loaded.size(); j++)

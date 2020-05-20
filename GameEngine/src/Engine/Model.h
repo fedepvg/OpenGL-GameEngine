@@ -4,7 +4,6 @@
 #define EXPORTDLL _declspec(dllexport)
 
 #include "Mesh.h"
-#include "assimp/scene.h"
 
 #include <vector>
 
@@ -12,6 +11,11 @@ using namespace std;
 
 class Texture;
 class Shader;
+
+struct aiScene;
+struct aiNode;
+struct aiMesh;
+struct aiMaterial;
 
 class EXPORTDLL Model
 {
@@ -44,7 +48,7 @@ private:
 
 	// checks all material textures of a given type and loads the textures if they're not loaded yet.
 	// the required info is returned as a Texture struct.
-	vector<TextureStruct> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
+	vector<TextureStruct> LoadMaterialTextures(aiMaterial *mat, int type, string typeName);
 };
 
 #endif
