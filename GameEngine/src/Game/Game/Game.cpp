@@ -41,10 +41,16 @@ void Game::Init()
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
-	ourShader->SetVec3("lightDirection", {0.f,0.f,1.f});
-	ourShader->SetVec3("lightAmbient", { 1.f,1.f,1.f });
-	ourShader->SetVec3("lightDiffuse", { 1.f,1.f,1.f });
-	ourShader->SetVec3("lightSpecular", { 1.f,1.f,1.f });
+	glm::vec3 dir = { 0.f,0.f,1.f };
+	glm::vec3 ambient = { 1.f,1.f,1.f };
+	glm::vec3 diffuse = { 1.f,1.f,1.f };
+	glm::vec3 specular = { 1.f,1.f,1.f };
+
+	
+	ourShader->SetVec3("lightDirection", dir);
+	ourShader->SetVec3("lightAmbient", ambient);
+	ourShader->SetVec3("lightDiffuse", diffuse);
+	ourShader->SetVec3("lightSpecular", specular);
 	
 	testModel = new Model("../res/model/backpack.obj", ourShader);
 	GameLoop();
@@ -52,7 +58,15 @@ void Game::Init()
 
 void Game::Update(const float deltaTime)
 {
+	glm::vec3 dir = { 0.f,0.5f,-1.f };
+	glm::vec3 ambient = { 0.1f,0.1f,0.1f };
+	glm::vec3 diffuse = { 0.8f,0.5f,0.5f };
+	glm::vec3 specular = { 1.f,1.f,1.f };
 
+	ourShader->SetVec3("lightDirection", dir);
+	ourShader->SetVec3("lightAmbient", ambient);
+	ourShader->SetVec3("lightDiffuse", diffuse);
+	ourShader->SetVec3("lightSpecular", specular);
 	//scaling
 	//anim->UpdateCurrentAnimation(deltaTime);
 
