@@ -149,6 +149,7 @@
     <ClCompile Include="..\src\Engine\Camera.cpp" />
     <ClCompile Include="..\src\Engine\CollisionManager.cpp" />
     <ClCompile Include="..\src\Engine\Cursor.cpp" />
+    <ClCompile Include="..\src\Engine\DirectionalLight.cpp" />
     <ClCompile Include="..\src\Engine\Entity.cpp" />
     <ClCompile Include="..\src\Engine\Input.cpp" />
     <ClCompile Include="..\src\Engine\LoadShader.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="..\src\Engine\Camera.h" />
     <ClInclude Include="..\src\Engine\CollisionManager.h" />
     <ClInclude Include="..\src\Engine\Cursor.h" />
+    <ClInclude Include="..\src\Engine\DirectionalLight.h" />
     <ClInclude Include="..\src\Engine\Entity.h" />
     <ClInclude Include="..\src\Engine\Input.h" />
     <ClInclude Include="..\src\Engine\LoadShader.h" />

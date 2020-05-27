@@ -52,6 +52,11 @@ void  Camera::Translate(glm::vec3 translationVector)
 	position += translationVector;
 }
 
+glm::vec3 Camera::GetPosition()
+{
+	return position;
+}
+
 glm::vec3 Camera::GetRightVector()
 {
 	return rightVector;

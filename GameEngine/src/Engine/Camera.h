@@ -13,6 +13,7 @@ public:
 	void RotatePitch(float angle);
 	void RotateYaw(float angle);
 	void Translate(glm::vec3 translationVector);
+	glm::vec3 GetPosition();
 	glm::vec3 GetRightVector();
 	glm::vec3 GetDirection();
 	glm::mat4 GetViewMatrix();

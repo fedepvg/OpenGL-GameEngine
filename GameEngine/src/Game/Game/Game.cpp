@@ -33,11 +33,20 @@ void Game::Init()
 	anim->CreateAnimation(368, 368 / 8, 4);
 	anim->SetCurrentAnimation(8, 0, 2);*/
 	ourShader = new Shader("../src/Engine/3DVertexShader.vertexshader", "../src/Engine/3DFragmentShader.fragmentshader");
-	testModel = new Model("../res/model/backpack.obj", ourShader);
 	safePositionExists = false;
 	safePosition = { 0.f,0.f };
 	fpsCamera = new FirstPersonCameraController(renderCamera, cursor);
 	fpsCamera->SetSensitivity(0.3f);
+	//shader initialization
+	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
+	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
+
+	ourShader->SetVec3("lightDirection", {0.f,0.f,1.f});
+	ourShader->SetVec3("lightAmbient", { 1.f,1.f,1.f });
+	ourShader->SetVec3("lightDiffuse", { 1.f,1.f,1.f });
+	ourShader->SetVec3("lightSpecular", { 1.f,1.f,1.f });
+	
+	testModel = new Model("../res/model/backpack.obj", ourShader);
 	GameLoop();
 }
 
