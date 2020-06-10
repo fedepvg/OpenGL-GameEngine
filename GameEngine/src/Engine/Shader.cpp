@@ -3,6 +3,7 @@
 #include "Shader.h"
 
 #include "LoadShader.h"
+#include "DirectionalLight.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -30,4 +31,12 @@ void Shader::SetVec3(const std::string& name, const glm::vec3& value) const
 void Shader::SetInt(const std::string& name, int value) const
 {
 	glUniform1i(glGetUniformLocation(shaderIndex, name.c_str()), value);
+}
+
+void Shader::PassDirectionalLightValues(DirectionalLight* dirLight)
+{
+	SetVec3("lightDirection", dirLight->dir);
+	SetVec3("lightAmbient", dirLight->ambient);
+	SetVec3("lightDiffuse", dirLight->diffuse);
+	SetVec3("lightSpecular", dirLight->specular);
 }
