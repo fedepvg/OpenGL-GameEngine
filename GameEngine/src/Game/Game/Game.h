@@ -7,6 +7,8 @@
 #include "Engine/Model.h"
 #include "FirstPersonCameraController.h"
 
+class DirectionalLight;
+
 class Game : public BaseGame
 {
 public:
@@ -21,6 +23,7 @@ private:
 	Shape* shape2;
 	Sprite* anim;
 	Model* testModel;
+	DirectionalLight* dirLight;
 	glm::vec2 safePosition;
 	bool safePositionExists;
 };

@@ -2,6 +2,7 @@
 #include "Engine/BaseGame.h"
 #include "Engine/Texture.h"
 #include "Engine/Shader.h"
+#include "Engine/DirectionalLight.h"
 
 #include <iostream>
 
@@ -41,16 +42,19 @@ void Game::Init()
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
-	glm::vec3 dir = { 0.f,0.f,1.f };
+	dirLight = new DirectionalLight(glm::vec3 { 0.f,0.5f,-1.f }, glm::vec3{ 0.1f,0.1f,0.1f },
+		glm::vec3{ 0.8f,0.5f,0.5f }, glm::vec3{ 1.f,1.f,1.f });
+	
+	/*glm::vec3 dir = { 0.f,0.f,1.f };
 	glm::vec3 ambient = { 1.f,1.f,1.f };
 	glm::vec3 diffuse = { 1.f,1.f,1.f };
-	glm::vec3 specular = { 1.f,1.f,1.f };
+	glm::vec3 specular = { 1.f,1.f,1.f };*/
 
 	
-	ourShader->SetVec3("lightDirection", dir);
+	/*ourShader->SetVec3("lightDirection", dir);
 	ourShader->SetVec3("lightAmbient", ambient);
 	ourShader->SetVec3("lightDiffuse", diffuse);
-	ourShader->SetVec3("lightSpecular", specular);
+	ourShader->SetVec3("lightSpecular", specular);*/
 	
 	testModel = new Model("../res/model/backpack.obj", ourShader);
 	GameLoop();
@@ -58,7 +62,7 @@ void Game::Init()
 
 void Game::Update(const float deltaTime)
 {
-	glm::vec3 dir = { 0.f,0.5f,-1.f };
+	/*glm::vec3 dir = { 0.f,0.5f,-1.f };
 	glm::vec3 ambient = { 0.1f,0.1f,0.1f };
 	glm::vec3 diffuse = { 0.8f,0.5f,0.5f };
 	glm::vec3 specular = { 1.f,1.f,1.f };
@@ -66,7 +70,13 @@ void Game::Update(const float deltaTime)
 	ourShader->SetVec3("lightDirection", dir);
 	ourShader->SetVec3("lightAmbient", ambient);
 	ourShader->SetVec3("lightDiffuse", diffuse);
-	ourShader->SetVec3("lightSpecular", specular);
+	ourShader->SetVec3("lightSpecular", specular);*/
+
+	ourShader->SetVec3("lightDirection", dirLight->dir);
+	ourShader->SetVec3("lightAmbient", dirLight->ambient);
+	ourShader->SetVec3("lightDiffuse", dirLight->diffuse);
+	ourShader->SetVec3("lightSpecular", dirLight->specular);
+	
 	//scaling
 	//anim->UpdateCurrentAnimation(deltaTime);
 
