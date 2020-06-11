@@ -15,7 +15,15 @@ uniform mat4 proj;
 void main()
 {
 	TexCoord = aTexCoord;
-	gl_Position = proj * view * model * vec4(position, 1.0);
-	FragPos = vec3(model * vec4(position, 1.0));
+	mat4 mvp = proj * view * model;
+	gl_Position = mvp * vec4(position, 1.0);
+	//FragPos = vec3(model * vec4(position, 1.0));
+
+	mat3 normalMatrix = mat3(mvp);
+	normalMatrix = inverse(normalMatrix);
+	normalMatrix = transpose(normalMatrix);
+	vNormal = normalize(aNormal * normalMatrix);
+	// You should also send your tranformed position to the fragment shader
+	FragPos = vec3(mvp * vec4(position, 1.0));
 	vNormal = aNormal;
 }
