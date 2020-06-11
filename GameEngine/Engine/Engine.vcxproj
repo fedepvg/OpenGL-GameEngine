@@ -151,6 +151,7 @@
     <ClCompile Include="..\src\Engine\Cursor.cpp" />
     <ClCompile Include="..\src\Engine\DirectionalLight.cpp" />
     <ClCompile Include="..\src\Engine\Entity.cpp" />
+    <ClCompile Include="..\src\Engine\Entity3D.cpp" />
     <ClCompile Include="..\src\Engine\Input.cpp" />
     <ClCompile Include="..\src\Engine\LoadShader.cpp" />
     <ClCompile Include="..\src\Engine\Mesh.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\src\Engine\Cursor.h" />
     <ClInclude Include="..\src\Engine\DirectionalLight.h" />
     <ClInclude Include="..\src\Engine\Entity.h" />
+    <ClInclude Include="..\src\Engine\Entity3D.h" />
     <ClInclude Include="..\src\Engine\Input.h" />
     <ClInclude Include="..\src\Engine\LoadShader.h" />
     <ClInclude Include="..\src\Engine\Mesh.h" />

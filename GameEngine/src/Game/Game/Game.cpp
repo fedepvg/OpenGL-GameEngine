@@ -73,5 +73,10 @@ void Game::Update(const float deltaTime)
 		fpsCamera->TranslateY(-10.f);
 	}
 
+	if (input->GetKey(GLFW_KEY_RIGHT))
+	{
+		testModel->Rotate(100.f * deltaTime, glm::vec3(0.f,1.f,0));
+	}
+
 	fpsCamera->Update();
 }

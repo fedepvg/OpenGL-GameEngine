@@ -13,11 +13,16 @@
 #include <iostream>
 
 #include "Entity.h"
+#include "Entity3D.h"
 
 Model::Model(string const &path, Shader* shader)
 {
 	LoadModel(path);
 	this->shader = shader;
+
+	modelMat = glm::mat4(1.0f);
+	modelMat = glm::translate(modelMat, glm::vec3(0.0f, -100.75f, 0.0f));
+	modelMat = glm::scale(modelMat, glm::vec3(10.8f, 10.8f, 10.8f));
 }
 
 void Model::LoadModel(string const &path)
@@ -35,17 +40,13 @@ void Model::LoadModel(string const &path)
 	directory = path.substr(0, path.find_last_of('/'));
 
 	// process ASSIMP's root node recursively
-	ProcessNode(scene->mRootNode, scene);
+	ProcessNode(scene->mRootNode, scene, nullptr);
 }
 
-void Model::Draw(/*Shader shader*/)
+void Model::Draw()
 {
 	shader->Use();
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -100.75f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.8f, 10.8f, 10.8f));
-	shader->SetMat4("model", model);
+	shader->SetMat4("model", modelMat);
 	
 	glm::mat4 proj = Entity::renderer->GetProjMatrix();
 	glm::mat4 view = Entity::renderer->GetCamera()->GetViewMatrix();
@@ -58,34 +59,48 @@ void Model::Draw(/*Shader shader*/)
 	shader->SetMat4("view", view);
 	shader->SetMat4("proj", proj);
 	
-	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(/*programID*/shader);
+	root->Draw(shader);
 }
 
-void Model::ProcessNode(aiNode *node, const aiScene *scene)
+void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 {
-	// process each mesh located at the current node
-	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	Entity3D* thisNode = nullptr;
+	if(node->mNumMeshes == 0)
 	{
-		// the node object only contains indices to index the actual objects in the scene. 
-		// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(ProcessMesh(mesh, scene));
+		thisNode = new Entity3D(glm::vec3(0.f), parent, shader);
+		if (parent == nullptr)
+			root = thisNode;
+		nodes.push_back(thisNode);
+	}
+	else
+	{
+		// process each mesh located at the current node
+		for (unsigned int i = 0; i < node->mNumMeshes; i++)
+		{
+			// the node object only contains indices to index the actual objects in the scene. 
+			// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
+			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			thisNode = new Mesh(ProcessMesh(mesh, scene, parent, shader));
+			nodes.push_back(static_cast<Mesh*>(thisNode));
+		}
 	}
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene);
+		ProcessNode(node->mChildren[i], scene, thisNode);
 	}
 }
 
-Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
+Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene, Entity3D* parent, Shader* shader)
 {
 	// data to fill
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	vector<TextureStruct> textures;
 
+	if (mesh->mNumVertices <= 1)
+		std::cout << "zarlanga";
+	
 	// Walk through each of the mesh's vertices
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
@@ -171,7 +186,12 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	// return a mesh object created from the extracted mesh data
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices, textures, parent, shader);
+}
+
+void Model::Rotate(float angle, glm::vec3 axis)
+{
+	modelMat = glm::rotate(modelMat, glm::radians(angle), axis);
 }
 
 vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, string typeName)

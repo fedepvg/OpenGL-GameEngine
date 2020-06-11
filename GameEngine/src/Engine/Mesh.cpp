@@ -6,11 +6,12 @@
 //#include "Entity.h"
 #include "Shader.h"
 
-Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures)
+Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures, Entity3D* newParent, Shader* shader): Entity3D(glm::vec3(1.f),newParent, shader)
 {
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textures = textures;
+	this->parent = newParent;
 
 	// now that we have all the required data, set the vertex buffers and its attribute pointers.
 	SetupMesh();
@@ -18,8 +19,6 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 
 void Mesh::Draw(/*unsigned int program*/Shader* shader)
 {
-	
-	
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
@@ -60,6 +59,8 @@ void Mesh::Draw(/*unsigned int program*/Shader* shader)
 
 	// always good practice to set everything back to defaults once configured.
 	glActiveTexture(GL_TEXTURE0);
+	
+	Entity3D::Draw(shader);
 }
 
 void Mesh::SetupMesh()

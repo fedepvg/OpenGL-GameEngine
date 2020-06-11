@@ -11,6 +11,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Entity3D.h"
 
 using namespace std;
 
@@ -36,7 +37,8 @@ struct TextureStruct {
 	string path;
 };
 
-class EXPORTDLL Mesh {
+class EXPORTDLL Mesh : public Entity3D
+{
 public:
 	/*  Mesh Data  */
 	vector<Vertex> vertices;
@@ -45,10 +47,10 @@ public:
 	unsigned int VAO;
 	
 	// constructor
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures);
+	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures, Entity3D* newParent, Shader* shader);
 
 	// render the mesh
-	void Draw(Shader* shader /*unsigned int program*/);
+	void Draw(Shader* shader);
 
 private:
 	/*  Render data  */
