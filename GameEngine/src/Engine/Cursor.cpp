@@ -20,6 +20,7 @@ Cursor::Cursor(Window* activeWindow)
 	}
 	window = activeWindow;
 	glfwSetCursorPosCallback(window->getWindow(), Cursor::mouse_callback);
+	glfwSetCursorPos(window->getWindow(), 0, 0);
 }
 
 Cursor::~Cursor() 
