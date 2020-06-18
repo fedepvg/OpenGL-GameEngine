@@ -32,7 +32,7 @@ void Game::Init()
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
 	dirLight = new DirectionalLight(glm::vec3 { 0.f,0.5f,-1.f }, glm::vec3{ 0.1f,0.1f,0.1f },
-		glm::vec3{ 0.8f,0.5f,0.5f }, glm::vec3{ 1.f,1.f,1.f });
+		glm::vec3{ 1.0f,1.0f,1.0f }, glm::vec3{ 1.f,1.f,1.f });
 	
 	testModel = new Model("../res/model/backpack.obj", ourShader);
 	GameLoop();
@@ -41,7 +41,7 @@ void Game::Init()
 void Game::Update(const float deltaTime)
 {
 	ourShader->PassDirectionalLightValues(dirLight);
-
+	
 	if (cursor->GetCursorMode() != Cursor::CursorMode::capture)
 		cursor->SetCursorMode(Cursor::CursorMode::capture);
 
@@ -50,7 +50,6 @@ void Game::Update(const float deltaTime)
 		renderCamera->RotatePitch(10.f);
 	}
 	
-	testModel->Draw();
 
 	//camera
 
@@ -84,4 +83,10 @@ void Game::Update(const float deltaTime)
 	}
 
 	fpsCamera->Update();
+	
+	renderCamera->Update();
+	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
+	//ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
+	
+	testModel->Draw();
 }

@@ -16,12 +16,11 @@ void main()
 {
 	TexCoord = aTexCoord;
 	mat4 mvp = proj * view * model;
+	mat4 mv = view * model;
 	gl_Position = mvp * vec4(position, 1.0);
 
-	mat3 normalMatrix = mat3(model);
-	normalMatrix = inverse(normalMatrix);
-	normalMatrix = transpose(normalMatrix);
-	vNormal = normalize(aNormal * normalMatrix);
 
-	FragPos = vec3(mvp * vec4(position, 1.0));
+	vNormal = normalize(vec3(mv * vec4(aNormal, 0.0)));
+
+	FragPos = vec3(mv * vec4(position, 1.0));
 }
