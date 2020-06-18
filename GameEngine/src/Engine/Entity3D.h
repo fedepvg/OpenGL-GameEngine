@@ -19,7 +19,10 @@ public:
 	glm::mat4 GetModel();
 	void SetModelMatrix(glm::mat4 modelMat);
 	void SetParent(Entity3D* parent);
-	virtual void Draw(Shader* shader);
+	Shader* GetShader();
+	std::vector<Entity3D*> GetChilds();
+	virtual void Draw();
+	static void SetSceneRoot(Entity3D* root);
 
 protected:
 	glm::vec3 position;
@@ -28,6 +31,9 @@ protected:
 	Entity3D* parent;
 	std::vector<Entity3D*> childs;
 	Shader* shader;
+
+private:
+	static Entity3D* sceneRoot;
 };
 
 #endif

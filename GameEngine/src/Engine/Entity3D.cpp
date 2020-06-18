@@ -6,9 +6,14 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "Shader.h"
 
+Entity3D* Entity3D::sceneRoot = nullptr;
+
 Entity3D::Entity3D()
 {
-	parent = nullptr;
+	if (sceneRoot == nullptr)
+		parent = nullptr;
+	else
+		SetParent(sceneRoot);
 	model = glm::mat4(1.0f);
 	SetPosition(glm::vec3(0.f));
 }
@@ -17,7 +22,10 @@ Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 {
 	model = glm::mat4(1.0f);
 	SetPosition(position);
-	SetParent(parent);
+	if (parent == nullptr && sceneRoot != nullptr)
+		SetParent(sceneRoot);
+	else
+		SetParent(parent);
 	this->shader = shader;
 }
 
@@ -63,8 +71,23 @@ void Entity3D::SetParent(Entity3D* newParent)
 	this->parent = newParent;
 }
 
-void Entity3D::Draw(Shader* shader)
+Shader* Entity3D::GetShader()
+{
+	return shader;
+}
+
+std::vector<Entity3D*> Entity3D::GetChilds()
+{
+	return childs;
+}
+
+void Entity3D::Draw()
 {
 	for (unsigned int i = 0; i < childs.size(); i++)
-		childs[i]->Draw(shader);
+		childs[i]->Draw();
+}
+
+void Entity3D::SetSceneRoot(Entity3D* root)
+{
+	sceneRoot = root;
 }

@@ -17,12 +17,13 @@
 
 Model::Model(string const &path, Shader* shader)
 {
-	LoadModel(path);
 	this->shader = shader;
+	LoadModel(path);
 
 	modelMat = glm::mat4(1.0f);
 	modelMat = glm::translate(modelMat, glm::vec3(0.0f, -100.75f, 0.0f));
 	modelMat = glm::scale(modelMat, glm::vec3(10.8f, 10.8f, 10.8f));
+	root->SetModelMatrix(modelMat);
 }
 
 void Model::LoadModel(string const &path)
@@ -59,7 +60,7 @@ void Model::Draw()
 	shader->SetMat4("view", view);
 	shader->SetMat4("proj", proj);
 	
-	root->Draw(shader);
+	root->Draw();
 }
 
 void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
@@ -221,7 +222,7 @@ vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, str
 			Texture texId(filename.c_str());
 			//texture.id = TextureFromFile(str.C_Str(), this->directory);
 			texture.id = texId.GetTexture();
-			texture.type = typeName;
+			texture.type = typeName + std::to_string(i + 1);
 			texture.path = str.C_Str();
 			textures.push_back(texture);
 			textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.

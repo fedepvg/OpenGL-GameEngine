@@ -21,7 +21,8 @@ public:
 	virtual void Update(const float deltaTime) = 0;
 	std::list<Entity*> static entityList;
 private:
-	Renderer* renderer;
+	//Renderer* renderer;
+	class Renderer3D* renderer3d;
 	float deltaTime;
 	float lastFrameTime;
 protected:
@@ -30,6 +31,7 @@ protected:
 	Cursor* cursor;
 	CollisionManager* collisionManager;
 	Camera* renderCamera;
+	class Entity3D* sceneRoot;
 };
 
 #endif

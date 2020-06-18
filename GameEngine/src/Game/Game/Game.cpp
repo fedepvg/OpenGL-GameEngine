@@ -88,5 +88,5 @@ void Game::Update(const float deltaTime)
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	//ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 	
-	testModel->Draw();
+	//testModel->Draw();
 }

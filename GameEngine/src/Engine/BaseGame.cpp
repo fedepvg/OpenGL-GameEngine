@@ -16,6 +16,7 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
 #include "AssimpImporter.h"
+#include "Renderer3D.h"
 
 using namespace std;
 
@@ -33,18 +34,24 @@ BaseGame::BaseGame(int screenWidth, int screenHeight)
 	input = new Input(window->getWindow());
 	glewExperimental = GL_TRUE;
 	glewInit();
-	renderer = new Renderer(window);
-	Entity::renderer = renderer;
-	Entity::programID = renderer->GetShader();
+	//renderer = new Renderer(window);
+	renderer3d = new Renderer3D(window);
+	//Entity::renderer = renderer;
+	//Entity::programID = renderer->GetShader();
 	lastFrameTime = 0.f;
-	renderCamera = renderer->GetCamera();
+	//renderCamera = renderer->GetCamera();
+	renderCamera = renderer3d->GetCamera();
+	sceneRoot = new Entity3D;
+	Entity3D::SetSceneRoot(sceneRoot);
 }
 
 BaseGame::~BaseGame()
 {
 	delete window;
-	delete renderer;
+	//delete renderer;
+	delete renderer3d;
 	//delete cursor;
+	delete sceneRoot;
 }
 
 int BaseGame::GameLoop()
@@ -62,7 +69,8 @@ int BaseGame::GameLoop()
 		lastFrameTime = currentTime;
 
 		//use renderer		
-		renderer->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
+		//renderer->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
+		renderer3d->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		Update(deltaTime);
@@ -73,7 +81,8 @@ int BaseGame::GameLoop()
 		//update camera
 		renderCamera->Update();
 
-		renderer->Render(entityList);
+		//renderer->Render(entityList);
+		renderer3d->Draw(sceneRoot);
 
 		/* Poll for and process events */
 		glfwPollEvents();

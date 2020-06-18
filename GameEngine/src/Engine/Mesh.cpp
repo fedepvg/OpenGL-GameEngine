@@ -11,13 +11,32 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textures = textures;
-	this->parent = newParent;
+	//this->parent = newParent;
 
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, -100.75f, 0.0f));
+	model = glm::scale(model, glm::vec3(10.8f, 10.8f, 10.8f));
+	
 	// now that we have all the required data, set the vertex buffers and its attribute pointers.
 	SetupMesh();
 }
 
-void Mesh::Draw(/*unsigned int program*/Shader* shader)
+int Mesh::GetElementsSize()
+{
+	return indices.size();
+}
+
+unsigned Mesh::GetVertexArray()
+{
+	return VAO;
+}
+
+vector<TextureStruct> Mesh::GetTextures()
+{
+	return textures;
+}
+
+void Mesh::Draw()
 {
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
@@ -29,19 +48,20 @@ void Mesh::Draw(/*unsigned int program*/Shader* shader)
 	{
 		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
 		// retrieve texture number (the N in diffuse_textureN)
-		string number;
 		string name = textures[i].type;
-		if (name == "texture_diffuse")
-			number = std::to_string(diffuseNr++);
-		else if (name == "texture_specular")
-			number = std::to_string(specularNr++); // transfer unsigned int to stream
-		else if (name == "texture_normal")
-			number = std::to_string(normalNr++); // transfer unsigned int to stream
-		else if (name == "texture_height")
-			number = std::to_string(heightNr++); // transfer unsigned int to stream
+		
+		//string number;
+		//if (name == "texture_diffuse")
+		//	number = std::to_string(diffuseNr++);
+		//else if (name == "texture_specular")
+		//	number = std::to_string(specularNr++); // transfer unsigned int to stream
+		//else if (name == "texture_normal")
+		//	number = std::to_string(normalNr++); // transfer unsigned int to stream
+		//else if (name == "texture_height")
+		//	number = std::to_string(heightNr++); // transfer unsigned int to stream
 	
 		// now set the sampler to the correct texture unit
-		shader->SetInt((name + number).c_str(), i);
+		shader->SetInt(name.c_str(), i);
 		// and finally bind the texture
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
@@ -54,7 +74,7 @@ void Mesh::Draw(/*unsigned int program*/Shader* shader)
 	// always good practice to set everything back to defaults once configured.
 	glActiveTexture(GL_TEXTURE0);
 	
-	Entity3D::Draw(shader);
+	Entity3D::Draw();
 }
 
 void Mesh::SetupMesh()

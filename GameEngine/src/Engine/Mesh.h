@@ -49,8 +49,12 @@ public:
 	// constructor
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureStruct> textures, Entity3D* newParent, Shader* shader);
 
+	int GetElementsSize();
+	unsigned int GetVertexArray();
+	vector<TextureStruct> GetTextures();
+	
 	// render the mesh
-	void Draw(Shader* shader);
+	void Draw();
 
 private:
 	/*  Render data  */
