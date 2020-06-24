@@ -6,7 +6,8 @@
 #include "Shader.h"
 
 #include <assimp/Importer.hpp> 
-#include <assimp/scene.h>      
+#include <assimp/scene.h>
+#include <assimp/matrix4x4.h>
 #include <assimp/postprocess.h>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -14,29 +15,23 @@
 
 #include "Entity.h"
 #include "Entity3D.h"
+#include "AssimpImporter.h"
 
 Model::Model(string const &path, Shader* shader)
 {
 	this->shader = shader;
 	LoadModel(path);
 
-	modelMat = glm::mat4(1.0f);
-	modelMat = glm::translate(modelMat, glm::vec3(0.0f, -100.75f, 0.0f));
-	modelMat = glm::scale(modelMat, glm::vec3(10.8f, 10.8f, 10.8f));
+	//modelMat = glm::mat4(1.0f);
+	//modelMat = glm::translate(modelMat, glm::vec3(0.0f, -100.75f, 0.0f));
+	//modelMat = glm::scale(modelMat, glm::vec3(10.8f, 10.8f, 10.8f));
 	root->SetModelMatrix(modelMat);
 }
 
 void Model::LoadModel(string const &path)
 {	
-	// read file via ASSIMP
-	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	// check for errors
-	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
-	{
-		cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
-		return;
-	}
+	const aiScene* scene = AssimpImporter::ImportModel(path);
+	
 	// retrieve the directory path of the filepath
 	directory = path.substr(0, path.find_last_of('/'));
 
@@ -69,9 +64,10 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 	if(node->mNumMeshes == 0)
 	{
 		thisNode = new Entity3D(glm::vec3(0.f), parent, shader);
+		thisNode->model = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
 		if (parent == nullptr)
 			root = thisNode;
-		nodes.push_back(thisNode);
+		//nodes.push_back(thisNode);
 	}
 	else
 	{
@@ -82,7 +78,8 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 			// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			thisNode = new Mesh(ProcessMesh(mesh, scene, parent, shader));
-			nodes.push_back(static_cast<Mesh*>(thisNode));
+			thisNode->model = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
+			//nodes.push_back(static_cast<Mesh*>(thisNode));
 		}
 	}
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
@@ -98,9 +95,6 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene, Entity3D* parent, Sh
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	vector<TextureStruct> textures;
-
-	if (mesh->mNumVertices <= 1)
-		std::cout << "zarlanga";
 	
 	// Walk through each of the mesh's vertices
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -190,10 +184,10 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene, Entity3D* parent, Sh
 	return Mesh(vertices, indices, textures, parent, shader);
 }
 
-void Model::Rotate(float angle, glm::vec3 axis)
-{
-	modelMat = glm::rotate(modelMat, glm::radians(angle), axis);
-}
+//void Model::Rotate(float angle, glm::vec3 axis)
+//{
+//	modelMat = glm::rotate(modelMat, glm::radians(angle), axis);
+//}
 
 vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, string typeName)
 {

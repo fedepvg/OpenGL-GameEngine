@@ -34,6 +34,8 @@ protected:
 
 private:
 	static Entity3D* sceneRoot;
+
+	friend class Model;
 };
 
 #endif

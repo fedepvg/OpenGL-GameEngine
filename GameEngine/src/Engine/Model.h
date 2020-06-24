@@ -17,12 +17,12 @@ struct aiNode;
 struct aiMesh;
 struct aiMaterial;
 
-class EXPORTDLL Model
+class EXPORTDLL Model : public Entity3D
 {
 public:
 	/*  Model Data */
 	vector<TextureStruct> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-	vector<class Entity3D*> nodes;
+	//vector<class Entity3D*> nodes;
 	Entity3D* root;
 	string directory;
 	Shader* shader;
@@ -34,11 +34,10 @@ public:
 	void LoadModel(string const &path);
 	
 	// draws the model, and thus all its meshes
-	void Draw();
-	void Rotate(float angle, glm::vec3 axis);
+	void Draw() override;
 
 private:
-	const aiScene* scene;
+	//const aiScene* scene;
 	
 	/*  Functions   */
 	// loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.

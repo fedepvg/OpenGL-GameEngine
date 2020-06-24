@@ -62,12 +62,16 @@ glm::mat4 Entity3D::GetModel()
 void Entity3D::SetModelMatrix(glm::mat4 modelMat)
 {
 	model = modelMat;
+	for (unsigned int i = 0; i < childs.size(); i++)
+	{
+		//childs[i]->SetModelMatrix()
+	}
 }
 
 void Entity3D::SetParent(Entity3D* newParent)
 {
 	if(newParent)
-	newParent->childs.push_back(this);
+		newParent->childs.push_back(this);
 	this->parent = newParent;
 }
 
