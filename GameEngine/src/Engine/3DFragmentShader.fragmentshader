@@ -13,26 +13,23 @@ struct DirLight {
     vec3 diffuse;
     vec3 specular;
 };
-DirLight dirLight;
+uniform DirLight dirLight;
 
-struct Material {
-    vec3 shininess;
+struct PointLight {    
+    vec3 position;
+    
+    float constant;
+    float linear;
+    float quadratic;  
+
+    vec3 ambient;
     vec3 diffuse;
     vec3 specular;
-};
-Material material;
-
-uniform vec3 lightDirection;  
-uniform vec3 lightAmbient;
-uniform vec3 lightDiffuse;
-uniform vec3 lightSpecular;
-
-//uniform vec3 matShininess;
-//uniform vec3 matDiffuse;
-//uniform vec3 matSpecular;
+};  
+#define NR_POINT_LIGHTS 4  
+uniform PointLight pointLights[NR_POINT_LIGHTS];
 
 uniform vec3 viewPosition;
-//uniform vec3 viewDirection;
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_specular1;
 
@@ -43,16 +40,6 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 
 void main()
 {
-//settings
-	dirLight.direction = lightDirection;
-	dirLight.ambient = lightAmbient;
-	dirLight.diffuse = lightDiffuse;
-	dirLight.specular = lightSpecular;
-
-//	material.shininess = matShininess;
-//	material.diffuse = matDiffuse;
-//	material.specular = matSpecular;
-
 // properties
     vec3 norm = normalize(vNormal);
     vec3 viewDirection = normalize(viewPosition - FragPos);

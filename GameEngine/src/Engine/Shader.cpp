@@ -35,8 +35,8 @@ void Shader::SetInt(const std::string& name, int value) const
 
 void Shader::PassDirectionalLightValues(DirectionalLight* dirLight)
 {
-	SetVec3("lightDirection", dirLight->dir);
-	SetVec3("lightAmbient", dirLight->ambient);
-	SetVec3("lightDiffuse", dirLight->diffuse);
-	SetVec3("lightSpecular", dirLight->specular);
+	SetVec3("dirLight.direction", dirLight->dir);
+	SetVec3("dirLight.ambient", dirLight->ambient);
+	SetVec3("dirLight.diffuse", dirLight->diffuse);
+	SetVec3("dirLight.specular", dirLight->specular);
 }
