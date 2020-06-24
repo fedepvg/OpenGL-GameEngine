@@ -35,6 +35,7 @@ void Game::Init()
 		glm::vec3{ 1.0f,1.0f,1.0f }, glm::vec3{ 1.f,1.f,1.f });
 	
 	testModel = new Model("../res/model/backpack.obj", ourShader);
+	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	GameLoop();
 }
 
@@ -85,7 +86,6 @@ void Game::Update(const float deltaTime)
 	fpsCamera->Update();
 	
 	renderCamera->Update();
-	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	//ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 	
 	//testModel->Draw();
