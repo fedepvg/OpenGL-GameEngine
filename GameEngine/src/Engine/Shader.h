@@ -5,8 +5,10 @@
 
 #include <glm/glm.hpp>
 #include <string>
+#include <list>
 
 class DirectionalLight;
+class PointLight;
 
 struct DirLight {
 	glm::vec3 direction;
@@ -26,7 +28,9 @@ public:
 	void SetMat4(const std::string& name, const glm::mat4& value) const;
 	void SetVec3(const std::string& name, const glm::vec3& value) const;
 	void SetInt(const std::string& name, int value) const;
+	void SetFloat(const std::string& name, float value) const;
 	void PassDirectionalLightValues(DirectionalLight* dirLight);
+	void PassPointLightListValues(std::list<PointLight*> pointLightList);
 };
 
 #endif

@@ -156,6 +156,7 @@
     <ClCompile Include="..\src\Engine\LoadShader.cpp" />
     <ClCompile Include="..\src\Engine\Mesh.cpp" />
     <ClCompile Include="..\src\Engine\Model.cpp" />
+    <ClCompile Include="..\src\Engine\PointLight.cpp" />
     <ClCompile Include="..\src\Engine\Renderer.cpp" />
     <ClCompile Include="..\src\Engine\Renderer3D.cpp" />
     <ClCompile Include="..\src\Engine\Shader.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="..\src\Engine\LoadShader.h" />
     <ClInclude Include="..\src\Engine\Mesh.h" />
     <ClInclude Include="..\src\Engine\Model.h" />
+    <ClInclude Include="..\src\Engine\PointLight.h" />
     <ClInclude Include="..\src\Engine\Renderer.h" />
     <ClInclude Include="..\src\Engine\Renderer3D.h" />
     <ClInclude Include="..\src\Engine\Shader.h" />

@@ -26,8 +26,8 @@ struct PointLight {
     vec3 diffuse;
     vec3 specular;
 };  
-#define NR_POINT_LIGHTS 4  
-uniform PointLight pointLights[NR_POINT_LIGHTS];
+#define MAX_POINT_LIGHTS 5  
+uniform PointLight pointLights[MAX_POINT_LIGHTS];
 
 uniform vec3 viewPosition;
 uniform sampler2D texture_diffuse1;
