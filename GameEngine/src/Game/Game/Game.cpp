@@ -83,10 +83,17 @@ void Game::Update(const float deltaTime)
 		testModel->Rotate(100.f * deltaTime, glm::vec3(0.f,-1.f,0));
 	}
 
+	if (input->GetKey(GLFW_KEY_UP))
+	{
+		testModel->Scale(glm::vec3(1.1f));
+	}
+
+	if (input->GetKey(GLFW_KEY_DOWN))
+	{
+		testModel->Scale(glm::vec3(.9f));
+	}
+
 	fpsCamera->Update();
 	
 	renderCamera->Update();
-	//ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
-	
-	//testModel->Draw();
 }

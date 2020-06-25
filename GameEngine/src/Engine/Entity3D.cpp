@@ -14,14 +14,10 @@ Entity3D::Entity3D()
 		parent = nullptr;
 	else
 		SetParent(sceneRoot);
-	model = glm::mat4(1.0f);
-	SetPosition(glm::vec3(0.f));
 }
 
 Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 {
-	model = glm::mat4(1.0f);
-	SetPosition(position);
 	if (parent == nullptr && sceneRoot != nullptr)
 		SetParent(sceneRoot);
 	else
@@ -31,20 +27,22 @@ Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 
 void Entity3D::Rotate(float angle, glm::vec3 axis)
 {
-	model = glm::rotate(model, glm::radians(angle), axis);
+	const glm::mat4 newModel = glm::rotate(model, glm::radians(angle), axis);
+	UpdateModelMatrix(newModel);
 }
 
 void Entity3D::Scale(glm::vec3 scaleValues)
 {
-	model = glm::scale(model, scaleValues);
+	const glm::mat4 newModel = glm::scale(model, scaleValues);
 	scale *= scaleValues;
-	std::cout << scale.x << std::endl;
+	UpdateModelMatrix(newModel);
 }
 
 void Entity3D::Translate(float value, glm::vec3 axis)
 {
-	model = glm::translate(model, value * (axis* 0.01f));
+	const glm::mat4 newModel = glm::translate(model, value * (axis/* 0.01f*/));
 	position += value * axis;
+	UpdateModelMatrix(newModel);
 }
 
 void Entity3D::SetPosition(glm::vec3 newPosition)
@@ -59,12 +57,12 @@ glm::mat4 Entity3D::GetModel()
 	return model;
 }
 
-void Entity3D::SetModelMatrix(glm::mat4 modelMat)
+void Entity3D::UpdateModelMatrix(glm::mat4 parentModelMat)
 {
-	model = modelMat;
+	model = parentModelMat * globalModel;
 	for (unsigned int i = 0; i < childs.size(); i++)
 	{
-		//childs[i]->SetModelMatrix()
+		childs[i]->UpdateModelMatrix(model);
 	}
 }
 
@@ -83,12 +81,6 @@ Shader* Entity3D::GetShader()
 std::vector<Entity3D*> Entity3D::GetChilds()
 {
 	return childs;
-}
-
-void Entity3D::Draw()
-{
-	for (unsigned int i = 0; i < childs.size(); i++)
-		childs[i]->Draw();
 }
 
 void Entity3D::SetSceneRoot(Entity3D* root)

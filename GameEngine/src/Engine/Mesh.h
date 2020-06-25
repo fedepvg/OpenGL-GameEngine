@@ -52,9 +52,6 @@ public:
 	int GetElementsSize();
 	unsigned int GetVertexArray();
 	vector<TextureStruct> GetTextures();
-	
-	// render the mesh
-	void Draw();
 
 private:
 	/*  Render data  */

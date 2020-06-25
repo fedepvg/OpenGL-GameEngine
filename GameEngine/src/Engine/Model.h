@@ -32,9 +32,6 @@ public:
 	Model(string const &path, Shader* shader);
 
 	void LoadModel(string const &path);
-	
-	// draws the model, and thus all its meshes
-	void Draw() override;
 
 private:
 	//const aiScene* scene;
@@ -49,7 +46,7 @@ private:
 	// checks all material textures of a given type and loads the textures if they're not loaded yet.
 	// the required info is returned as a Texture struct.
 	vector<TextureStruct> LoadMaterialTextures(aiMaterial *mat, int type, string typeName);
-	glm::mat4 modelMat;
+	//glm::mat4 modelMat;
 };
 
 #endif

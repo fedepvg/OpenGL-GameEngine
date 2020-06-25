@@ -17,17 +17,17 @@ public:
 	void Scale(glm::vec3 scaleValues);
 	void SetPosition(glm::vec3 newPosition);
 	glm::mat4 GetModel();
-	void SetModelMatrix(glm::mat4 modelMat);
+	void UpdateModelMatrix(glm::mat4 parentModelMat);
 	void SetParent(Entity3D* parent);
-	Shader* GetShader();
+	virtual Shader* GetShader();
 	std::vector<Entity3D*> GetChilds();
-	virtual void Draw();
 	static void SetSceneRoot(Entity3D* root);
 
 protected:
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::mat4 model;
+	glm::mat4 globalModel;
 	Entity3D* parent;
 	std::vector<Entity3D*> childs;
 	Shader* shader;

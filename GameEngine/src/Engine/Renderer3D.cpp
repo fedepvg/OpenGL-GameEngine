@@ -13,8 +13,7 @@ Renderer3D::Renderer3D(Window* window)
 	renderWindow = window->getWindow();
 
 	renderCamera = new Camera({ 0.f,0.f,500.f }, { 0.f,1.f,0.f }, { 0.f,0.f,-1.f }, -90.f, 0.f);
-
-	//projMatrix = glm::ortho(-window->GetWidth()/2, window->GetWidth() / 2, -window->GetHeight() / 2, window->GetHeight() / 2, 0.f, 100.f);
+	
 	projMatrix = glm::perspective(45.0f, window->GetWidth() / window->GetHeight(), 1.f, 1000.f);
 
 	glEnable(GL_DEPTH_TEST);
@@ -35,9 +34,9 @@ void Renderer3D::Draw(Entity3D* root)
 void Renderer3D::RenderEntity(Entity3D* toRender)
 {
 	Mesh* thisMesh;
-	thisMesh = dynamic_cast<Mesh*>(toRender);
 	if (typeid(*toRender) == typeid(Mesh))
 	{
+		thisMesh = static_cast<Mesh*>(toRender);
 		thisMesh->GetShader()->SetMat4("view", renderCamera->GetViewMatrix());
 		thisMesh->GetShader()->SetMat4("proj", projMatrix);
 		thisMesh->GetShader()->SetMat4("model", thisMesh->GetModel());

@@ -11,11 +11,6 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textures = textures;
-	//this->parent = newParent;
-
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, -100.75f, 0.0f));
-	model = glm::scale(model, glm::vec3(10.8f, 10.8f, 10.8f));
 	
 	// now that we have all the required data, set the vertex buffers and its attribute pointers.
 	SetupMesh();
@@ -34,47 +29,6 @@ unsigned Mesh::GetVertexArray()
 vector<TextureStruct> Mesh::GetTextures()
 {
 	return textures;
-}
-
-void Mesh::Draw()
-{
-	// bind appropriate textures
-	unsigned int diffuseNr = 1;
-	unsigned int specularNr = 1;
-	unsigned int normalNr = 1;
-	unsigned int heightNr = 1;
-	
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-		// retrieve texture number (the N in diffuse_textureN)
-		string name = textures[i].type;
-		
-		//string number;
-		//if (name == "texture_diffuse")
-		//	number = std::to_string(diffuseNr++);
-		//else if (name == "texture_specular")
-		//	number = std::to_string(specularNr++); // transfer unsigned int to stream
-		//else if (name == "texture_normal")
-		//	number = std::to_string(normalNr++); // transfer unsigned int to stream
-		//else if (name == "texture_height")
-		//	number = std::to_string(heightNr++); // transfer unsigned int to stream
-	
-		// now set the sampler to the correct texture unit
-		shader->SetInt(name.c_str(), i);
-		// and finally bind the texture
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-	}
-
-	// draw mesh
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-
-	// always good practice to set everything back to defaults once configured.
-	glActiveTexture(GL_TEXTURE0);
-	
-	Entity3D::Draw();
 }
 
 void Mesh::SetupMesh()

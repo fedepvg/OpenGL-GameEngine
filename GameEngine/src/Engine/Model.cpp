@@ -25,7 +25,7 @@ Model::Model(string const &path, Shader* shader)
 	//modelMat = glm::mat4(1.0f);
 	//modelMat = glm::translate(modelMat, glm::vec3(0.0f, -100.75f, 0.0f));
 	//modelMat = glm::scale(modelMat, glm::vec3(10.8f, 10.8f, 10.8f));
-	root->SetModelMatrix(modelMat);
+	//root->SetModelMatrix(modelMat);
 }
 
 void Model::LoadModel(string const &path)
@@ -39,35 +39,20 @@ void Model::LoadModel(string const &path)
 	ProcessNode(scene->mRootNode, scene, nullptr);
 }
 
-void Model::Draw()
-{
-	shader->Use();
-	shader->SetMat4("model", modelMat);
-	
-	glm::mat4 proj = Entity::renderer->GetProjMatrix();
-	glm::mat4 view = Entity::renderer->GetCamera()->GetViewMatrix();
-
-	//unsigned int uniView = glGetUniformLocation(programID, "view");
-	//glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-	//unsigned int uniProj = glGetUniformLocation(programID, "proj");
-	//glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
-
-	shader->SetMat4("view", view);
-	shader->SetMat4("proj", proj);
-	
-	root->Draw();
-}
-
 void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 {
 	Entity3D* thisNode = nullptr;
 	if(node->mNumMeshes == 0)
 	{
-		thisNode = new Entity3D(glm::vec3(0.f), parent, shader);
-		thisNode->model = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
 		if (parent == nullptr)
-			root = thisNode;
-		//nodes.push_back(thisNode);
+		{
+			root = this;
+			thisNode = this;
+		}
+		else
+		{
+			thisNode = new Entity3D(glm::vec3(0.f), parent, shader);
+		}
 	}
 	else
 	{
@@ -78,10 +63,11 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 			// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			thisNode = new Mesh(ProcessMesh(mesh, scene, parent, shader));
-			thisNode->model = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
-			//nodes.push_back(static_cast<Mesh*>(thisNode));
 		}
 	}
+
+	thisNode->model = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
+	thisNode->globalModel = root->model;
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
@@ -183,11 +169,6 @@ Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene, Entity3D* parent, Sh
 	// return a mesh object created from the extracted mesh data
 	return Mesh(vertices, indices, textures, parent, shader);
 }
-
-//void Model::Rotate(float angle, glm::vec3 axis)
-//{
-//	modelMat = glm::rotate(modelMat, glm::radians(angle), axis);
-//}
 
 vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, string typeName)
 {
