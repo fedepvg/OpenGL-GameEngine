@@ -35,8 +35,7 @@ void Renderer3D::Draw(Entity3D* root)
 void Renderer3D::RenderEntity(Entity3D* toRender)
 {
 	Mesh* thisMesh;
-	Entity3D* thisEntity = toRender;
-	thisMesh = dynamic_cast<Mesh*>(thisEntity);
+	thisMesh = dynamic_cast<Mesh*>(toRender);
 	if (typeid(*toRender) == typeid(Mesh))
 	{
 		thisMesh->GetShader()->SetMat4("view", renderCamera->GetViewMatrix());

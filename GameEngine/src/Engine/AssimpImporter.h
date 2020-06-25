@@ -3,14 +3,15 @@
 
 #include <string>
 #include <assimp/scene.h>   
+#include <glm/mat4x4.hpp>
 
 class Mesh;
 
 class AssimpImporter
 {
 public:
-	bool DoTheImportThing(const std::string& pFile);
-	const aiScene* ImportModel(std::string path);
+	static const aiScene* ImportModel(std::string path);
+	static glm::mat4 AssimpTransformToGlm(aiMatrix4x4* from);
 };
 
 #endif // ! ASSIMP_IMPORTER
