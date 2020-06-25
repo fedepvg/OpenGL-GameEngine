@@ -24,7 +24,7 @@ Renderer::Renderer(Window* window)
 	glEnable(GL_DEPTH_TEST);
 	
 	//viewMatrix = glm::rotate(viewMatrix, glm::radians(0.f), glm::vec3(0.f, 1.f, 0.f));
-	//model = glm::rotate(model, glm::radians(angle), axis);
+	//localModel = glm::rotate(localModel, glm::radians(angle), axis);
 
 	SetShader();
 }
@@ -87,7 +87,7 @@ void Renderer::SetShader()
 
 	glUniform1i(glGetUniformLocation(programID, "aTexCoord"), 0);
 
-	uniModel = glGetUniformLocation(programID, "model");
+	uniModel = glGetUniformLocation(programID, "localModel");
 	uniView = glGetUniformLocation(programID, "view");
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

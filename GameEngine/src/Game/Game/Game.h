@@ -19,6 +19,7 @@ private:
 	FirstPersonCameraController* fpsCamera;
 	Shader* ourShader;
 	Model* testModel;
+	Model* testModel2;
 	DirectionalLight* dirLight;
 	std::list<PointLight*> pointLightList;
 };

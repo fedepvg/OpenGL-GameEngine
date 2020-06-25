@@ -14,6 +14,8 @@ Entity3D::Entity3D()
 		parent = nullptr;
 	else
 		SetParent(sceneRoot);
+
+	worldModel = glm::mat4(1.f);
 }
 
 Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
@@ -23,46 +25,49 @@ Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 	else
 		SetParent(parent);
 	this->shader = shader;
+	worldModel = glm::mat4(1.f);
 }
 
 void Entity3D::Rotate(float angle, glm::vec3 axis)
 {
-	const glm::mat4 newModel = glm::rotate(model, glm::radians(angle), axis);
-	UpdateModelMatrix(newModel);
+	localModel = glm::rotate(localModel, glm::radians(angle), axis);
+	UpdateModelMatrix();
 }
 
 void Entity3D::Scale(glm::vec3 scaleValues)
 {
-	const glm::mat4 newModel = glm::scale(model, scaleValues);
+	localModel = glm::scale(localModel, scaleValues);
 	scale *= scaleValues;
-	UpdateModelMatrix(newModel);
+	UpdateModelMatrix();
 }
 
 void Entity3D::Translate(float value, glm::vec3 axis)
 {
-	const glm::mat4 newModel = glm::translate(model, value * (axis/* 0.01f*/));
+	localModel = glm::translate(localModel, value * (axis));
 	position += value * axis;
-	UpdateModelMatrix(newModel);
+	UpdateModelMatrix();
 }
 
 void Entity3D::SetPosition(glm::vec3 newPosition)
 {
-	model[3].x = 0.f + newPosition.x;
-	model[3].y = 0.f + newPosition.y;
-	model[3].z = 0.f + newPosition.z;
+	localModel[3].x = 0.f + newPosition.x;
+	localModel[3].y = 0.f + newPosition.y;
+	localModel[3].z = 0.f + newPosition.z;
 }
 
 glm::mat4 Entity3D::GetModel()
 {
-	return model;
+	return worldModel;
 }
 
-void Entity3D::UpdateModelMatrix(glm::mat4 parentModelMat)
+void Entity3D::UpdateModelMatrix()
 {
-	model = parentModelMat * globalModel;
+	if(GetParent() != nullptr)
+		worldModel = GetParent()->GetModel() * localModel;
+		
 	for (unsigned int i = 0; i < childs.size(); i++)
 	{
-		childs[i]->UpdateModelMatrix(model);
+		childs[i]->UpdateModelMatrix();
 	}
 }
 
@@ -71,6 +76,11 @@ void Entity3D::SetParent(Entity3D* newParent)
 	if(newParent)
 		newParent->childs.push_back(this);
 	this->parent = newParent;
+}
+
+Entity3D* Entity3D::GetParent()
+{
+	return parent;
 }
 
 Shader* Entity3D::GetShader()

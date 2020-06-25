@@ -17,8 +17,9 @@ public:
 	void Scale(glm::vec3 scaleValues);
 	void SetPosition(glm::vec3 newPosition);
 	glm::mat4 GetModel();
-	void UpdateModelMatrix(glm::mat4 parentModelMat);
+	void UpdateModelMatrix();
 	void SetParent(Entity3D* parent);
+	Entity3D* GetParent();
 	virtual Shader* GetShader();
 	std::vector<Entity3D*> GetChilds();
 	static void SetSceneRoot(Entity3D* root);
@@ -26,8 +27,8 @@ public:
 protected:
 	glm::vec3 position;
 	glm::vec3 scale;
-	glm::mat4 model;
-	glm::mat4 globalModel;
+	glm::mat4 localModel;
+	glm::mat4 worldModel;
 	Entity3D* parent;
 	std::vector<Entity3D*> childs;
 	Shader* shader;

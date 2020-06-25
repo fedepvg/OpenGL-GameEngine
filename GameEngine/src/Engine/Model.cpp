@@ -66,8 +66,7 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 		}
 	}
 
-	thisNode->model = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
-	thisNode->globalModel = root->model;
+	thisNode->localModel = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
@@ -178,6 +177,22 @@ vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, str
 	{
 		aiString str;
 		mat->GetTexture(texType, i, &str);
+		std::string test;
+		for(int i = str.length; i > 0; --i)
+		{
+			const char c = str.C_Str()[i];
+			if (c != '\\')
+			{
+				if (c != '\0')
+					test.insert(test.begin(), c);
+			}
+			else
+			{
+				str.Clear();
+				str.Set(test);
+				break;
+			}
+		}
 		// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 		bool skip = false;
 		for (unsigned int j = 0; j < textures_loaded.size(); j++)
@@ -200,7 +215,7 @@ vector<TextureStruct> Model::LoadMaterialTextures(aiMaterial *mat, int type, str
 			texture.type = typeName + std::to_string(i + 1);
 			texture.path = str.C_Str();
 			textures.push_back(texture);
-			textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+			textures_loaded.push_back(texture);  // store it as texture loaded for entire localModel, to ensure we won't unnecesery load duplicate textures.
 		}
 	}
 	return textures;

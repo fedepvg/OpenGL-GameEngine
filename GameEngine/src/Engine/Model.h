@@ -28,7 +28,7 @@ public:
 	Shader* shader;
 
 	/*  Functions   */
-	// constructor, expects a filepath to a 3D model.
+	// constructor, expects a filepath to a 3D localModel.
 	Model(string const &path, Shader* shader);
 
 	void LoadModel(string const &path);
@@ -37,7 +37,7 @@ private:
 	//const aiScene* scene;
 	
 	/*  Functions   */
-	// loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
+	// loads a localModel with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
 
 	// processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
 	void ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent);

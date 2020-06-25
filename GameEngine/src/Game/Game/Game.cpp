@@ -40,6 +40,8 @@ void Game::Init()
 		1.f, 0.09f, 0.032f));
 
 	testModel = new Model("../res/model/backpack.obj", ourShader);
+	testModel2 = new Model("../res/model/Crate1.obj", ourShader);
+	testModel2->SetParent(testModel);
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	GameLoop();
 }
@@ -82,12 +84,22 @@ void Game::Update(const float deltaTime)
 
 	if (input->GetKey(GLFW_KEY_RIGHT))
 	{
-		testModel->Rotate(100.f * deltaTime, glm::vec3(0.f, 1.f, 0));
+		testModel2->Translate(100.f * deltaTime, glm::vec3(1.f, 0.f, 0));
 	}
 
 	if (input->GetKey(GLFW_KEY_LEFT))
 	{
-		testModel->Rotate(100.f * deltaTime, glm::vec3(0.f, -1.f, 0));
+		testModel2->Translate(100.f * deltaTime, glm::vec3(-1.f, 0.f, 0));
+	}
+
+	if (input->GetKey(GLFW_KEY_UP))
+	{
+		testModel->Scale(glm::vec3(1.1f));
+	}
+
+	if (input->GetKey(GLFW_KEY_DOWN))
+	{
+		testModel->Scale(glm::vec3(.9f));
 	}
 
 	fpsCamera->Update();
