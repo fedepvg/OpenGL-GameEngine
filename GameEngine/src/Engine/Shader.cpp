@@ -52,13 +52,13 @@ void Shader::PassPointLightListValues(std::list<PointLight*> pointLightList)
 	int lightPosition = 0;
 	for (std::list<PointLight*>::iterator it = pointLightList.begin(); it!= pointLightList.end(); it++)
 	{
-		SetVec3((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].ambient", (*it)->ambient);
-		SetVec3((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].diffuse", (*it)->diffuse);
-		SetVec3((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].specular", (*it)->specular);
-		SetVec3((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].position", (*it)->position);
-		SetFloat((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].constant", (*it)->constant);
-		SetFloat((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].linear", (*it)->linear);
-		SetFloat((std::string)"pointLight[" + std::to_string(lightPosition) + (std::string)"].quadratic", (*it)->quadratic);
+		SetVec3((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].ambient", (*it)->ambient);
+		SetVec3((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].diffuse", (*it)->diffuse);
+		SetVec3((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].specular", (*it)->specular);
+		SetVec3((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].position", (*it)->position);
+		SetFloat((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].constant", (*it)->constant);
+		SetFloat((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].linear", (*it)->linear);
+		SetFloat((std::string)"pointLights[" + std::to_string(lightPosition) + (std::string)"].quadratic", (*it)->quadratic);
 		lightPosition++;
 	}
 }

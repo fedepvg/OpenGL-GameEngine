@@ -6,6 +6,7 @@
 #include "FirstPersonCameraController.h"
 
 class DirectionalLight;
+class PointLight;
 
 class Game : public BaseGame
 {
@@ -19,6 +20,7 @@ private:
 	Shader* ourShader;
 	Model* testModel;
 	DirectionalLight* dirLight;
+	std::list<PointLight*> pointLightList;
 };
 
 #endif
