@@ -22,6 +22,7 @@ public:
 	Entity3D* GetParent();
 	virtual Shader* GetShader();
 	std::vector<Entity3D*> GetChilds();
+	virtual Entity3D* GetNode(std::string node);
 	static void SetSceneRoot(Entity3D* root);
 
 protected:
@@ -29,6 +30,7 @@ protected:
 	glm::vec3 scale;
 	glm::mat4 localModel;
 	glm::mat4 worldModel;
+	std::string name;
 	Entity3D* parent;
 	std::vector<Entity3D*> childs;
 	Shader* shader;

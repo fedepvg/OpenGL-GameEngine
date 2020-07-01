@@ -102,6 +102,20 @@ void Game::Update(const float deltaTime)
 		testModel->Scale(glm::vec3(.9f));
 	}
 
+	if (input->GetKey(GLFW_KEY_H))
+	{
+		Entity3D* node = testModel->GetNode("Cube.037__0");
+		if (node)
+			node->Scale(glm::vec3(.9f));
+	}
+
+	if (input->GetKey(GLFW_KEY_J))
+	{
+		Entity3D* node = testModel->GetNode("Cube.037__0");
+		if(node)
+			node->Scale(glm::vec3(1.1f));
+	}
+	
 	fpsCamera->Update();
 
 	renderCamera->Update();

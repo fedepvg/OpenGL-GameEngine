@@ -93,6 +93,23 @@ std::vector<Entity3D*> Entity3D::GetChilds()
 	return childs;
 }
 
+Entity3D* Entity3D::GetNode(std::string node)
+{
+	Entity3D* toGet = nullptr;
+	if (name == node)
+		return this;
+	else
+	{
+		for (unsigned int i = 0; i < childs.size(); i++)
+		{
+			toGet = childs[i]->GetNode(node);
+			if (toGet != nullptr)
+				break;
+		}
+	}
+	return toGet;
+}
+
 void Entity3D::SetSceneRoot(Entity3D* root)
 {
 	sceneRoot = root;
