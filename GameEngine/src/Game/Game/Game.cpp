@@ -33,11 +33,11 @@ void Game::Init()
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
 	dirLight = new DirectionalLight(glm::vec3{ 0.f,0.5f,-1.f }, glm::vec3{ 0.1f,0.1f,0.1f },
-		glm::vec3{ 1.0f,1.0f,1.0f }, glm::vec3{ 1.f,1.f,1.f });
+		glm::vec3{ 0.8f,0.8f,0.8f }, glm::vec3{ 0.8f,0.8f,0.8f });
 
-	pointLightList.push_front(new PointLight(glm::vec3{ 10.f,0.f,0.f }, glm::vec3{ 0.1f,0.1f,0.1f },
-		glm::vec3{ 8.0f,0.0f,0.6f }, glm::vec3{ 0.4f,0.f,0.4f },
-		1.f, 0.09f, 0.032f));
+	pointLightList.push_front(new PointLight(glm::vec3{ 10.f,0.f,0.f }, glm::vec3{ 0.1f,0.0f,0.0f },
+		glm::vec3{ 0.8f,0.f,0.f }, glm::vec3{ 0.8,0.f,0.f },
+		1.f, 0.007f, 0.0002f));
 
 	testModel = new Model("../res/model/backpack.obj", ourShader);
 	testModel2 = new Model("../res/model/Crate1.obj", ourShader);
@@ -65,21 +65,21 @@ void Game::Update(const float deltaTime)
 
 	if (input->GetKey(GLFW_KEY_A))
 	{
-		fpsCamera->TranslateX(-10.f);
+		fpsCamera->TranslateX(-50.f * deltaTime);
 	}
 
 	if (input->GetKey(GLFW_KEY_D))
 	{
-		fpsCamera->TranslateX(10.f);
+		fpsCamera->TranslateX(50.f * deltaTime);
 	}
 
 	if (input->GetKey(GLFW_KEY_W))
 	{
-		fpsCamera->TranslateY(10.f);
+		fpsCamera->TranslateY(50.f * deltaTime);
 	}
 	if (input->GetKey(GLFW_KEY_S))
 	{
-		fpsCamera->TranslateY(-10.f);
+		fpsCamera->TranslateY(-50.f * deltaTime);
 	}
 
 	if (input->GetKey(GLFW_KEY_RIGHT))
@@ -105,4 +105,6 @@ void Game::Update(const float deltaTime)
 	fpsCamera->Update();
 
 	renderCamera->Update();
+	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
+
 }

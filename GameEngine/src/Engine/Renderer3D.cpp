@@ -12,7 +12,7 @@ Renderer3D::Renderer3D(Window* window)
 {
 	renderWindow = window->getWindow();
 
-	renderCamera = new Camera({ 0.f,0.f,500.f }, { 0.f,1.f,0.f }, { 0.f,0.f,-1.f }, -90.f, 0.f);
+	renderCamera = new Camera({ 0.f,0.f,100.f }, { 0.f,1.f,0.f }, { 0.f,0.f,-1.f }, -90.f, 0.f);
 	
 	projMatrix = glm::perspective(45.0f, window->GetWidth() / window->GetHeight(), 1.f, 1000.f);
 

@@ -19,8 +19,7 @@ void main()
 	mat4 mv = view * model;
 	gl_Position = mvp * vec4(position, 1.0);
 
+	vNormal = mat3(transpose(inverse(model))) * aNormal;
 
-	vNormal = normalize(vec3(mv * vec4(aNormal, 0.0)));
-
-	FragPos = vec3(mv * vec4(position, 1.0));
+	FragPos = vec3(model * vec4(position, 1.0));
 }
