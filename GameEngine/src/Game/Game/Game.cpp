@@ -4,6 +4,7 @@
 #include "Engine/Shader.h"
 #include "Engine/DirectionalLight.h"
 #include "Engine/PointLight.h"
+#include "Engine/SpotLight.h"
 
 #include <iostream>
 
@@ -33,11 +34,15 @@ void Game::Init()
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
 	dirLight = new DirectionalLight(glm::vec3{ 0.f,0.5f,-1.f }, glm::vec3{ 0.1f,0.1f,0.1f },
-		glm::vec3{ 0.8f,0.8f,0.8f }, glm::vec3{ 0.8f,0.8f,0.8f });
+		glm::vec3{ 0.3f,0.3f,0.3f }, glm::vec3{ 0.3f,0.3f,0.3f });
 
 	pointLightList.push_front(new PointLight(glm::vec3{ 10.f,0.f,0.f }, glm::vec3{ 0.1f,0.0f,0.0f },
-		glm::vec3{ 0.8f,0.f,0.f }, glm::vec3{ 0.8,0.f,0.f },
+		glm::vec3{ 0.4f,0.0f,0.0f }, glm::vec3{ 0.4f,0.0f,0.0f },
 		1.f, 0.007f, 0.0002f));
+
+	spotLightList.push_front(new SpotLight(glm::vec3{ 0.f, 0.f, 100.f }, glm::vec3{ 0.f, 0.f, 1.f }, 12.5f, 17.5,
+		glm::vec3{ 0.f, 0.f, 0.2f }, glm::vec3{ 0.f, 0.f, 0.6f }, glm::vec3{ 0.0f, 0.0f, 0.6f },
+		1.f, 0.14f, 0.07f));
 
 	testModel = new Model("../res/model/backpack.obj", ourShader);
 	testModel2 = new Model("../res/model/Crate1.obj", ourShader);
@@ -48,10 +53,6 @@ void Game::Init()
 
 void Game::Update(const float deltaTime)
 {
-	ourShader->PassDirectionalLightValues(dirLight);
-	ourShader->PassPointLightListValues(pointLightList);
-	ourShader->SetInt("activePointLights", pointLightList.size());
-
 	if (cursor->GetCursorMode() != Cursor::CursorMode::capture)
 		cursor->SetCursorMode(Cursor::CursorMode::capture);
 
@@ -102,23 +103,21 @@ void Game::Update(const float deltaTime)
 		testModel->Scale(glm::vec3(.9f));
 	}
 
-	if (input->GetKey(GLFW_KEY_H))
-	{
-		Entity3D* node = testModel->GetNode("Cube.037__0");
-		if (node)
-			node->Scale(glm::vec3(.9f));
-	}
-
-	if (input->GetKey(GLFW_KEY_J))
-	{
-		Entity3D* node = testModel->GetNode("Cube.037__0");
-		if(node)
-			node->Scale(glm::vec3(1.1f));
-	}
-	
 	fpsCamera->Update();
 
 	renderCamera->Update();
-	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 
+	ourShader->PassDirectionalLightValues(dirLight);
+
+	ourShader->PassPointLightListValues(pointLightList);
+	ourShader->SetInt("activePointLights", pointLightList.size());
+
+	std::list<SpotLight*>::iterator it = spotLightList.begin();
+	(*it)->position = renderCamera->GetPosition();
+	(*it)->direction = renderCamera->GetDirection();
+
+	ourShader->PassSpotLightListValues(spotLightList);
+	ourShader->SetInt("activeSpotLights", spotLightList.size());
+
+	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 }

@@ -9,6 +9,7 @@
 
 class DirectionalLight;
 class PointLight;
+class SpotLight;
 
 struct DirLight {
 	glm::vec3 direction;
@@ -31,6 +32,7 @@ public:
 	void SetFloat(const std::string& name, float value) const;
 	void PassDirectionalLightValues(DirectionalLight* dirLight);
 	void PassPointLightListValues(std::list<PointLight*> pointLightList);
+	void PassSpotLightListValues(std::list<SpotLight*> spotLightList);
 };
 
 #endif

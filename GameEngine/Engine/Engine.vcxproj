@@ -161,6 +161,7 @@
     <ClCompile Include="..\src\Engine\Renderer3D.cpp" />
     <ClCompile Include="..\src\Engine\Shader.cpp" />
     <ClCompile Include="..\src\Engine\Shape.cpp" />
+    <ClCompile Include="..\src\Engine\SpotLight.cpp" />
     <ClCompile Include="..\src\Engine\Sprite.cpp" />
     <ClCompile Include="..\src\Engine\Texture.cpp" />
     <ClCompile Include="..\src\Engine\Window.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="..\src\Engine\Renderer3D.h" />
     <ClInclude Include="..\src\Engine\Shader.h" />
     <ClInclude Include="..\src\Engine\Shape.h" />
+    <ClInclude Include="..\src\Engine\SpotLight.h" />
     <ClInclude Include="..\src\Engine\Sprite.h" />
     <ClInclude Include="..\src\Engine\Texture.h" />
     <ClInclude Include="..\src\Engine\Window.h" />

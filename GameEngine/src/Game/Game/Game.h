@@ -7,6 +7,7 @@
 
 class DirectionalLight;
 class PointLight;
+class SpotLight;
 
 class Game : public BaseGame
 {
@@ -22,6 +23,7 @@ private:
 	Model* testModel2;
 	DirectionalLight* dirLight;
 	std::list<PointLight*> pointLightList;
+	std::list<SpotLight*> spotLightList;
 };
 
 #endif
