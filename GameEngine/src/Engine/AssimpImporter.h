@@ -10,7 +10,7 @@ class Mesh;
 class AssimpImporter
 {
 public:
-	static const aiScene* ImportModel(std::string path);
+	static const aiScene* ImportModel(std::string path, bool flipUV);
 	static glm::mat4 AssimpTransformToGlm(aiMatrix4x4* from);
 };
 

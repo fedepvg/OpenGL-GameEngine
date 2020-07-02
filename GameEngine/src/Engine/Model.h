@@ -29,9 +29,9 @@ public:
 
 	/*  Functions   */
 	// constructor, expects a filepath to a 3D localModel.
-	Model(string const &path, Shader* shader);
+	Model(string const &path, Shader* shader, bool flipUV = true);
 
-	void LoadModel(string const &path);
+	void LoadModel(string const &path, bool flipUV);
 
 private:
 	//const aiScene* scene;

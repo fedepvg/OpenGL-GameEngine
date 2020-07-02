@@ -34,7 +34,7 @@ void Game::Init()
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
 	dirLight = new DirectionalLight(glm::vec3{ 0.f,0.5f,-1.f }, glm::vec3{ 0.1f,0.1f,0.1f },
-		glm::vec3{ 0.3f,0.3f,0.3f }, glm::vec3{ 0.3f,0.3f,0.3f });
+		glm::vec3{ 0.3f,0.3f,0.3f }, glm::vec3{ 1.f,1.,1.f });
 
 	pointLightList.push_front(new PointLight(glm::vec3{ 10.f,0.f,0.f }, glm::vec3{ 0.1f,0.0f,0.0f },
 		glm::vec3{ 0.4f,0.0f,0.0f }, glm::vec3{ 0.4f,0.0f,0.0f },
@@ -45,7 +45,7 @@ void Game::Init()
 		1.f, 0.14f, 0.07f));
 
 	testModel = new Model("../res/model/backpack.obj", ourShader);
-	testModel2 = new Model("../res/model/Crate1.obj", ourShader);
+	testModel2 = new Model("../res/sniper/sniperfbx.fbx", ourShader, false);
 	testModel2->SetParent(testModel);
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	GameLoop();

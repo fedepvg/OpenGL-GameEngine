@@ -10,11 +10,15 @@
 
 using namespace  Assimp;
 
-const aiScene* AssimpImporter::ImportModel(std::string path)
+const aiScene* AssimpImporter::ImportModel(std::string path, bool flipUV)
 {
 	// read file via ASSIMP
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	const aiScene* scene;
+	if(flipUV)
+		scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	else
+		scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);
 	// check for errors
 	scene = importer.GetOrphanedScene();
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
