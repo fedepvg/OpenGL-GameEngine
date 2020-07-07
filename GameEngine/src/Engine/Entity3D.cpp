@@ -73,9 +73,27 @@ void Entity3D::UpdateModelMatrix()
 
 void Entity3D::SetParent(Entity3D* newParent)
 {
-	if(newParent)
-		newParent->childs.push_back(this);
+	Entity3D* oldParent = parent;
+	if (!newParent && sceneRoot)
+		newParent = sceneRoot;
+	else if(!newParent)
+		return;
+	
+	newParent->childs.push_back(this);
 	this->parent = newParent;
+	this->localModel = inverse(parent->GetModel()) * worldModel;
+	
+	if(oldParent)
+	{
+		for (std::vector<Entity3D*>::iterator it = oldParent->GetChilds().begin(); it != oldParent->GetChilds().end(); ++it)
+		{
+			if ((*it) == this) 
+			{
+				oldParent->GetChilds().erase(it);
+				break;
+			}
+		}
+	}
 }
 
 Entity3D* Entity3D::GetParent()
@@ -88,7 +106,7 @@ Shader* Entity3D::GetShader()
 	return shader;
 }
 
-std::vector<Entity3D*> Entity3D::GetChilds()
+std::vector<Entity3D*> & Entity3D::GetChilds()
 {
 	return childs;
 }

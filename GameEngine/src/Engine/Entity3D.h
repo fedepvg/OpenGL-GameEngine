@@ -21,7 +21,7 @@ public:
 	void SetParent(Entity3D* parent);
 	Entity3D* GetParent();
 	virtual Shader* GetShader();
-	std::vector<Entity3D*> GetChilds();
+	std::vector<Entity3D*> & GetChilds();
 	virtual Entity3D* GetNode(std::string node);
 	static void SetSceneRoot(Entity3D* root);
 
