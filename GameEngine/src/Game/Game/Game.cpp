@@ -56,10 +56,10 @@ void Game::Update(const float deltaTime)
 	if (cursor->GetCursorMode() != Cursor::CursorMode::capture)
 		cursor->SetCursorMode(Cursor::CursorMode::capture);
 
-	if (input->GetKey(GLFW_KEY_X))
+	/*if (input->GetKey(GLFW_KEY_X))
 	{
 		renderCamera->RotatePitch(10.f);
-	}
+	}*/
 
 
 	//camera
@@ -98,6 +98,26 @@ void Game::Update(const float deltaTime)
 		testModel->Scale(glm::vec3(1.1f));
 	}
 
+	if (input->GetKey(GLFW_KEY_V))
+	{
+		testModel->Rotate(40.f * deltaTime, glm::vec3(0.f, 1.f, 0));
+	}
+
+	if (input->GetKey(GLFW_KEY_X))
+	{
+		testModel->Translate(-40.f * deltaTime, glm::vec3(1.f, 0.f, 0));
+	}
+
+	if (input->GetKey(GLFW_KEY_C))
+	{
+		testModel->Translate(40.f * deltaTime, glm::vec3(1.f, 0.f, 0));
+	}
+	
+	if (input->GetKey(GLFW_KEY_B))
+	{
+		testModel->Rotate(-40.f * deltaTime, glm::vec3(0.f, 1.f, 0));
+	}
+
 	if (input->GetKey(GLFW_KEY_DOWN))
 	{
 		testModel->Scale(glm::vec3(.9f));
@@ -111,6 +131,26 @@ void Game::Update(const float deltaTime)
 	if (input->GetKey(GLFW_KEY_J))
 	{
 		testModel->GetNode("Cube.037__0")->Scale(glm::vec3(1.1f));
+	}
+
+	if (input->GetKey(GLFW_KEY_Y))
+	{
+		testModel->GetNode("Cylinder.049__0")->Translate(25.f * deltaTime, glm::vec3(-1.f, 0.f, 0));
+	}
+
+	if (input->GetKey(GLFW_KEY_U))
+	{
+		testModel->GetNode("Cylinder.049__0")->Translate(-25.f * deltaTime, glm::vec3(-1.f, 0.f, 0));
+	}
+
+	if (input->GetKey(GLFW_KEY_I))
+	{
+		testModel->GetNode("Cylinder.049__0")->Rotate(50.f * deltaTime, glm::vec3(0.f, 1.f, 0));
+	}
+
+	if (input->GetKey(GLFW_KEY_O))
+	{
+		testModel->GetNode("Cylinder.049__0")->Rotate(-50.f * deltaTime, glm::vec3(0.f, 1.f, 0));
 	}
 
 	if (input->GetKey(GLFW_KEY_SPACE))

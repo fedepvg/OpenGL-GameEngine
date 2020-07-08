@@ -28,7 +28,7 @@ Renderer3D::~Renderer3D()
 
 void Renderer3D::Draw(Entity3D* root)
 {
-	SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
+	SetBackgroundColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	RenderEntity(root);
 	glfwSwapBuffers(renderWindow);

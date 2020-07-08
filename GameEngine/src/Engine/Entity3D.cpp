@@ -119,6 +119,8 @@ void Entity3D::SetParent(Entity3D* newParent)
 			}
 		}
 	}
+
+	//newParent->UpdateModelMatAndBoundingBox();
 }
 
 Entity3D* Entity3D::GetParent()
