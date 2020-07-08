@@ -40,6 +40,8 @@ public:
 	void CalculateBounds(std::vector<glm::vec3> vertices);
 	void CalculateBounds(Bounds otherBounds);
 	class BoundingBox* GetBoundingBox();
+	void SetColliderVisibility(bool visibility);
+	bool GetColliderVisibility() const;
 
 protected:
 	glm::vec3 position;

@@ -26,10 +26,10 @@ class EXPORTDLL Shader
 public:
 	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 	void Use();
-	void SetMat4(const std::string& name, const glm::mat4& value) const;
-	void SetVec3(const std::string& name, const glm::vec3& value) const;
-	void SetInt(const std::string& name, int value) const;
-	void SetFloat(const std::string& name, float value) const;
+	void SetMat4(const std::string& name, const glm::mat4& value);
+	void SetVec3(const std::string& name, const glm::vec3& value);
+	void SetInt(const std::string& name, int value);
+	void SetFloat(const std::string& name, float value);
 	void PassDirectionalLightValues(DirectionalLight* dirLight);
 	void PassPointLightListValues(std::list<PointLight*> pointLightList);
 	void PassSpotLightListValues(std::list<SpotLight*> spotLightList);

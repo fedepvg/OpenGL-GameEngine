@@ -16,32 +16,40 @@ Shader::Shader(const char * vertexShaderPath, const char * fragmentShaderPath)
 
 void Shader::Use()
 {
-	glUseProgram(shaderIndex);
+	GLint currProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
+	if(currProgram != shaderIndex)
+		glUseProgram(shaderIndex);
 }
 
-void Shader::SetMat4(const std::string& name, const glm::mat4& value) const
+void Shader::SetMat4(const std::string& name, const glm::mat4& value)
 {
+	Use();
 	glUniformMatrix4fv(glGetUniformLocation(shaderIndex, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void Shader::SetVec3(const std::string& name, const glm::vec3& value) const
+void Shader::SetVec3(const std::string& name, const glm::vec3& value) 
 {
+	Use();
 	glUniform3fv(glGetUniformLocation(shaderIndex, name.c_str()), 1, glm::value_ptr(value));
 }
 
 
-void Shader::SetInt(const std::string& name, int value) const
+void Shader::SetInt(const std::string& name, int value)
 {
+	Use();
 	glUniform1i(glGetUniformLocation(shaderIndex, name.c_str()), value);
 }
 
-void Shader::SetFloat(const std::string& name, float value) const
+void Shader::SetFloat(const std::string& name, float value) 
 {
+	Use();
 	glUniform1f(glGetUniformLocation(shaderIndex, name.c_str()), value);
 }
 
 void Shader::PassDirectionalLightValues(DirectionalLight* dirLight)
 {
+	Use();
 	SetVec3("dirLight.direction", dirLight->dir);
 	SetVec3("dirLight.ambient", dirLight->ambient);
 	SetVec3("dirLight.diffuse", dirLight->diffuse);
@@ -50,6 +58,7 @@ void Shader::PassDirectionalLightValues(DirectionalLight* dirLight)
 
 void Shader::PassPointLightListValues(std::list<PointLight*> pointLightList)
 {
+	Use();
 	int lightPosition = 0;
 	for (std::list<PointLight*>::iterator it = pointLightList.begin(); it!= pointLightList.end(); it++)
 	{
@@ -69,6 +78,7 @@ void Shader::PassPointLightListValues(std::list<PointLight*> pointLightList)
 
 void Shader::PassSpotLightListValues(std::list<SpotLight*> spotLightList)
 {
+	Use();
 	int lightPosition = 0;
 	for (std::list<SpotLight*>::iterator it = spotLightList.begin(); it != spotLightList.end(); it++)
 	{

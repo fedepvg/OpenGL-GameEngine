@@ -28,6 +28,8 @@ Renderer3D::~Renderer3D()
 
 void Renderer3D::Draw(Entity3D* root)
 {
+	SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	RenderEntity(root);
 	glfwSwapBuffers(renderWindow);
 }
@@ -38,11 +40,10 @@ void Renderer3D::RenderEntity(Entity3D* toRender)
 	thisMesh = dynamic_cast<Mesh*>(toRender);
 	if (typeid(*toRender) == typeid(Mesh))
 	{
+		thisMesh->GetShader()->Use();
 		thisMesh->GetShader()->SetMat4("view", renderCamera->GetViewMatrix());
 		thisMesh->GetShader()->SetMat4("proj", projMatrix);
-		thisMesh->GetShader()->SetMat4("model", thisMesh->GetModel());
-		
-		thisMesh->GetShader()->Use();
+		thisMesh->GetShader()->SetMat4("model", thisMesh->GetModel());		
 		
 		SetTextures(thisMesh, thisMesh->GetTextures());
 		

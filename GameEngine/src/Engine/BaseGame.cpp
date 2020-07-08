@@ -70,8 +70,8 @@ int BaseGame::GameLoop()
 
 		//use renderer		
 		//renderer->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
-		renderer3d->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//renderer3d->SetBackgroundColor(0.1f, 0.1f, 0.5f, 0.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		Update(deltaTime);
 		//input processing

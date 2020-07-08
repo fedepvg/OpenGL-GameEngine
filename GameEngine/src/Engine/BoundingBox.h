@@ -15,6 +15,7 @@ class EXPORTDLL BoundingBox
 	static class Shader* shader;
 	unsigned int VAO, VBO, EBO;
 	std::vector<unsigned int> indices;
+	bool isVisible = false;
 
 public:
 	BoundingBox();
@@ -22,6 +23,8 @@ public:
 	void CreateBuffers();
 	void Setup();
 	void Draw(glm::mat4 viewMat, glm::mat4 projMat);
+	void SetVisibility(bool visibility) { isVisible = visibility; }
+	bool GetVisibility() const { return isVisible; }
 };
 
 #endif

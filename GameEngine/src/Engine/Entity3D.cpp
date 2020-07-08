@@ -196,3 +196,17 @@ BoundingBox* Entity3D::GetBoundingBox()
 {
 	return boundingBox;
 }
+
+void Entity3D::SetColliderVisibility(bool visibility)
+{
+	boundingBox->SetVisibility(visibility);
+	for (unsigned int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->SetColliderVisibility(visibility);
+	}
+}
+
+bool Entity3D::GetColliderVisibility() const
+{
+	return boundingBox->GetVisibility();
+}

@@ -5,6 +5,7 @@
 #include "Engine/DirectionalLight.h"
 #include "Engine/PointLight.h"
 #include "Engine/SpotLight.h"
+#include "Engine/BoundingBox.h"
 
 #include <iostream>
 
@@ -29,7 +30,6 @@ void Game::Init()
 
 	fpsCamera = new FirstPersonCameraController(renderCamera, cursor);
 	fpsCamera->SetSensitivity(0.3f);
-	//shader initialization
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	ourShader->SetVec3("viewDirection", renderCamera->GetDirection());
 
@@ -121,6 +121,16 @@ void Game::Update(const float deltaTime)
 	if (input->GetKey(GLFW_KEY_ENTER))
 	{
 		testModel2->SetParent(nullptr);
+	}
+	if (input->GetKey(GLFW_KEY_1))
+	{
+		testModel->SetColliderVisibility(true);
+		testModel2->SetColliderVisibility(true);
+	}
+	if (input->GetKey(GLFW_KEY_2))
+	{
+		testModel->SetColliderVisibility(false);
+		testModel2->SetColliderVisibility(false);
 	}
 
 	fpsCamera->Update();
