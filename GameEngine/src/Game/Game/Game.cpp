@@ -115,7 +115,7 @@ void Game::Update(const float deltaTime)
 
 	if (input->GetKey(GLFW_KEY_SPACE))
 	{
-		testModel2->SetParent(testModel);
+		testModel2->SetParent(testModel->GetNode("Cube.037__0"));
 	}
 
 	if (input->GetKey(GLFW_KEY_ENTER))
