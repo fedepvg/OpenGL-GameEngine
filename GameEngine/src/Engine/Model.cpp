@@ -16,16 +16,12 @@
 #include "Entity.h"
 #include "Entity3D.h"
 #include "AssimpImporter.h"
+#include "BoundingBox.h"
 
 Model::Model(string const &path, Shader* shader, bool flipUV)
 {
 	this->shader = shader;
 	LoadModel(path, flipUV);
-
-	//modelMat = glm::mat4(1.0f);
-	//modelMat = glm::translate(modelMat, glm::vec3(0.0f, -100.75f, 0.0f));
-	//modelMat = glm::scale(modelMat, glm::vec3(10.8f, 10.8f, 10.8f));
-	//root->SetModelMatrix(modelMat);
 }
 
 void Model::LoadModel(string const &path, bool flipUV)
@@ -34,12 +30,14 @@ void Model::LoadModel(string const &path, bool flipUV)
 	
 	// retrieve the directory path of the filepath
 	directory = path.substr(0, path.find_last_of('/'));
-
+	
 	// process ASSIMP's root node recursively
 	ProcessNode(scene->mRootNode, scene, nullptr);
+	//root->UpdateBoundingBox();
+	root->UpdateModelMatAndBoundingBox();
 }
 
-void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
+void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)// , vector<glm::vec3> &vertices)
 {
 	Entity3D* thisNode = nullptr;
 	if(node->mNumMeshes == 0)
@@ -72,7 +70,12 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)
 	{
 		ProcessNode(node->mChildren[i], scene, thisNode);
 	}
-	UpdateModelMatrix();
+	vector<glm::vec3> vertices;
+	thisNode->GetVertexPositions(vertices);
+	thisNode->CalculateBounds(vertices);
+	thisNode->GetBoundingBox()->Setup();
+	UpdateModelMatAndBoundingBox();
+	//UpdateModelMatrix();
 }
 
 Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene, Entity3D* parent, Shader* shader)

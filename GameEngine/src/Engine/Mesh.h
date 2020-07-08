@@ -52,6 +52,8 @@ public:
 	int GetElementsSize();
 	unsigned int GetVertexArray();
 	vector<TextureStruct> GetTextures();
+	virtual void GetVertexPositions(vector<glm::vec3> &vertexVector);
+	Bounds UpdateModelMatAndBoundingBox() override;
 
 private:
 	/*  Render data  */

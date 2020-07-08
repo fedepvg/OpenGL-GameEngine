@@ -6,6 +6,7 @@
 #include "Shader.h"
 #include "Window.h"
 #include "Camera.h"
+#include "BoundingBox.h"
 
 
 Renderer3D::Renderer3D(Window* window)
@@ -47,9 +48,14 @@ void Renderer3D::RenderEntity(Entity3D* toRender)
 		
 		glBindVertexArray(thisMesh->GetVertexArray());
 		glDrawElements(GL_TRIANGLES, thisMesh->GetElementsSize(), GL_UNSIGNED_INT, 0);
+		glActiveTexture(GL_TEXTURE0);
 		glBindVertexArray(0);
+		
 	}
-
+	
+	//toRender->GetBoundingBox()->Setup();
+	toRender->GetBoundingBox()->Draw(renderCamera->GetViewMatrix(), projMatrix);
+	
 	for (int i = 0; i < toRender->GetChilds().size(); i++)
 	{
 		RenderEntity(toRender->GetChilds()[i]);

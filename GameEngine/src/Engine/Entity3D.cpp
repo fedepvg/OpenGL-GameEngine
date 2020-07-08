@@ -5,6 +5,8 @@
 #include"glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "Shader.h"
+#include "BoundingBox.h"
+#include "Mesh.h"
 
 Entity3D* Entity3D::sceneRoot = nullptr;
 
@@ -16,6 +18,7 @@ Entity3D::Entity3D()
 		SetParent(sceneRoot);
 
 	worldModel = glm::mat4(1.f);
+	boundingBox = new BoundingBox();
 }
 
 Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
@@ -26,26 +29,35 @@ Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 		SetParent(parent);
 	this->shader = shader;
 	worldModel = glm::mat4(1.f);
+	boundingBox = new BoundingBox();
+}
+
+Entity3D::~Entity3D()
+{
+	delete boundingBox;
 }
 
 void Entity3D::Rotate(float angle, glm::vec3 axis)
 {
 	localModel = glm::rotate(localModel, glm::radians(angle), axis);
-	UpdateModelMatrix();
+	//UpdateModelMatrix();
+	UpdateModelMatAndBoundingBox();
 }
 
 void Entity3D::Scale(glm::vec3 scaleValues)
 {
 	localModel = glm::scale(localModel, scaleValues);
 	scale *= scaleValues;
-	UpdateModelMatrix();
+	//UpdateModelMatrix();
+	UpdateModelMatAndBoundingBox();
 }
 
 void Entity3D::Translate(float value, glm::vec3 axis)
 {
 	localModel = glm::translate(localModel, value * (axis));
 	position += value * axis;
-	UpdateModelMatrix();
+	//UpdateModelMatrix();
+	UpdateModelMatAndBoundingBox();
 }
 
 void Entity3D::SetPosition(glm::vec3 newPosition)
@@ -64,11 +76,24 @@ void Entity3D::UpdateModelMatrix()
 {
 	if(GetParent() != nullptr)
 		worldModel = GetParent()->GetModel() * localModel;
-		
+
 	for (unsigned int i = 0; i < childs.size(); i++)
 	{
 		childs[i]->UpdateModelMatrix();
 	}
+}
+
+Bounds Entity3D::UpdateModelMatAndBoundingBox()
+{
+	if (GetParent() != nullptr)
+		worldModel = GetParent()->GetModel() * localModel;
+	
+	for (unsigned int i = 0; i < childs.size(); i++)
+	{
+		CalculateBounds(childs[i]->UpdateModelMatAndBoundingBox());
+	}
+	boundingBox->CalculateBoundingBox(bounds, worldModel);
+	return bounds;
 }
 
 void Entity3D::SetParent(Entity3D* newParent)
@@ -131,4 +156,43 @@ Entity3D* Entity3D::GetNode(std::string node)
 void Entity3D::SetSceneRoot(Entity3D* root)
 {
 	sceneRoot = root;
+}
+
+void Entity3D::CalculateBounds(std::vector<glm::vec3> vertices)
+{
+	if (!vertices.empty())
+	{
+		Bounds resetBounds;
+		bounds = resetBounds;
+		for (int i = 0; i < vertices.size(); i++)
+		{
+			if (vertices[i].x < bounds.minX)
+				bounds.minX = vertices[i].x;
+			if (vertices[i].x > bounds.maxX)
+				bounds.maxX = vertices[i].x;
+			if (vertices[i].y < bounds.minY)
+				bounds.minY = vertices[i].y;
+			if (vertices[i].y > bounds.maxY)
+				bounds.maxY = vertices[i].y;
+			if (vertices[i].z < bounds.minZ)
+				bounds.minZ = vertices[i].z;
+			if (vertices[i].z > bounds.maxZ)
+				bounds.maxZ = vertices[i].z;
+		}
+	}
+}
+
+void Entity3D::CalculateBounds(Bounds otherBounds)
+{
+	bounds.minX = bounds.minX < otherBounds.minX ? bounds.minX : otherBounds.minX;
+	bounds.minY = bounds.minY < otherBounds.minY ? bounds.minY : otherBounds.minY;
+	bounds.minZ = bounds.minZ < otherBounds.minZ ? bounds.minZ : otherBounds.minZ;
+	bounds.maxX = bounds.maxX > otherBounds.maxX ? bounds.maxX : otherBounds.maxX;
+	bounds.maxY = bounds.maxY > otherBounds.maxY ? bounds.maxY : otherBounds.maxY;
+	bounds.maxZ = bounds.maxZ > otherBounds.maxZ ? bounds.maxZ : otherBounds.maxZ;
+}
+
+BoundingBox* Entity3D::GetBoundingBox()
+{
+	return boundingBox;
 }

@@ -31,6 +31,23 @@ vector<TextureStruct> Mesh::GetTextures()
 	return textures;
 }
 
+void Mesh::GetVertexPositions(vector<glm::vec3>& vertexVector)
+{
+	for (int i = 0; i < vertices.size(); i++)
+	{
+		vertexVector.push_back(/*worldModel * glm::vec4(*/vertices[i].position);//,1.0));
+	}
+}
+
+Bounds Mesh::UpdateModelMatAndBoundingBox()
+{
+	//std::vector<glm::vec3> vertices;
+	//GetVertexPositions(vertices);
+	//CalculateBounds(vertices);
+	Entity3D::UpdateModelMatAndBoundingBox();
+	return bounds;
+}
+
 void Mesh::SetupMesh()
 {
 	// create buffers/arrays

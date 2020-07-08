@@ -146,6 +146,7 @@
     <ClCompile Include="..\src\Engine\Animation.cpp" />
     <ClCompile Include="..\src\Engine\AssimpImporter.cpp" />
     <ClCompile Include="..\src\Engine\BaseGame.cpp" />
+    <ClCompile Include="..\src\Engine\BoundingBox.cpp" />
     <ClCompile Include="..\src\Engine\Camera.cpp" />
     <ClCompile Include="..\src\Engine\CollisionManager.cpp" />
     <ClCompile Include="..\src\Engine\Cursor.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="..\src\Engine\Animation.h" />
     <ClInclude Include="..\src\Engine\AssimpImporter.h" />
     <ClInclude Include="..\src\Engine\BaseGame.h" />
+    <ClInclude Include="..\src\Engine\BoundingBox.h" />
     <ClInclude Include="..\src\Engine\Camera.h" />
     <ClInclude Include="..\src\Engine\CollisionManager.h" />
     <ClInclude Include="..\src\Engine\Cursor.h" />
