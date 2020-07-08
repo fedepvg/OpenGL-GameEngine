@@ -10,7 +10,8 @@ uniform mat4 view;
 uniform mat4 proj;
 
 void main(){
-color = customColor;
+//color = customColor;
+color = vec3(0.0f,0.8f,0.0f);
 TexCoord = aTexCoord;
 gl_Position = proj*view*model*vec4(position,1.0f);
 }
