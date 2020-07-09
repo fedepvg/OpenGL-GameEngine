@@ -19,6 +19,7 @@ Entity3D::Entity3D()
 
 	worldModel = glm::mat4(1.f);
 	boundingBox = new BoundingBox();
+	AABB = new BoundingBox();
 }
 
 Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
@@ -30,6 +31,7 @@ Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 	this->shader = shader;
 	worldModel = glm::mat4(1.f);
 	boundingBox = new BoundingBox();
+	AABB = new BoundingBox();
 }
 
 Entity3D::~Entity3D()
@@ -87,12 +89,28 @@ Bounds Entity3D::UpdateModelMatAndBoundingBox()
 {
 	if (GetParent() != nullptr)
 		worldModel = GetParent()->GetModel() * localModel;
+
+	Bounds cBounds;
+	Bounds totalBounds;
 	
 	for (unsigned int i = 0; i < childs.size(); i++)
 	{
-		CalculateBounds(childs[i]->UpdateModelMatAndBoundingBox());
+		cBounds = CalculateBounds(childs[i]->UpdateModelMatAndBoundingBox(), cBounds);
 	}
-	boundingBox->CalculateBoundingBox(bounds, worldModel);
+	//bounds = CalculateBounds(cBounds, GenerateBounds)
+
+	VertexArray vertexArray;
+
+	for (int i=0; i<BOXVERTICES;i++)
+	{
+		vertexArray.actualVertexArray[i] = AABB->GetVertex(i);
+	}
+
+	bounds = GenerateBounds(vertexArray, worldModel);
+	//transformedBounds = GenerateBounds(vertexArray, worldModel);
+	totalBounds = CalculateBounds(cBounds, bounds);
+	
+	boundingBox->CalculateBoundingBox(totalBounds, worldModel);
 	return bounds;
 }
 
@@ -192,6 +210,55 @@ void Entity3D::CalculateBounds(Bounds otherBounds)
 	bounds.maxX = bounds.maxX > otherBounds.maxX ? bounds.maxX : otherBounds.maxX;
 	bounds.maxY = bounds.maxY > otherBounds.maxY ? bounds.maxY : otherBounds.maxY;
 	bounds.maxZ = bounds.maxZ > otherBounds.maxZ ? bounds.maxZ : otherBounds.maxZ;
+}
+
+Bounds Entity3D::CalculateBounds(Bounds bounds1, Bounds bounds2)
+{
+	Bounds newBounds;
+	
+	newBounds.minX = bounds1.minX <  bounds2.minX ? bounds1.minX :  bounds2.minX;
+	newBounds.minY = bounds1.minY <  bounds2.minY ? bounds1.minY :  bounds2.minY;
+	newBounds.minZ = bounds1.minZ <  bounds2.minZ ? bounds1.minZ :  bounds2.minZ;
+	newBounds.maxX = bounds1.maxX >  bounds2.maxX ? bounds1.maxX :  bounds2.maxX;
+	newBounds.maxY = bounds1.maxY >  bounds2.maxY ? bounds1.maxY :  bounds2.maxY;
+	newBounds.maxZ = bounds1.maxZ >  bounds2.maxZ ? bounds1.maxZ :  bounds2.maxZ;
+
+	return newBounds;
+}
+
+Bounds Entity3D::GenerateBoundsByVertex(VertexArray vertexArray)
+{
+	Bounds resetBounds;
+
+	for (int i = 0; i < BOXVERTICES; i++)
+	{
+		if (vertexArray.actualVertexArray[i].x < resetBounds.minX)
+			resetBounds.minX = vertexArray.actualVertexArray[i].x;
+		if (vertexArray.actualVertexArray[i].x > resetBounds.maxX)
+			resetBounds.maxX = vertexArray.actualVertexArray[i].x;
+		if (vertexArray.actualVertexArray[i].y < resetBounds.minY)
+			resetBounds.minY = vertexArray.actualVertexArray[i].y;
+		if (vertexArray.actualVertexArray[i].y > resetBounds.maxY)
+			resetBounds.maxY = vertexArray.actualVertexArray[i].y;
+		if (vertexArray.actualVertexArray[i].z < resetBounds.minZ)
+			resetBounds.minZ = vertexArray.actualVertexArray[i].z;
+		if (vertexArray.actualVertexArray[i].z > resetBounds.maxZ)
+			resetBounds.maxZ = vertexArray.actualVertexArray[i].z;
+	}
+
+	return resetBounds;
+}
+
+Bounds Entity3D::GenerateBounds(VertexArray vArray, glm::mat4 modelMatrix)
+{
+	vector<glm::vec3> vertexVector;
+	for (int i = 0; i < BOXVERTICES; i++)
+	{
+		vArray.actualVertexArray[i] = modelMatrix * glm::vec4(vArray.actualVertexArray[i], 1.f);
+		vertexVector.push_back(vArray.actualVertexArray[i]);
+	}
+
+	return GenerateBoundsByVertex(vArray);
 }
 
 BoundingBox* Entity3D::GetBoundingBox()

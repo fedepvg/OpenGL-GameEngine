@@ -25,6 +25,7 @@ public:
 	void Draw(glm::mat4 viewMat, glm::mat4 projMat);
 	void SetVisibility(bool visibility) { isVisible = visibility; }
 	bool GetVisibility() const { return isVisible; }
+	glm::vec3 GetVertex(unsigned int index);
 };
 
 #endif

@@ -58,7 +58,7 @@ void BoundingBox::CalculateBoundingBox(Bounds bounds, glm::mat4 modelMat)
 	};
 
 	for (int i = 0; i < BOXVERTICES; i++)
-		vertex[i] = modelMat * glm::vec4(boundingBoxVertex[i],1.f);
+		vertex[i] = /*modelMat **/ glm::vec4(boundingBoxVertex[i],1.f);
 
 	Setup();
 }
@@ -104,4 +104,9 @@ void BoundingBox::Draw(glm::mat4 viewMat, glm::mat4 projMat)
 	glBindVertexArray(0);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+glm::vec3 BoundingBox::GetVertex(unsigned index)
+{
+	return vertex[index];
 }

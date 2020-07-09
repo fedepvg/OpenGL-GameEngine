@@ -15,6 +15,11 @@ struct Bounds
 	float minZ = INT32_MAX;
 };
 
+struct VertexArray
+{
+	glm::vec3 actualVertexArray[8];
+};
+
 class EXPORTDLL Entity3D
 {
 public:
@@ -39,6 +44,10 @@ public:
 	virtual void GetVertexPositions(std::vector<glm::vec3> &vertexVector) { return; }
 	void CalculateBounds(std::vector<glm::vec3> vertices);
 	void CalculateBounds(Bounds otherBounds);
+	Bounds CalculateBounds(Bounds bounds1, Bounds bounds2);
+	Bounds GenerateBoundsByVertex(VertexArray vertexArray);
+	Bounds GenerateBounds(VertexArray vArray, glm::mat4 modelMatrix);
+	
 	class BoundingBox* GetBoundingBox();
 	void SetColliderVisibility(bool visibility);
 	bool GetColliderVisibility() const;
@@ -53,6 +62,7 @@ protected:
 	std::vector<Entity3D*> childs;
 	Shader* shader;
 	BoundingBox* boundingBox;
+	BoundingBox* AABB;
 	Bounds bounds;
 
 private:
