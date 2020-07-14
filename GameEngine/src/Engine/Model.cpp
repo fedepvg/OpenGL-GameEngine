@@ -75,9 +75,8 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)// 
 	thisNode->GetVertexPositions(vertices);
 	thisNode->CalculateBounds(vertices);
 	thisNode->GetBoundingBox()->Setup();
-	thisNode->AABB->CalculateBoundingBox(thisNode->bounds, glm::mat4(1.0));
+	thisNode->staticBoundingBox->CalculateBoundingBox(thisNode->bounds);
 	UpdateModelMatAndBoundingBox();
-	//UpdateModelMatrix();
 }
 
 Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene, Entity3D* parent, Shader* shader)

@@ -18,8 +18,8 @@ Entity3D::Entity3D()
 		SetParent(sceneRoot);
 
 	worldModel = glm::mat4(1.f);
-	boundingBox = new BoundingBox();
-	AABB = new BoundingBox();
+	regenerativeAABB = new BoundingBox();
+	staticBoundingBox = new BoundingBox();
 }
 
 Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
@@ -30,13 +30,13 @@ Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 		SetParent(parent);
 	this->shader = shader;
 	worldModel = glm::mat4(1.f);
-	boundingBox = new BoundingBox();
-	AABB = new BoundingBox();
+	regenerativeAABB = new BoundingBox();
+	staticBoundingBox = new BoundingBox();
 }
 
 Entity3D::~Entity3D()
 {
-	delete boundingBox;
+	delete regenerativeAABB;
 }
 
 void Entity3D::Rotate(float angle, glm::vec3 axis)
@@ -91,27 +91,25 @@ Bounds Entity3D::UpdateModelMatAndBoundingBox()
 		worldModel = GetParent()->GetModel() * localModel;
 
 	Bounds cBounds;
-	Bounds totalBounds;
+	Bounds resultantBounds;
 	
 	for (unsigned int i = 0; i < childs.size(); i++)
 	{
-		cBounds = CalculateBounds(childs[i]->UpdateModelMatAndBoundingBox(), cBounds);
+		cBounds = CombineBounds(childs[i]->UpdateModelMatAndBoundingBox(), cBounds);
 	}
-	//bounds = CalculateBounds(cBounds, GenerateBounds)
 
 	VertexArray vertexArray;
 
 	for (int i=0; i<BOXVERTICES;i++)
 	{
-		vertexArray.actualVertexArray[i] = AABB->GetVertex(i);
+		vertexArray.actualVertexArray[i] = staticBoundingBox->GetVertex(i);
 	}
 
-	bounds = GenerateBounds(vertexArray, worldModel);
-	//transformedBounds = GenerateBounds(vertexArray, worldModel);
-	totalBounds = CalculateBounds(cBounds, bounds);
+	bounds = GenerateBoundsByTransformedVertex(vertexArray, worldModel);
+	resultantBounds = CombineBounds(cBounds, bounds);
 	
-	boundingBox->CalculateBoundingBox(totalBounds, worldModel);
-	return bounds;
+	regenerativeAABB->CalculateBoundingBox(resultantBounds);
+	return resultantBounds;
 }
 
 void Entity3D::SetParent(Entity3D* newParent)
@@ -202,17 +200,7 @@ void Entity3D::CalculateBounds(std::vector<glm::vec3> vertices)
 	}
 }
 
-void Entity3D::CalculateBounds(Bounds otherBounds)
-{
-	bounds.minX = bounds.minX < otherBounds.minX ? bounds.minX : otherBounds.minX;
-	bounds.minY = bounds.minY < otherBounds.minY ? bounds.minY : otherBounds.minY;
-	bounds.minZ = bounds.minZ < otherBounds.minZ ? bounds.minZ : otherBounds.minZ;
-	bounds.maxX = bounds.maxX > otherBounds.maxX ? bounds.maxX : otherBounds.maxX;
-	bounds.maxY = bounds.maxY > otherBounds.maxY ? bounds.maxY : otherBounds.maxY;
-	bounds.maxZ = bounds.maxZ > otherBounds.maxZ ? bounds.maxZ : otherBounds.maxZ;
-}
-
-Bounds Entity3D::CalculateBounds(Bounds bounds1, Bounds bounds2)
+Bounds Entity3D::CombineBounds(Bounds bounds1, Bounds bounds2)
 {
 	Bounds newBounds;
 	
@@ -249,13 +237,11 @@ Bounds Entity3D::GenerateBoundsByVertex(VertexArray vertexArray)
 	return resetBounds;
 }
 
-Bounds Entity3D::GenerateBounds(VertexArray vArray, glm::mat4 modelMatrix)
+Bounds Entity3D::GenerateBoundsByTransformedVertex(VertexArray vArray, glm::mat4 modelMatrix)
 {
-	vector<glm::vec3> vertexVector;
 	for (int i = 0; i < BOXVERTICES; i++)
 	{
 		vArray.actualVertexArray[i] = modelMatrix * glm::vec4(vArray.actualVertexArray[i], 1.f);
-		vertexVector.push_back(vArray.actualVertexArray[i]);
 	}
 
 	return GenerateBoundsByVertex(vArray);
@@ -263,12 +249,12 @@ Bounds Entity3D::GenerateBounds(VertexArray vArray, glm::mat4 modelMatrix)
 
 BoundingBox* Entity3D::GetBoundingBox()
 {
-	return boundingBox;
+	return regenerativeAABB;
 }
 
 void Entity3D::SetColliderVisibility(bool visibility)
 {
-	boundingBox->SetVisibility(visibility);
+	regenerativeAABB->SetVisibility(visibility);
 	for (unsigned int i = 0; i < childs.size(); i++)
 	{
 		childs[i]->SetColliderVisibility(visibility);
@@ -277,5 +263,5 @@ void Entity3D::SetColliderVisibility(bool visibility)
 
 bool Entity3D::GetColliderVisibility() const
 {
-	return boundingBox->GetVisibility();
+	return regenerativeAABB->GetVisibility();
 }

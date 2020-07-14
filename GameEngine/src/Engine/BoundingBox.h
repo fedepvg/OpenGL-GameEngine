@@ -19,7 +19,7 @@ class EXPORTDLL BoundingBox
 
 public:
 	BoundingBox();
-	void CalculateBoundingBox(Bounds bounds, glm::mat4 modelMat);
+	void CalculateBoundingBox(Bounds bounds);
 	void CreateBuffers();
 	void Setup();
 	void Draw(glm::mat4 viewMat, glm::mat4 projMat);

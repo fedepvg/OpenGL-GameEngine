@@ -43,7 +43,7 @@ BoundingBox::BoundingBox()
 	Setup();
 }
 
-void BoundingBox::CalculateBoundingBox(Bounds bounds, glm::mat4 modelMat)
+void BoundingBox::CalculateBoundingBox(Bounds bounds)
 {
 	glm::vec3 boundingBoxVertex[BOXVERTICES] =
 	{

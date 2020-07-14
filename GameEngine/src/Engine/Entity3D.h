@@ -43,10 +43,9 @@ public:
 	static void SetSceneRoot(Entity3D* root);
 	virtual void GetVertexPositions(std::vector<glm::vec3> &vertexVector) { return; }
 	void CalculateBounds(std::vector<glm::vec3> vertices);
-	void CalculateBounds(Bounds otherBounds);
-	Bounds CalculateBounds(Bounds bounds1, Bounds bounds2);
+	Bounds CombineBounds(Bounds bounds1, Bounds bounds2);
 	Bounds GenerateBoundsByVertex(VertexArray vertexArray);
-	Bounds GenerateBounds(VertexArray vArray, glm::mat4 modelMatrix);
+	Bounds GenerateBoundsByTransformedVertex(VertexArray vArray, glm::mat4 modelMatrix);
 	
 	class BoundingBox* GetBoundingBox();
 	void SetColliderVisibility(bool visibility);
@@ -61,8 +60,8 @@ protected:
 	Entity3D* parent;
 	std::vector<Entity3D*> childs;
 	Shader* shader;
-	BoundingBox* boundingBox;
-	BoundingBox* AABB;
+	BoundingBox* regenerativeAABB;
+	BoundingBox* staticBoundingBox;
 	Bounds bounds;
 
 private:
