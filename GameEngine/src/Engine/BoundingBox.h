@@ -26,6 +26,7 @@ public:
 	void SetVisibility(bool visibility) { isVisible = visibility; }
 	bool GetVisibility() const { return isVisible; }
 	glm::vec3 GetVertex(unsigned int index);
+	static VertexArray GetBoxVertices(Bounds bounds);
 };
 
 #endif

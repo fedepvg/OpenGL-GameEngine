@@ -12,26 +12,27 @@ Entity3D* Entity3D::sceneRoot = nullptr;
 
 Entity3D::Entity3D()
 {
+	worldModel = glm::mat4(1.f);
+	regenerativeAABB = new BoundingBox();
+	staticBoundingBox = new BoundingBox();
+	
 	if (sceneRoot == nullptr)
 		parent = nullptr;
 	else
 		SetParent(sceneRoot);
-
-	worldModel = glm::mat4(1.f);
-	regenerativeAABB = new BoundingBox();
-	staticBoundingBox = new BoundingBox();
 }
 
 Entity3D::Entity3D(glm::vec3 position, Entity3D* parent, Shader* shader)
 {
+	worldModel = glm::mat4(1.f);
+	regenerativeAABB = new BoundingBox();
+	staticBoundingBox = new BoundingBox();
+	
 	if (parent == nullptr && sceneRoot != nullptr)
 		SetParent(sceneRoot);
 	else
 		SetParent(parent);
 	this->shader = shader;
-	worldModel = glm::mat4(1.f);
-	regenerativeAABB = new BoundingBox();
-	staticBoundingBox = new BoundingBox();
 }
 
 Entity3D::~Entity3D()
@@ -43,7 +44,7 @@ void Entity3D::Rotate(float angle, glm::vec3 axis)
 {
 	localModel = glm::rotate(localModel, glm::radians(angle), axis);
 	//UpdateModelMatrix();
-	UpdateModelMatAndBoundingBox();
+	sceneRoot->UpdateModelMatAndBoundingBox();
 }
 
 void Entity3D::Scale(glm::vec3 scaleValues)
@@ -51,7 +52,7 @@ void Entity3D::Scale(glm::vec3 scaleValues)
 	localModel = glm::scale(localModel, scaleValues);
 	scale *= scaleValues;
 	//UpdateModelMatrix();
-	UpdateModelMatAndBoundingBox();
+	sceneRoot->UpdateModelMatAndBoundingBox();
 }
 
 void Entity3D::Translate(float value, glm::vec3 axis)
@@ -59,7 +60,7 @@ void Entity3D::Translate(float value, glm::vec3 axis)
 	localModel = glm::translate(localModel, value * (axis));
 	position += value * axis;
 	//UpdateModelMatrix();
-	UpdateModelMatAndBoundingBox();
+	sceneRoot->UpdateModelMatAndBoundingBox();
 }
 
 void Entity3D::SetPosition(glm::vec3 newPosition)
@@ -98,7 +99,7 @@ Bounds Entity3D::UpdateModelMatAndBoundingBox()
 		cBounds = CombineBounds(childs[i]->UpdateModelMatAndBoundingBox(), cBounds);
 	}
 
-	VertexArray vertexArray;
+	VertexArray vertexArray = BoundingBox::GetBoxVertices(resultantBounds);
 
 	for (int i=0; i<BOXVERTICES;i++)
 	{
@@ -136,6 +137,8 @@ void Entity3D::SetParent(Entity3D* newParent)
 		}
 	}
 
+	if(sceneRoot)
+		sceneRoot->UpdateModelMatAndBoundingBox();
 	//newParent->UpdateModelMatAndBoundingBox();
 }
 

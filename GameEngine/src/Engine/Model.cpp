@@ -64,8 +64,8 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)// 
 		}
 	}
 	thisNode->name = node->mName.C_Str();
-	thisNode->localModel = glm::mat4(1.0f);
-	//thisNode->localModel = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
+	//thisNode->localModel = glm::mat4(1.0f);
+	thisNode->localModel = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{

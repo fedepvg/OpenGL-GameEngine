@@ -45,7 +45,7 @@ void Game::Init()
 		1.f, 0.14f, 0.07f));
 
 	testModel = new Model("../res/model/backpack.obj", ourShader);
-	testModel2 = new Model("../res/sniper/sniperfbx.fbx", ourShader, false);
+	testModel2 = new Model("../res/model/backpack.obj", ourShader, false);
 	//testModel2->SetParent(testModel);
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	GameLoop();
@@ -95,7 +95,12 @@ void Game::Update(const float deltaTime)
 
 	if (input->GetKey(GLFW_KEY_UP))
 	{
-		testModel->Scale(glm::vec3(1.1f));
+		testModel2->Scale(glm::vec3(1.1f));
+	}
+	
+	if (input->GetKey(GLFW_KEY_DOWN))
+	{
+		testModel2->Scale(glm::vec3(.9f));
 	}
 
 	if (input->GetKey(GLFW_KEY_V))
@@ -116,11 +121,6 @@ void Game::Update(const float deltaTime)
 	if (input->GetKey(GLFW_KEY_B))
 	{
 		testModel->Rotate(-40.f * deltaTime, glm::vec3(0.f, 1.f, 0));
-	}
-
-	if (input->GetKey(GLFW_KEY_DOWN))
-	{
-		testModel->Scale(glm::vec3(.9f));
 	}
 
 	if (input->GetKey(GLFW_KEY_H))

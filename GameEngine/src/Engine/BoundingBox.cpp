@@ -110,3 +110,23 @@ glm::vec3 BoundingBox::GetVertex(unsigned index)
 {
 	return vertex[index];
 }
+
+VertexArray BoundingBox::GetBoxVertices(Bounds bounds)
+{
+	VertexArray vA;
+	glm::vec3 boundingBoxVertex[BOXVERTICES] =
+	{
+		glm::vec3(bounds.minX, bounds.minY, bounds.maxZ),
+		glm::vec3(bounds.maxX, bounds.minY, bounds.maxZ),
+		glm::vec3(bounds.maxX, bounds.maxY, bounds.maxZ),
+		glm::vec3(bounds.minX, bounds.maxY, bounds.maxZ),
+		glm::vec3(bounds.minX, bounds.minY, bounds.minZ),
+		glm::vec3(bounds.maxX, bounds.minY, bounds.minZ),
+		glm::vec3(bounds.maxX, bounds.maxY, bounds.minZ),
+		glm::vec3(bounds.minX, bounds.maxY, bounds.minZ),
+	};
+	for (int i = 0; i < BOXVERTICES; i++)
+		vA.actualVertexArray[i] = boundingBoxVertex[i];
+
+	return vA;
+}
