@@ -8,6 +8,9 @@
 #include "Camera.h"
 #include "BoundingBox.h"
 
+#include <list>
+#include <algorithm>
+
 
 Renderer3D::Renderer3D(Window* window)
 {
@@ -45,6 +48,7 @@ void Renderer3D::RenderEntity(Entity3D* toRender)
 	thisMesh = dynamic_cast<Mesh*>(toRender);
 	if (typeid(*toRender) == typeid(Mesh))
 	{
+		const bool found = (std::find(culledEntities.begin(), culledEntities.end(), toRender) != culledEntities.end());
 		BoundingBox AABB = *toRender->GetBoundingBox();
 		if (frustum.IsBoxVisible(AABB.GetMinP(), AABB.GetMaxP()))
 		{
@@ -59,10 +63,17 @@ void Renderer3D::RenderEntity(Entity3D* toRender)
 			glDrawElements(GL_TRIANGLES, thisMesh->GetElementsSize(), GL_UNSIGNED_INT, 0);
 			glActiveTexture(GL_TEXTURE0);
 			glBindVertexArray(0);
+			
+			if (found)
+				culledEntities.remove(toRender);
 		}
 		else
 		{
-			std::printf(thisMesh->GetName().c_str());
+			if (!found)
+			{
+				std::printf(thisMesh->GetName().c_str());
+				culledEntities.push_back(toRender);
+			}
 		}
 	}
 

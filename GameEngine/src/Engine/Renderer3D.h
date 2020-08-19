@@ -11,6 +11,8 @@
 #include "Mesh.h"
 #include "Frustum.h"
 
+#include <list>
+
 #define EXPORTDLL _declspec(dllexport)
 
 class EXPORTDLL Renderer3D
@@ -31,6 +33,7 @@ private:
 	GLFWwindow* renderWindow;
 	Camera* renderCamera;
 	Frustum frustum;
+	list<Entity3D*> culledEntities;
 };
 
 #endif
