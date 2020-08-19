@@ -9,6 +9,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include "Mesh.h"
+#include "Frustum.h"
 
 #define EXPORTDLL _declspec(dllexport)
 
@@ -29,6 +30,7 @@ private:
 	glm::mat4 projMatrix;
 	GLFWwindow* renderWindow;
 	Camera* renderCamera;
+	Frustum frustum;
 };
 
 #endif

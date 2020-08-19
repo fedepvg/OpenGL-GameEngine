@@ -50,6 +50,7 @@ public:
 	class BoundingBox* GetBoundingBox();
 	void SetColliderVisibility(bool visibility);
 	bool GetColliderVisibility() const;
+	virtual std::string GetName();
 
 protected:
 	glm::vec3 position;

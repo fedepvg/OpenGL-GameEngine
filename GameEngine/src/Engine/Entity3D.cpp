@@ -268,3 +268,8 @@ bool Entity3D::GetColliderVisibility() const
 {
 	return regenerativeAABB->GetVisibility();
 }
+
+std::string Entity3D::GetName()
+{
+	return name;
+}
