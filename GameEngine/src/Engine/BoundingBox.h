@@ -16,6 +16,7 @@ class EXPORTDLL BoundingBox
 	unsigned int VAO, VBO, EBO;
 	std::vector<unsigned int> indices;
 	bool isVisible = false;
+	Bounds actualBounds;
 
 public:
 	BoundingBox();
@@ -26,6 +27,8 @@ public:
 	void SetVisibility(bool visibility) { isVisible = visibility; }
 	bool GetVisibility() const { return isVisible; }
 	glm::vec3 GetVertex(unsigned int index);
+	glm::vec3 GetMinP();
+	glm::vec3 GetMaxP();
 	static VertexArray GetBoxVertices(Bounds bounds);
 };
 

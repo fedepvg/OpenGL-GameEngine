@@ -57,6 +57,8 @@ void BoundingBox::CalculateBoundingBox(Bounds bounds)
 		glm::vec3(bounds.minX, bounds.maxY, bounds.minZ),
 	};
 
+	actualBounds = bounds;
+
 	for (int i = 0; i < BOXVERTICES; i++)
 		vertex[i] = /*modelMat **/ glm::vec4(boundingBoxVertex[i],1.f);
 
@@ -111,6 +113,17 @@ glm::vec3 BoundingBox::GetVertex(unsigned index)
 	return vertex[index];
 }
 
+glm::vec3 BoundingBox::GetMinP()
+{
+	return glm::vec3{ actualBounds.minX, actualBounds.minY, actualBounds.minZ };
+}
+
+glm::vec3 BoundingBox::GetMaxP()
+{
+	return glm::vec3{ actualBounds.maxX, actualBounds.maxY, actualBounds.maxZ };
+
+}
+
 VertexArray BoundingBox::GetBoxVertices(Bounds bounds)
 {
 	VertexArray vA;
@@ -127,6 +140,6 @@ VertexArray BoundingBox::GetBoxVertices(Bounds bounds)
 	};
 	for (int i = 0; i < BOXVERTICES; i++)
 		vA.actualVertexArray[i] = boundingBoxVertex[i];
-
+	
 	return vA;
 }
