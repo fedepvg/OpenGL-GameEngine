@@ -53,6 +53,7 @@ public:
 	virtual std::string GetName();
 	virtual std::string GetTag();
 	virtual bool isBSPPlane() const;
+	bool isVisible = true;
 
 protected:
 	glm::vec3 position;

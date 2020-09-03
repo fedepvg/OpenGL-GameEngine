@@ -22,13 +22,16 @@ public:
 	~Renderer3D();
 	void Draw(class Entity3D* root);
 	void RenderEntity(Entity3D* toRender);
+	void CheckSceneVisibility(Entity3D* root);
+	void CheckEntityVisibility(Entity3D* toRender);
 	void SetTextures(Mesh* toRender, vector<TextureStruct> textures);
 	void SetBackgroundColor(float r, float g, float b, float a) const;
 	class Camera* GetCamera();
 	glm::mat4 GetProjMatrix();
 	static void AddBSPPlane(class BSPPlane newPlane);
-	bool IsVisibleForBSP(glm::vec3 pos);
-	bool IsVisibleForBSP(glm::vec3 boxMin, glm::vec3 boxMax);
+	bool isFrustumCullingEnabled = true;
+	bool isBSPEnabled = true;
+	void CollectAllEntityTree(list<Entity3D*>& entities, Entity3D* entity);
 
 private:
 	unsigned int uniView;
