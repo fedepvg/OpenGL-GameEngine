@@ -51,6 +51,8 @@ public:
 	void SetColliderVisibility(bool visibility);
 	bool GetColliderVisibility() const;
 	virtual std::string GetName();
+	virtual std::string GetTag();
+	virtual bool isBSPPlane() const;
 
 protected:
 	glm::vec3 position;
@@ -58,6 +60,7 @@ protected:
 	glm::mat4 localModel;
 	glm::mat4 worldModel;
 	std::string name;
+	std::string tag = "obj";
 	Entity3D* parent;
 	std::vector<Entity3D*> childs;
 	Shader* shader;

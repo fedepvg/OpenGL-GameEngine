@@ -21,6 +21,9 @@ private:
 	Shader* ourShader;
 	Model* testModel;
 	Model* testModel2;
+	Model* testModel3;
+	Model* testModel4;
+	Model* bsp;
 	DirectionalLight* dirLight;
 	std::list<PointLight*> pointLightList;
 	std::list<SpotLight*> spotLightList;

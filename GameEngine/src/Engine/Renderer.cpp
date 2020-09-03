@@ -77,7 +77,7 @@ Camera* Renderer::GetCamera()
 void Renderer::SetShader()
 {
 	//load shaders
-	programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
+	//programID = LoadShaders("../src/Engine/SimpleVertexShader.vertexshader", "../src/Engine/SimpleFragmentShader.fragmentshader");
 
 	//use shader
 	glUseProgram(programID);

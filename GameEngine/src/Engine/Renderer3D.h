@@ -26,6 +26,9 @@ public:
 	void SetBackgroundColor(float r, float g, float b, float a) const;
 	class Camera* GetCamera();
 	glm::mat4 GetProjMatrix();
+	static void AddBSPPlane(class BSPPlane newPlane);
+	bool IsVisibleForBSP(glm::vec3 pos);
+	bool IsVisibleForBSP(glm::vec3 boxMin, glm::vec3 boxMax);
 
 private:
 	unsigned int uniView;
@@ -34,6 +37,7 @@ private:
 	Camera* renderCamera;
 	Frustum frustum;
 	list<Entity3D*> culledEntities;
+	static vector<class BSPPlane> bspPlanes;
 };
 
 #endif

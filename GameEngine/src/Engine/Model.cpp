@@ -17,6 +17,8 @@
 #include "Entity3D.h"
 #include "AssimpImporter.h"
 #include "BoundingBox.h"
+#include "Renderer3D.h"
+#include "BSPPlane.h"
 
 Model::Model(string const &path, Shader* shader, bool flipUV)
 {
@@ -50,6 +52,7 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)// 
 		else
 		{
 			thisNode = new Entity3D(glm::vec3(0.f), parent, shader);
+			thisNode->name = node->mName.C_Str();
 		}
 	}
 	else
@@ -61,9 +64,12 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)// 
 			// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			thisNode = new Mesh(ProcessMesh(mesh, scene, parent, shader));
+			thisNode->name = node->mName.C_Str();
+			if (thisNode->isBSPPlane())
+				thisNode->tag = "bsp";
 		}
 	}
-	thisNode->name = node->mName.C_Str();
+
 	//thisNode->localModel = glm::mat4(1.0f);
 	thisNode->localModel = AssimpImporter::AssimpTransformToGlm(&node->mTransformation);
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
@@ -73,6 +79,8 @@ void Model::ProcessNode(aiNode *node, const aiScene *scene, Entity3D* parent)// 
 	}
 	vector<glm::vec3> vertices;
 	thisNode->GetVertexPositions(vertices);
+	if (thisNode->GetTag() == "bsp")
+		Renderer3D::AddBSPPlane(BSPPlane(vertices[0], vertices[1], vertices[2]));
 	thisNode->CalculateBounds(vertices);
 	thisNode->GetBoundingBox()->Setup();
 	thisNode->staticBoundingBox->CalculateBoundingBox(thisNode->bounds);

@@ -273,3 +273,13 @@ std::string Entity3D::GetName()
 {
 	return name;
 }
+
+std::string Entity3D::GetTag()
+{
+	return tag;
+}
+
+bool Entity3D::isBSPPlane() const
+{
+	return  name.find("BSP") != string::npos;
+}

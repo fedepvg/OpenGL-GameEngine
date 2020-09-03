@@ -45,8 +45,15 @@ void Game::Init()
 		1.f, 0.14f, 0.07f));
 
 	testModel = new Model("../res/model/backpack.obj", ourShader);
-	testModel2 = new Model("../res/model/backpack.obj", ourShader, false);
-	//testModel2->SetParent(testModel);
+	testModel2 = new Model("../res/model/backpack.obj", ourShader);
+	testModel3 = new Model("../res/model/backpack.obj", ourShader);
+	testModel4 = new Model("../res/model/backpack.obj", ourShader);
+	bsp = new Model("../res/BSPModel/Planes.fbx", ourShader, false);
+
+	testModel2->Translate(20, { -1,0,0 });
+	testModel3->Translate(20, { 1,0,0 });
+	testModel4->Translate(20, { 0,0,-1 });
+	//bsp->SetParent(testModel);
 	ourShader->SetVec3("viewPosition", renderCamera->GetPosition());
 	GameLoop();
 }
@@ -85,22 +92,22 @@ void Game::Update(const float deltaTime)
 
 	if (input->GetKey(GLFW_KEY_RIGHT))
 	{
-		testModel2->Translate(100.f * deltaTime, glm::vec3(1.f, 0.f, 0));
+		testModel->Translate(50.f * deltaTime, glm::vec3(1.f, 0.f, 0));
 	}
 
 	if (input->GetKey(GLFW_KEY_LEFT))
 	{
-		testModel2->Translate(100.f * deltaTime, glm::vec3(-1.f, 0.f, 0));
+		testModel->Translate(50.f * deltaTime, glm::vec3(-1.f, 0.f, 0));
 	}
 
 	if (input->GetKey(GLFW_KEY_UP))
 	{
-		testModel2->Scale(glm::vec3(1.1f));
+		bsp->Scale(glm::vec3(1.1f));
 	}
 	
 	if (input->GetKey(GLFW_KEY_DOWN))
 	{
-		testModel2->Scale(glm::vec3(.9f));
+		bsp->Scale(glm::vec3(.9f));
 	}
 
 	if (input->GetKey(GLFW_KEY_V))
@@ -155,22 +162,22 @@ void Game::Update(const float deltaTime)
 
 	if (input->GetKey(GLFW_KEY_SPACE))
 	{
-		testModel2->SetParent(testModel->GetNode("Cube.037__0"));
+		bsp->SetParent(testModel->GetNode("Cube.037__0"));
 	}
 
 	if (input->GetKey(GLFW_KEY_ENTER))
 	{
-		testModel2->SetParent(nullptr);
+		bsp->SetParent(nullptr);
 	}
 	if (input->GetKey(GLFW_KEY_1))
 	{
 		testModel->SetColliderVisibility(true);
-		testModel2->SetColliderVisibility(true);
+		bsp->SetColliderVisibility(true);
 	}
 	if (input->GetKey(GLFW_KEY_2))
 	{
 		testModel->SetColliderVisibility(false);
-		testModel2->SetColliderVisibility(false);
+		bsp->SetColliderVisibility(false);
 	}
 
 	fpsCamera->Update();
