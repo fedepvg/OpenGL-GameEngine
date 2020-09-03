@@ -54,10 +54,9 @@ void Renderer3D::RenderEntity(Entity3D* toRender)
 	if (typeid(*toRender) == typeid(Mesh))
 	{
 		const bool found = (std::find(culledEntities.begin(), culledEntities.end(), toRender) != culledEntities.end());
-		BoundingBox AABB = *toRender->GetBoundingBox();
 		const bool isBSP = toRender->GetTag() == "bsp";
 		
-		if (isBSP || toRender->isVisible)//(frustum.IsBoxVisible(AABB.GetMinP(), AABB.GetMaxP()) && IsVisibleForBSP(AABB.GetMinP(), AABB.GetMaxP())))
+		if (toRender->isVisible)
 		{
 			thisMesh->GetShader()->Use();
 			thisMesh->GetShader()->SetMat4("view", renderCamera->GetViewMatrix());
@@ -117,12 +116,20 @@ void Renderer3D::CheckSceneVisibility(Entity3D* root)
 				}), entities.end());
 		}
 	}
+	if(isFrustumCullingEnabled)
+		CheckEntityVisibility(root);
 }
 
 void Renderer3D::CheckEntityVisibility(Entity3D* toRender)
 {
 	BoundingBox AABB = *toRender->GetBoundingBox();
-	const bool isBSP = toRender->GetTag() == "bsp";
+	if (!frustum.IsBoxVisible(AABB.GetMinP(), AABB.GetMaxP()))
+		toRender->isVisible = false;
+
+	for (int i = 0; i < toRender->GetChilds().size(); i++)
+	{
+		CheckEntityVisibility(toRender->GetChilds()[i]);
+	}
 }
 
 void Renderer3D::SetTextures(Mesh* toRender, vector<TextureStruct> textures)
