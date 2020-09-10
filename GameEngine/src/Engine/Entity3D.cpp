@@ -250,6 +250,15 @@ Bounds Entity3D::GenerateBoundsByTransformedVertex(VertexArray vArray, glm::mat4
 	return GenerateBoundsByVertex(vArray);
 }
 
+void Entity3D::SetVisibility(bool visible)
+{
+	isVisible = visible;
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->SetVisibility(visible);
+	}
+}
+
 BoundingBox* Entity3D::GetBoundingBox()
 {
 	return regenerativeAABB;

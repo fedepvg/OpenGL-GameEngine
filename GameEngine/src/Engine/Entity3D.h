@@ -46,6 +46,7 @@ public:
 	Bounds CombineBounds(Bounds bounds1, Bounds bounds2);
 	Bounds GenerateBoundsByVertex(VertexArray vertexArray);
 	Bounds GenerateBoundsByTransformedVertex(VertexArray vArray, glm::mat4 modelMatrix);
+	void SetVisibility(bool visible);
 	
 	class BoundingBox* GetBoundingBox();
 	void SetColliderVisibility(bool visibility);

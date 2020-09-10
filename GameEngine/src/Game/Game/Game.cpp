@@ -6,6 +6,7 @@
 #include "Engine/PointLight.h"
 #include "Engine/SpotLight.h"
 #include "Engine/BoundingBox.h"
+#include "Engine/Renderer3D.h"
 
 #include <iostream>
 
@@ -68,7 +69,27 @@ void Game::Update(const float deltaTime)
 		renderCamera->RotatePitch(10.f);
 	}*/
 
+	if (input->GetKey(GLFW_KEY_3))
+	{
+		Renderer3D::SetBspEnabled(true);
+	}
 
+	if (input->GetKey(GLFW_KEY_4))
+	{
+		Renderer3D::SetFrustumCullingEnabled(true);
+	}
+
+	if (input->GetKey(GLFW_KEY_5))
+	{
+		Renderer3D::SetBspEnabled(false);
+	}
+
+	if (input->GetKey(GLFW_KEY_6))
+	{
+		Renderer3D::SetFrustumCullingEnabled(false);
+	}
+
+	
 	//camera
 
 	if (input->GetKey(GLFW_KEY_A))

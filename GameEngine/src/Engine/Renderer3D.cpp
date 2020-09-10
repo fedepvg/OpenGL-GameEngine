@@ -9,12 +9,14 @@
 #include "Window.h"
 #include "Camera.h"
 #include "BoundingBox.h"
-#include "BSPPlane.h"
 
 #include <list>
 #include <algorithm>
+#include <iostream>
 
 vector<BSPPlane> Renderer3D::bspPlanes;
+bool Renderer3D::isBSPEnabled = false;
+bool Renderer3D::isFrustumCullingEnabled = false;
 
 Renderer3D::Renderer3D(Window* window)
 {
@@ -82,8 +84,8 @@ void Renderer3D::RenderEntity(Entity3D* toRender)
 		{
 			if (!found)
 			{
-				std::printf(thisMesh->GetName().c_str());
 				culledEntities.push_back(toRender);
+				std::cout<<culledEntities.size()<<endl;
 			}
 		}
 	}
@@ -102,33 +104,46 @@ void Renderer3D::CheckSceneVisibility(Entity3D* root)
 {
 	if(isBSPEnabled)
 	{
-		list<Entity3D*> entities;
-		CollectAllEntityTree(entities, root);
 		for (int i = 0; i < bspPlanes.size(); i++)
 		{
 			bspPlanes[i].SetCameraSide(bspPlanes[i].CalculateSide(GetCamera()->GetPosition()));
-			entities.erase(remove_if(entities.begin(),entities.end(),[i](Entity3D* entity)
-			{
-				const bool toRemove = !bspPlanes[i].IsBoxInCameraSide(entity->GetBoundingBox()->GetMinP(), entity->GetBoundingBox()->GetMaxP());
-				if (toRemove)
-					entity->isVisible = false;
-				return toRemove;
-				}), entities.end());
+			CheckBSPVisibility(bspPlanes[i], root);
 		}
 	}
 	if(isFrustumCullingEnabled)
 		CheckEntityVisibility(root);
 }
 
+void Renderer3D::CheckBSPVisibility(BSPPlane plane, Entity3D* entity)
+{
+	if (entity->isVisible)
+	{
+		if (!plane.IsBoxInCameraSide(entity->GetBoundingBox()->GetMinP(), entity->GetBoundingBox()->GetMaxP()))
+			entity->SetVisibility(false);
+		else
+		{
+			for (int i = 0; i < entity->GetChilds().size(); i++)
+			{
+				CheckBSPVisibility(plane, entity->GetChilds()[i]);
+			}
+		}
+	}
+}
+
 void Renderer3D::CheckEntityVisibility(Entity3D* toRender)
 {
 	BoundingBox AABB = *toRender->GetBoundingBox();
-	if (!frustum.IsBoxVisible(AABB.GetMinP(), AABB.GetMaxP()))
-		toRender->isVisible = false;
-
-	for (int i = 0; i < toRender->GetChilds().size(); i++)
+	if (toRender->isVisible)
 	{
-		CheckEntityVisibility(toRender->GetChilds()[i]);
+		if (!frustum.IsBoxVisible(AABB.GetMinP(), AABB.GetMaxP()))
+			toRender->SetVisibility(false);
+		else
+		{
+			for (int i = 0; i < toRender->GetChilds().size(); i++)
+			{
+				CheckEntityVisibility(toRender->GetChilds()[i]);
+			}
+		}
 	}
 }
 
@@ -164,6 +179,16 @@ void Renderer3D::CollectAllEntityTree(list<Entity3D*>& entities, Entity3D* entit
 	entities.push_back(entity);
 	for (int i = 0; i < entity->GetChilds().size(); i++)
 		CollectAllEntityTree(entities, entity->GetChilds()[i]);
+}
+
+void Renderer3D::SetBspEnabled(bool enabled)
+{
+	isBSPEnabled = enabled;
+}
+
+void Renderer3D::SetFrustumCullingEnabled(bool enabled)
+{
+	isFrustumCullingEnabled = enabled;
 }
 
 Camera* Renderer3D::GetCamera()
